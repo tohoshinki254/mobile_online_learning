@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Button from '../../Common/button';
 
 function Login() {
@@ -7,45 +7,49 @@ function Login() {
     const [password, onChangePassword] = useState();
 
     return (
-        <View style={styles.root}>
-            <Text 
-                style={{alignSelf: 'center', fontSize: 25, marginBottom: 40, color: '#616161'}}
-            >
-                Sign In
-            </Text>
+        <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.root}>
+                    <Text 
+                        style={{alignSelf: 'center', fontSize: 25, marginBottom: 40, color: '#616161'}}
+                    >
+                        Sign In
+                    </Text>
 
-            <Text style={styles.text}>Email or username</Text>
-            <TextInput 
-                style={styles.textInput}
-                onChangeText={username => onChangeUsername(username)}
-                value={username}
-            />
+                    <Text style={styles.text}>Email or username</Text>
+                    <TextInput 
+                        style={styles.textInput}
+                        onChangeText={username => onChangeUsername(username)}
+                        value={username}
+                    />
 
-            <Text style={styles.text}>Password</Text>
-            <TextInput 
-                style={styles.textInput}
-                onChangeText={password => onChangePassword(password)}
-                value={password}
-                secureTextEntry={true}
-            />
+                    <Text style={styles.text}>Password</Text>
+                    <TextInput 
+                        style={styles.textInput}
+                        onChangeText={password => onChangePassword(password)}
+                        value={password}
+                        secureTextEntry={true}
+                    />
 
-            <Button onPress={() => {}} text="Sign In"/>
+                    <Button onPress={() => {}} text="Sign In"/>
 
-            <TouchableOpacity
-                style={styles.othersOption}
-                onPress={() => {}}
-            >
-                <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>Forget Password</Text>
-            </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.othersOption}
+                        onPress={() => {}}
+                    >
+                        <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>Forget Password</Text>
+                    </TouchableOpacity>
 
-            <TouchableOpacity
-                style={styles.othersOption}
-                onPress={() => {}}
-            >
-                <Text style={{fontSize: 17, color: 'darkgrey'}}>New here?</Text>
-                <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Create an account</Text>
-            </TouchableOpacity>
-        </View>
+                    <TouchableOpacity
+                        style={styles.othersOption}
+                        onPress={() => {}}
+                    >
+                        <Text style={{fontSize: 17, color: 'darkgrey'}}>New here?</Text>
+                        <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Create an account</Text>
+                    </TouchableOpacity>
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 }
 
