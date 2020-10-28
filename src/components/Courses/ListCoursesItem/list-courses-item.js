@@ -1,33 +1,31 @@
-import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-const SectionCoursesItem = ({item}) => {
+const ListCoursesItem = ({item}) => {
     return (
         <View style={styles.item}>
-            <Image source={require('../../../../../assets/favicon.png')} style={styles.image}/>
+            <Image style={styles.image} source={require('../../../../assets/icon.png')} />
             <View style={{margin: 5}}>
                 <Text>{item.title}</Text>
                 <Text style={styles.darkText}>{item.author}</Text>
                 <Text style={styles.darkText}>{`${item.level} . ${item.released} . ${item.duration}`}</Text>
             </View>
-        </View>
+        </View> 
     )
 }
 
 const styles = StyleSheet.create({
     item: {
+        flexDirection: 'row',
         margin: 5,
-        width: 200,
-        height: 200,
-        backgroundColor: 'lightgray',
     },
     image: {
-        width: '100%',
-        height: 100,
+        width: 100,
+        height: 50,
     },
     darkText: {
         color: 'gray',
     }
 });
 
-export default SectionCoursesItem;
+export default ListCoursesItem;
