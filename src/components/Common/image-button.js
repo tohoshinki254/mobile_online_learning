@@ -1,11 +1,11 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, Text } from 'react-native';
 
-const ImageButton = ({title, onPress}) => {
+const ImageButton = ({title, onPress, URL, fontSize}) => {
     return (
-        <ImageBackground style={styles.button} source={{url: 'https://images.pexels.com/photos/4173624/pexels-photo-4173624.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}>
+        <ImageBackground style={styles.button} source={{url: URL}}>
             <TouchableOpacity style={styles.touch} onPress={onPress}>
-                <Text style={styles.text}>{title}</Text>
+                <Text style={[styles.text, {fontSize: fontSize}]}>{title}</Text>
             </TouchableOpacity>
         </ImageBackground>
     )
@@ -13,16 +13,15 @@ const ImageButton = ({title, onPress}) => {
 
 const styles = StyleSheet.create({
     button: {
-        height: 100,
-        margin: 5,
+        height: 120,
     },
     touch: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'rgba( 0, 0, 0, 0.3 )',
     },
     text: {
-        fontSize: 24,
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',

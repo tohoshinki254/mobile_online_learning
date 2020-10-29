@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import ForgetPassword from './src/components/Authentication/ForgetPassword/forget-password';
+import Browse from './src/components/Main/Home/Browse/browse';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <ForgetPassword />
+      <Browse />
     </View>
   );
 }
