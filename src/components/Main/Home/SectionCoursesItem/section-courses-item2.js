@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 
-const SectionCoursesItem = ({item}) => {
+const SectionCoursesItem2 = ({item}) => {
     return (
         <View style={styles.item}>
             <Image source={require('../../../../../assets/favicon.png')} style={styles.image}/>
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SectionCoursesItem;
+export default SectionCoursesItem2;

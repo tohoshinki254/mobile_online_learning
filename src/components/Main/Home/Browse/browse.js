@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import SectionCourses from './SectionCourses/section-courses';
 import ImageButton from '../../../Common/image-button';
 import RadiusButton from '../../../Common/radius-button';
 import SectionPaths from '../SectionPaths/section-paths';
@@ -95,11 +94,6 @@ const Browse = () => {
             <TopAuthors />
 
             <View style={{margin: 17}} />
-            
-            {/* <SectionCourses title='Continue learning'/>
-            <SectionCourses title='Path'/>
-            <SectionCourses title='Channel'/>
-            <SectionCourses title='Bookmarks'/> */}
         </ScrollView>
     )
 }
