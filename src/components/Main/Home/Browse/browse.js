@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-nati
 import ImageButton from '../../../Common/image-button';
 import RadiusButton from '../../../Common/radius-button';
 import SectionPaths from '../SectionPaths/section-paths';
-import TopAuthors from '../TopAuthors/top-authors';
+import Authors from '../Authors/authors';
 
 const Browse = () => {
     const skills = [
@@ -24,14 +24,14 @@ const Browse = () => {
                 title='NEW RELEASES' 
                 onPress={() => {}}
                 URL="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
-                fontSize="24"
+                fontSize={24}
             />
             <View style={{padding: 7}} />
             <ImageButton 
                 title='RECOMMENDED FOR YOU'
                 onPress={() => {}}
                 URL="https://images.unsplash.com/photo-1432958576632-8a39f6b97dc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=752&q=80"
-                fontSize="24"
+                fontSize={24}
             />
 
             <View style={{margin: 17}} />
@@ -47,14 +47,14 @@ const Browse = () => {
                         title='CONFERENCES' 
                         onPress={() => {}}
                         URL="https://images.pexels.com/photos/3194518/pexels-photo-3194518.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        fontSize="18"
+                        fontSize={18}
                     />
                     <View style={{padding: 7}} />
                     <ImageButton 
                         title='DATA PROFESSIONAL'
                         onPress={() => {}}
                         URL="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        fontSize="18"
+                        fontSize={18}
                     />
                 </View>
                 <View style={{flexDirection: 'column', width: '48%'}}>
@@ -62,14 +62,14 @@ const Browse = () => {
                         title='CERTIFICATIONS' 
                         onPress={() => {}}
                         URL="https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        fontSize="18"
+                        fontSize={18}
                     />
                     <View style={{padding: 7}} />
                     <ImageButton 
                         title='BUSINESS PROFESSIONAL'
                         onPress={() => {}}
                         URL="https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        fontSize="18"
+                        fontSize={18}
                     />
                 </View>
             </View>
@@ -90,8 +90,7 @@ const Browse = () => {
             <SectionPaths />
 
             <View style={{margin: 17}} />
-            <Text style={styles.title}>Top Authors</Text>
-            <TopAuthors />
+            <Authors title="Top Authors"/>
 
             <View style={{margin: 17}} />
         </ScrollView>

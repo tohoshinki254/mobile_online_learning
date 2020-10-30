@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 95,
-        height: 70,
+        height: 65,
         alignSelf: 'center',
     },
     darkText: {
