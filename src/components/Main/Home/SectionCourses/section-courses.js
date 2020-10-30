@@ -1,9 +1,9 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import SectionCoursesItem1 from '../SectionCoursesItem/section-courses-item1';
 import SectionCoursesItem2 from '../SectionCoursesItem/section-courses-item2';
 
-const SectionCourses = ({title, type}) => {
+const SectionCourses = ({title, type, hideButton}) => {
     const courses = [
         {
             id: '1',
@@ -54,19 +54,35 @@ const SectionCourses = ({title, type}) => {
 
     return (
         <View>
-            <View>
-                <Text style={styles.title}>{title}</Text>
-            </View>
-            {type === 1 ?
-                <FlatList 
-                    data={courses}
-                    renderItem={({item}) => <SectionCoursesItem1 item={item}/>}
-                    ItemSeparatorComponent={FlatListItemSeparator}
-                />
+            {type === 2 ?
+                <View>
+                    <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', margin: 10}}>
+                        <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
+                        {hideButton ? null : 
+                            <TouchableOpacity 
+                                style={{backgroundColor: '#FF5252', 
+                                    padding: 4, borderRadius: 50, minWidth: 80,
+                                    justifyContent: 'center', alignItems: 'center'
+                                }}
+                                onPress={() => {}}
+                            >
+                                <Text style={{color: 'white', fontSize: 13}}>{`${courses.length} results >`}</Text>
+                            </TouchableOpacity>
+                        }
+                    </View>
+                    <FlatList 
+                        data={courses}
+                        renderItem={({item}) => <SectionCoursesItem1 item={item}/>}
+                        ItemSeparatorComponent={FlatListItemSeparator}
+                    />
+                </View>
                 :
-                <ScrollView horizontal={true}>
-                    {renderListItems(courses)}
-                </ScrollView>
+                <View>
+                    <Text style={styles.title}>{title}</Text>
+                    <ScrollView horizontal={true}>
+                        {renderListItems(courses)}
+                    </ScrollView>
+                </View>
             }
         </View>
     )

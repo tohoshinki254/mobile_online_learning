@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
+import { Image, StyleSheet, Text, View, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 
-const Authors = ({title, type}) => {
+const Authors = ({title, type, hideButton}) => {
     const authors = [
         {
             id: '1',
@@ -77,10 +77,22 @@ const Authors = ({title, type}) => {
 
     return (
         <View>
-            
             {type === 2 ?
                 <View>
-                    <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18, margin: 10}}>{title}</Text>
+                    <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', margin: 10}}>
+                        <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
+                        {hideButton ? null : 
+                            <TouchableOpacity 
+                                style={{backgroundColor: '#FF5252', 
+                                    padding: 4, borderRadius: 50, minWidth: 80,
+                                    justifyContent: 'center', alignItems: 'center'
+                                }}
+                                onPress={() => {}}
+                            >
+                                <Text style={{color: 'white', fontSize: 13}}>{`${authors.length} results >`}</Text>
+                            </TouchableOpacity>
+                        }
+                    </View>
                     <FlatList 
                         data={authors}
                         renderItem={({item}) => renderListAuthorsType2(item)}

@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, ScrollView, View, Text, FlatList } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import SectionPathItems1 from '../SectionPathItems/section-path-items1';
 import SectionPathItems2 from '../SectionPathItems/section-path-items2';
 
-const SectionPaths = ({title, type}) => {
+const SectionPaths = ({title, type, hideButton}) => {
     const paths = [
         {
             id: '1',
@@ -55,19 +55,35 @@ const SectionPaths = ({title, type}) => {
 
     return (
         <View>
-            <View>
-                <Text style={styles.title}>{title}</Text>
-            </View>
-            {type === 1 ?
-                <FlatList 
-                    data={paths}
-                    renderItem={({item}) => <SectionPathItems2 item={item}/>}
-                    ItemSeparatorComponent={FlatListItemSeparator}
-                />
+            {type === 2 ?
+                <View>
+                    <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', margin: 10}}>
+                        <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
+                        {hideButton ? null :
+                            <TouchableOpacity 
+                                style={{backgroundColor: '#FF5252', 
+                                    padding: 4, borderRadius: 50, minWidth: 80,
+                                    justifyContent: 'center', alignItems: 'center'
+                                }}
+                                onPress={() => {}}
+                            >
+                                <Text style={{color: 'white', fontSize: 13}}>{`${paths.length} results >`}</Text>
+                            </TouchableOpacity>
+                        }
+                    </View>
+                    <FlatList 
+                        data={paths}
+                        renderItem={({item}) => <SectionPathItems2 item={item}/>}
+                        ItemSeparatorComponent={FlatListItemSeparator}
+                    />
+                </View>
                 :
-                <ScrollView horizontal={true}>
-                    {renderListPaths(paths)}
-                </ScrollView>
+                <View>
+                    <Text style={styles.title}>{title}</Text>
+                    <ScrollView horizontal={true}>
+                        {renderListPaths(paths)}
+                    </ScrollView>
+                </View>
             }
         </View>
     )
