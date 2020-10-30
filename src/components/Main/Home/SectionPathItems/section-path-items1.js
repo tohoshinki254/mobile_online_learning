@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-const SectionPathItems = ({item}) => {
+const SectionPathItems1 = ({item}) => {
     return (
         <View style={styles.item}>
             <Image source={{url: 'https://ak.picdn.net/shutterstock/videos/30978124/thumb/1.jpg'}} style={styles.image}/>
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SectionPathItems;
+export default SectionPathItems1;

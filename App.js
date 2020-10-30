@@ -3,11 +3,12 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Browse from './src/components/Main/Home/Browse/browse';
 import SectionCourses from './src/components/Main/Home/SectionCourses/section-courses';
+import SectionPaths from './src/components/Main/Home/SectionPaths/section-paths';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <SectionCourses title="100 results" type={1}/>
+      <SectionPaths title="Paths" type={1}/>
     </View>
   );
 }

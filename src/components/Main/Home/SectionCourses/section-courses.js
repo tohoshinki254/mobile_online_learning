@@ -6,7 +6,7 @@ import SectionCoursesItem2 from '../SectionCoursesItem/section-courses-item2';
 const SectionCourses = ({title, type}) => {
     const courses = [
         {
-            id: 1,
+            id: '1',
             title: 'React Native',
             author: 'Main',
             level: 'Beginner',
@@ -14,7 +14,7 @@ const SectionCourses = ({title, type}) => {
             duration: '20 hours',
         },
         {
-            id: 2,
+            id: '2',
             title: 'iOS',
             author: 'Main',
             level: 'Beginner',
@@ -22,7 +22,7 @@ const SectionCourses = ({title, type}) => {
             duration: '25 hours',
         },
         {
-            id: 3,
+            id: '3',
             title: 'iOS',
             author: 'Main',
             level: 'Beginner',
@@ -45,12 +45,12 @@ const SectionCourses = ({title, type}) => {
               width: '95%',
               backgroundColor: '#BDBDBD',
               alignSelf: 'center',
-              margin: 5,
+              margin: 15,
               borderRadius: 50,
             }}
           />
         );
-      }
+    }
 
     return (
         <View>
