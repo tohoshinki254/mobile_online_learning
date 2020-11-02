@@ -13,7 +13,7 @@ const ImageButton = ({title, onPress, URL, fontSize}) => {
 
 const styles = StyleSheet.create({
     button: {
-        height: 120,
+        height: 110,
     },
     touch: {
         flex: 1,

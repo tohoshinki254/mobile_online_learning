@@ -1,9 +1,9 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import ImageButton from '../../../Common/image-button';
-import RadiusButton from '../../../Common/radius-button';
-import SectionPaths from '../SectionPaths/section-paths';
-import Authors from '../Authors/authors';
+import ImageButton from '../../Common/image-button';
+import RadiusButton from '../../Common/radius-button';
+import SectionPaths from '../Home/SectionPaths/section-paths';
+import Authors from '../Home/Authors/authors';
 
 const Browse = () => {
     const skills = [

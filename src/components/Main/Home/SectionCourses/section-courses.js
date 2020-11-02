@@ -3,34 +3,7 @@ import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from '
 import SectionCoursesItem1 from '../SectionCoursesItem/section-courses-item1';
 import SectionCoursesItem2 from '../SectionCoursesItem/section-courses-item2';
 
-const SectionCourses = ({title, type, hideButton}) => {
-    const courses = [
-        {
-            id: '1',
-            title: 'React Native',
-            author: 'Main',
-            level: 'Beginner',
-            released: 'May 6, 2020',
-            duration: '20 hours',
-        },
-        {
-            id: '2',
-            title: 'iOS',
-            author: 'Main',
-            level: 'Beginner',
-            released: 'May 6, 2020',
-            duration: '25 hours',
-        },
-        {
-            id: '3',
-            title: 'iOS',
-            author: 'Main',
-            level: 'Beginner',
-            released: 'May 6, 2020',
-            duration: '25 hours',
-        }
-    ];
-
+const SectionCourses = ({courses, title, type, hideButton, eventButton}) => {
     const renderListItems = (courses) => {
         return courses.map(item => 
             <SectionCoursesItem2 item={item} />
@@ -66,7 +39,7 @@ const SectionCourses = ({title, type, hideButton}) => {
                                 }}
                                 onPress={() => {}}
                             >
-                                <Text style={{color: 'white', fontSize: 13}}>{`${courses.length} results >`}</Text>
+                                <Text style={{color: 'white', fontSize: 13}}>{eventButton}</Text>
                             </TouchableOpacity>
                         }
                     </View>
