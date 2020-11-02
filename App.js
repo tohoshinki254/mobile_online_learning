@@ -4,11 +4,15 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import Home from './src/components/Main/Home/home';
 import Browse from './src/components/Main/Browse/browse';
 import Download from './src/components/Main/Download/download';
+import Content from './src/components/CourseDetail/content';
+import CourseDetail from './src/components/CourseDetail/course-detail';
+import Login from './src/components/Authentication/Login/login';
 
 export default function App() {
+  
   return (
     <View style={styles.container}>
-      <Home />
+      <CourseDetail />
     </View>
   );
 }

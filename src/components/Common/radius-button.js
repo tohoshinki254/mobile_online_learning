@@ -14,7 +14,10 @@ const RadiusButton = ({onPress, text}) => {
 
 const styles = StyleSheet.create({
     button: {
-        padding: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
         marginRight: 5,
         backgroundColor: '#FF5252',
         borderRadius: 50,
