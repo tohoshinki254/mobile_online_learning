@@ -27,22 +27,22 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton}) => {
 
     return (
         <View>
+            <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', margin: 10}}>
+                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
+                {hideButton ? null : 
+                    <TouchableOpacity 
+                        style={{backgroundColor: '#FF5252', 
+                            padding: 4, borderRadius: 50, minWidth: 80,
+                            justifyContent: 'center', alignItems: 'center'
+                        }}
+                        onPress={() => {}}
+                    >
+                        <Text style={{color: 'white', fontSize: 13}}>{eventButton}</Text>
+                    </TouchableOpacity>
+                }
+            </View>
             {type === 2 ?
                 <View>
-                    <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', margin: 10}}>
-                        <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
-                        {hideButton ? null : 
-                            <TouchableOpacity 
-                                style={{backgroundColor: '#FF5252', 
-                                    padding: 4, borderRadius: 50, minWidth: 80,
-                                    justifyContent: 'center', alignItems: 'center'
-                                }}
-                                onPress={() => {}}
-                            >
-                                <Text style={{color: 'white', fontSize: 13}}>{eventButton}</Text>
-                            </TouchableOpacity>
-                        }
-                    </View>
                     <FlatList 
                         data={courses}
                         renderItem={({item}) => <SectionCoursesItem1 item={item}/>}
@@ -51,7 +51,6 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton}) => {
                 </View>
                 :
                 <View>
-                    <Text style={styles.title}>{title}</Text>
                     <ScrollView horizontal={true}>
                         {renderListItems(courses)}
                     </ScrollView>

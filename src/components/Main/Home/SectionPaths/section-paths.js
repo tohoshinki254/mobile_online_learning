@@ -3,35 +3,7 @@ import { StyleSheet, ScrollView, View, Text, FlatList, TouchableOpacity } from '
 import SectionPathItems1 from '../SectionPathItems/section-path-items1';
 import SectionPathItems2 from '../SectionPathItems/section-path-items2';
 
-const SectionPaths = ({title, type, hideButton}) => {
-    const paths = [
-        {
-            id: '1',
-            title: 'Managing Conflict',
-            quantum: '1 course',
-        },
-        {
-            id: '2',
-            title: 'Managing Conflict',
-            quantum: '2 courses',
-        },
-        {
-            id: '3',
-            title: 'Managing Conflict',
-            quantum: '3 courses',
-        },
-        {
-            id: '4',
-            title: 'Managing Conflict',
-            quantum: '4 courses',
-        },
-        {
-            id: '5',
-            title: 'Managing Conflict',
-            quantum: '5 courses',
-        },
-    ];
-
+const SectionPaths = ({paths, title, type, hideButton, eventButton}) => {
     const renderListPaths = (paths) => {
         return paths.map(item => 
             <SectionPathItems1 item={item} />
@@ -55,22 +27,22 @@ const SectionPaths = ({title, type, hideButton}) => {
 
     return (
         <View>
+            <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', margin: 10}}>
+                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
+                {hideButton ? null :
+                    <TouchableOpacity 
+                        style={{backgroundColor: '#FF5252', 
+                            padding: 4, borderRadius: 50, minWidth: 80,
+                            justifyContent: 'center', alignItems: 'center'
+                        }}
+                        onPress={() => {}}
+                    >
+                        <Text style={{color: 'white', fontSize: 13}}>{eventButton}</Text>
+                    </TouchableOpacity>
+                }
+            </View>
             {type === 2 ?
                 <View>
-                    <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', margin: 10}}>
-                        <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
-                        {hideButton ? null :
-                            <TouchableOpacity 
-                                style={{backgroundColor: '#FF5252', 
-                                    padding: 4, borderRadius: 50, minWidth: 80,
-                                    justifyContent: 'center', alignItems: 'center'
-                                }}
-                                onPress={() => {}}
-                            >
-                                <Text style={{color: 'white', fontSize: 13}}>{`${paths.length} results >`}</Text>
-                            </TouchableOpacity>
-                        }
-                    </View>
                     <FlatList 
                         data={paths}
                         renderItem={({item}) => <SectionPathItems2 item={item}/>}
@@ -79,7 +51,6 @@ const SectionPaths = ({title, type, hideButton}) => {
                 </View>
                 :
                 <View>
-                    <Text style={styles.title}>{title}</Text>
                     <ScrollView horizontal={true}>
                         {renderListPaths(paths)}
                     </ScrollView>

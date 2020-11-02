@@ -4,11 +4,12 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 const SectionCoursesItem2 = ({item}) => {
     return (
         <View style={styles.item}>
-            <Image source={require('../../../../../assets/favicon.png')} style={styles.image}/>
-            <View style={{margin: 5}}>
-                <Text>{item.title}</Text>
+            <Image source={{url: item.url}} style={styles.image}/>
+            <View style={{margin: 10}}>
+                <Text style={{fontSize: 14, marginBottom: 3}}>{item.title}</Text>
                 <Text style={styles.darkText}>{item.author}</Text>
-                <Text style={styles.darkText}>{`${item.level} . ${item.released} . ${item.duration}`}</Text>
+                <Text style={styles.darkText}>{item.level}</Text>
+                <Text style={styles.darkText}>{`${item.released} . ${item.duration}`}</Text>
             </View>
         </View>
     )
@@ -17,7 +18,7 @@ const SectionCoursesItem2 = ({item}) => {
 const styles = StyleSheet.create({
     item: {
         margin: 5,
-        width: 200,
+        width: 250,
         height: 200,
         backgroundColor: 'lightgray',
     },

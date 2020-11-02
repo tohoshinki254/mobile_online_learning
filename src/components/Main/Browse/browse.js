@@ -11,6 +11,34 @@ const Browse = () => {
         'Python', 'React', '.NET', 'SQL Server', 'Database Administration', 'Part Modeling'
     ];
 
+    const paths = [
+        {
+            id: '1',
+            title: 'Managing Conflict',
+            quantum: '1 course',
+        },
+        {
+            id: '2',
+            title: 'Managing Conflict',
+            quantum: '2 courses',
+        },
+        {
+            id: '3',
+            title: 'Managing Conflict',
+            quantum: '3 courses',
+        },
+        {
+            id: '4',
+            title: 'Managing Conflict',
+            quantum: '4 courses',
+        },
+        {
+            id: '5',
+            title: 'Managing Conflict',
+            quantum: '5 courses',
+        },
+    ];
+
     const renderListSkills = (skills) => {
         return skills.map(item => 
             <RadiusButton onPress={() => {}} text={item} />
@@ -75,22 +103,10 @@ const Browse = () => {
             </View>
             
             <View style={{margin: 17}} />
-            <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between'}}>
-                <Text style={styles.title}>Paths</Text>
-                <TouchableOpacity 
-                    style={{backgroundColor: '#FF5252', 
-                        padding: 4, borderRadius: 50, minWidth: 80,
-                        justifyContent: 'center', alignItems: 'center'
-                    }}
-                    onPress={() => {}}
-                >
-                    <Text style={{color: 'white', fontSize: 13}}>See all ></Text>
-                </TouchableOpacity>
-            </View>
-            <SectionPaths />
+            <SectionPaths paths={paths} title='Paths' type={1} hideButton={false} eventButton='See all >'/>
 
             <View style={{margin: 17}} />
-            <Authors title="Top Authors"/>
+            <Authors title="Top Authors" type={1} hideButton={true}/>
 
             <View style={{margin: 17}} />
         </ScrollView>
