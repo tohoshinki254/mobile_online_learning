@@ -12,7 +12,7 @@ const SectionCoursesItem1 = ({item}) => {
             </View>
             <TouchableOpacity>
                 <Image source={{url: 'https://static.thenounproject.com/png/1380510-200.png'}}
-                    style={{width: 25, height: 25}}     
+                    style={{width: 20, height: 20}}     
                 />
             </TouchableOpacity>
         </View>

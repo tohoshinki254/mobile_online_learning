@@ -9,12 +9,13 @@ import CourseDetail from './src/components/CourseDetail/course-detail';
 import Login from './src/components/Authentication/Login/login';
 import NewReleases from './src/components/Main/Home/NewReleases/new-releases';
 import PopularSkillDetails from './src/components/Main/Home/PopularSkillDetails/popular-skill-details';
+import PathDetails from './src/components/PathDetails/path-details';
 
 export default function App() {
   
   return (
     <View style={styles.container}>
-      <PopularSkillDetails skill='Angular' />
+      <PathDetails />
     </View>
   );
 }
