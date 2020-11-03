@@ -100,7 +100,7 @@ const Authors = ({title, type, hideButton, eventButton}) => {
                     />
                 </View>
                 :
-                <View>
+                <View style={{marginLeft: 5}}>
                     <ScrollView horizontal={true}>
                         {renderListAuthorsType1(authors)}
                     </ScrollView>

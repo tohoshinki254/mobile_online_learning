@@ -7,12 +7,14 @@ import Download from './src/components/Main/Download/download';
 import Content from './src/components/CourseDetail/content';
 import CourseDetail from './src/components/CourseDetail/course-detail';
 import Login from './src/components/Authentication/Login/login';
+import NewReleases from './src/components/Main/Home/NewReleases/new-releases';
+import PopularSkillDetails from './src/components/Main/Home/PopularSkillDetails/popular-skill-details';
 
 export default function App() {
   
   return (
     <View style={styles.container}>
-      <CourseDetail />
+      <PopularSkillDetails skill='Angular' />
     </View>
   );
 }

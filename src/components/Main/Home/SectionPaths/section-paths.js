@@ -27,7 +27,7 @@ const SectionPaths = ({paths, title, type, hideButton, eventButton}) => {
 
     return (
         <View>
-            <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', margin: 10}}>
+            <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', marginBottom: 10}}>
                 <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
                 {hideButton ? null :
                     <TouchableOpacity 

@@ -4,8 +4,31 @@ import SectionCourses from '../Home/SectionCourses/section-courses';
 
 const Download = () => {
     const courses = [
-        
-    ];
+        {	        
+            id: 1,	            
+            title: 'React Native',	            
+            author: 'Main',	           
+            level: 'Beginner',	          
+            released: 'May 6, 2020',	           
+            duration: '20 hours',	        
+        },	       
+        {	      
+            id: 2,	     
+            title: 'iOS',	           
+            author: 'Main',	           
+            level: 'Beginner',	         
+            released: 'May 6, 2020',	           
+            duration: '25 hours',	         
+        },	     
+        {	       
+            id: 3,	          
+            title: 'iOS',	        
+            author: 'Main',	          
+            level: 'Beginner',	          
+            released: 'May 6, 2020',	       
+            duration: '25 hours',	        
+        }	
+    ];	  
 
     const renderEmptyCourses = () => {
         return (

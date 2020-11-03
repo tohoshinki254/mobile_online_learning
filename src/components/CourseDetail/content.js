@@ -25,7 +25,7 @@ const Content = ({item}) => {
                 </View>
                 <TouchableOpacity>
                     <Image source={{url: 'https://static.thenounproject.com/png/1380510-200.png'}}
-                        style={{width: 30, height: 30}}     
+                        style={{width: 25, height: 25}}     
                     />
                 </TouchableOpacity>
             </View>
