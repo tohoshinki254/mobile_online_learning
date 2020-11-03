@@ -20,7 +20,7 @@ const Content = ({item}) => {
                     <Text style={{fontWeight: 'bold', color: '#616161'}}>{item.index}</Text>
                 </View>
                 <View style={{flex: 1, marginLeft: 15}}> 
-                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
                     <Text style={{color: 'grey', fontSize: 15}}>{item.duration}</Text>
                 </View>
                 <TouchableOpacity>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     },
     content: {
         color: '#616161',
-        fontSize: 17,
+        fontSize: 15,
     }
 });
 
