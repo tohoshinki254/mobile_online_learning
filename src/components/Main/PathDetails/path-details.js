@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import SectionCourses from '../Main/Home/SectionCourses/section-courses';
+import SectionCourses from '../Home/SectionCourses/section-courses';
 
 const PathDetails = () => {
     const [showDesc, setShowDesc] = useState(false);
