@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import TopicDetails from './src/components/Main/TopicDetails/topic-details';
-import PathDetails from './src/components/Main/PathDetails/path-details';
-import AuthorDetails from './src/components/Main/AuthorDetails/author-details';
+import Profile from './src/components/AccountManagement/Profile/profile';
 
 export default function App() {
   
   return (
     <View style={styles.container}>
-      <AuthorDetails />
+      <Profile />
     </View>
   );
 }
