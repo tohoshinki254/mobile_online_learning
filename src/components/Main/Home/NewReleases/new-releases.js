@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import SectionCourses from '../SectionCourses/section-courses';
 
 const NewReleases = () => {
@@ -31,10 +32,10 @@ const NewReleases = () => {
     ];
 
     return (
-        <View style={{margin: 10}}>
+        <ScrollView style={{margin: 10}}>
             <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 40}}>New</Text>
             <SectionCourses courses={courses} type={2} hideButton={true}/>
-        </View>
+        </ScrollView>
     )
 }
 

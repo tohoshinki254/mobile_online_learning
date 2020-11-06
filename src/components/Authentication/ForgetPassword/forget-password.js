@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Button from '../../Common/button';
+import { navName } from '../../../Global/constant';
 
-const ForgetPassword = () => {
+const ForgetPassword = ({ navigation }) => {
     const [email, onChangeEmail] = useState();
     return (
         <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
@@ -31,7 +32,7 @@ const ForgetPassword = () => {
                         <Button onPress={() => {}} text="Send email"/>
                     </View>
                     
-                    <Button onPress={() => {}} text="Cancel"/>
+                    <Button onPress={() => navigation.goBack()} text="Cancel"/>
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

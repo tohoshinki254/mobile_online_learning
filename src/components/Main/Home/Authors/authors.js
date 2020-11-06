@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { navName } from '../../../../Global/constant';
 
-const Authors = ({title, type, hideButton, eventButton}) => {
+const Authors = ({title, type, hideButton, eventButton, navigation}) => {
     const authors = [
         {
             id: '1',
@@ -52,13 +53,15 @@ const Authors = ({title, type, hideButton, eventButton}) => {
 
     const renderListAuthorsType1 = (authors) => {
         return authors.map(author => 
-            <View style={{marginRight: 15, alignItems: 'center'}}>
+            <TouchableOpacity style={{marginRight: 15, alignItems: 'center'}}
+                onPress={() => navigation.navigate(navName.author)}
+            >
                 <Image 
                     style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
                     source={{url: author.image}}
                 />
                 <Text style={{color: '#424242', fontSize: 15, maxWidth: 100}}>{author.name}</Text>
-            </View>
+            </TouchableOpacity>
         );
     };
 

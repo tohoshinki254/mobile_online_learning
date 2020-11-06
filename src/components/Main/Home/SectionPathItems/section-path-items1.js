@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { navName } from '../../../../Global/constant';
 
-const SectionPathItems1 = ({item}) => {
+const SectionPathItems1 = ({item, navigation}) => {
     return (
-        <View style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate(navName.path)}>
             <Image source={{url: 'https://ak.picdn.net/shutterstock/videos/30978124/thumb/1.jpg'}} style={styles.image}/>
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14, marginBottom: 5}}>{item.title}</Text>
                 <Text style={styles.darkText}>{item.quantum}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

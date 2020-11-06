@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Button from '../../Common/button';
+import { navName } from '../../../Global/constant';
 
-const Register = () => {
+const Register = ({ navigation }) => {
     const [name, onChangeName] = useState();
     const [username, onChangeUsername] = useState();
     const [email, onChangeEmail] = useState();
@@ -51,7 +52,7 @@ const Register = () => {
 
                     <TouchableOpacity
                         style={styles.othersOption}
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate(navName.login)}
                     >
                         <Text style={{fontSize: 17, color: 'darkgrey'}}>Have an account?</Text>
                         <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Sign In</Text>

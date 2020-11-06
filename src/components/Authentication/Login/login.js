@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Button from '../../Common/button';
+import { navName } from '../../../Global/constant';
 
-function Login() {
+function Login({ navigation }) {
     const [username, onChangeUsername] = useState();
     const [password, onChangePassword] = useState();
+
+    const loggedIn = () => {
+        navigation.navigate(navName.main);
+    }
 
     return (
         <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
@@ -31,18 +36,18 @@ function Login() {
                         secureTextEntry={true}
                     />
 
-                    <Button onPress={() => {}} text="Sign In"/>
+                    <Button onPress={() => loggedIn()} text="Sign In"/>
 
                     <TouchableOpacity
                         style={styles.othersOption}
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate(navName.forgetPassword)}
                     >
                         <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>Forget Password</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.othersOption}
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate(navName.register)}
                     >
                         <Text style={{fontSize: 17, color: 'darkgrey'}}>New here?</Text>
                         <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Create an account</Text>

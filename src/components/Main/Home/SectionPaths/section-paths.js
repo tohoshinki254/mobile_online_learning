@@ -3,10 +3,10 @@ import { StyleSheet, ScrollView, View, Text, FlatList, TouchableOpacity } from '
 import SectionPathItems1 from '../SectionPathItems/section-path-items1';
 import SectionPathItems2 from '../SectionPathItems/section-path-items2';
 
-const SectionPaths = ({paths, title, type, hideButton, eventButton}) => {
+const SectionPaths = ({paths, title, type, hideButton, eventButton, navigation}) => {
     const renderListPaths = (paths) => {
         return paths.map(item => 
-            <SectionPathItems1 item={item} />
+            <SectionPathItems1 item={item} navigation={navigation} />
         );
     }
 

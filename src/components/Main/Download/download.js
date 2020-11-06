@@ -41,7 +41,7 @@ const Download = () => {
     }
 
     return (
-        <View>
+        <View style={{margin: 10}}>
             {(courses === undefined || courses.length == 0) ? renderEmptyCourses() :
                 <SectionCourses courses={courses} title='Downloads' type={2} hideButton={false} eventButton='Remove all'/>
             }
