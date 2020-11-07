@@ -33,7 +33,7 @@ const NewReleases = () => {
 
     return (
         <ScrollView style={{margin: 10}}>
-            <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 40}}>New</Text>
+            <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 35}}>New</Text>
             <SectionCourses courses={courses} type={2} hideButton={true}/>
         </ScrollView>
     )

@@ -52,7 +52,7 @@ const PopularSkillDetails = ({skill}) => {
 
     return (
         <ScrollView style={{margin: 10}}>
-            <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 40, marginBottom: 20}}>{skill}</Text>
+            <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 35, marginBottom: 20}}>{skill}</Text>
             <SectionPaths paths={paths} title='Paths' type={1} hideButton={false} eventButton='See all >'/>
             <View style={{margin: 10}} />
             <SectionCourses courses={courses} title='New' type={1} hideButton={false} eventButton='See all >'/>

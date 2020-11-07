@@ -58,7 +58,7 @@ const AuthorDetails = () => {
 
     return (
         <ScrollView style={{margin: 10}}>
-            <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 40, marginBottom: 20}}>Author</Text>
+            <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 35, marginBottom: 20}}>Author</Text>
             
             <View style={{alignItems: 'center', marginBottom: 5}}>
                 <Image 

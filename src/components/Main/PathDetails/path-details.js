@@ -35,7 +35,7 @@ const PathDetails = () => {
     return (
         <ScrollView>
             <View style={{margin: 10}}>
-                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 40, marginBottom: 20}}>Path</Text>
+                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 35, marginBottom: 20}}>Path</Text>
                 
                 <View style={{flexDirection: 'row', marginBottom: 17}}>
                     <Image source={{url: 'https://cdn.iconscout.com/icon/free/png-512/node-js-1174925.png'}} style={{width: 50, height: 50, marginRight: 7}}/>

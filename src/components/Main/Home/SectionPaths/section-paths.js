@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, ScrollView, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import SectionPathItems1 from '../SectionPathItems/section-path-items1';
 import SectionPathItems2 from '../SectionPathItems/section-path-items2';
+import { navName } from '../../../../Global/constant';
 
 const SectionPaths = ({paths, title, type, hideButton, eventButton, navigation}) => {
     const renderListPaths = (paths) => {
@@ -25,6 +26,10 @@ const SectionPaths = ({paths, title, type, hideButton, eventButton, navigation})
         );
     }
 
+    const seeAllPaths = () => {
+        navigation.navigate(navName.listPaths);
+    }
+
     return (
         <View>
             <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', marginBottom: 10}}>
@@ -35,7 +40,7 @@ const SectionPaths = ({paths, title, type, hideButton, eventButton, navigation})
                             padding: 4, borderRadius: 50, minWidth: 80,
                             justifyContent: 'center', alignItems: 'center'
                         }}
-                        onPress={() => {}}
+                        onPress={() => seeAllPaths()}
                     >
                         <Text style={{color: 'white', fontSize: 13}}>{eventButton}</Text>
                     </TouchableOpacity>

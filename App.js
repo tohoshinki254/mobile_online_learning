@@ -15,6 +15,8 @@ import Skill from './src/components/Main/Home/PopularSkillDetails/popular-skill-
 import Topic from './src/components/Main/TopicDetails/topic-details';
 import PathDetails from './src/components/Main/PathDetails/path-details';
 import AuthorDetails from './src/components/Main/AuthorDetails/author-details';
+import ListCourses from './src/components/ListCourses/list-courses';
+import ListPaths from './src/components/ListPaths/list-paths';
 import { navName } from './src/Global/constant';
 
 const Stack = createStackNavigator();
@@ -78,6 +80,14 @@ export default function App() {
 
         <Stack.Screen name={navName.author}
           component={AuthorDetails}
+        />
+
+        <Stack.Screen name={navName.listCourses}
+          component={ListCourses}
+        />
+
+        <Stack.Screen name={navName.listPaths}
+          component={ListPaths}
         />
       </Stack.Navigator>
     </NavigationContainer>

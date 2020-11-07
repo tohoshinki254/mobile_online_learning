@@ -13,4 +13,6 @@ export const navName = {
     topic: 'Topic',
     path: 'Path',
     author: 'Author',
+    listPaths: 'List Paths',
+    listCourses: 'List Courses'
 }

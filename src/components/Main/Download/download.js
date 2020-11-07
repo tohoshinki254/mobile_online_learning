@@ -33,7 +33,7 @@ const Download = () => {
     const renderEmptyCourses = () => {
         return (
             <View style={{margin: 10}}>
-                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 40, marginBottom: 20}}>Downloads</Text>
+                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 35, marginBottom: 20}}>Downloads</Text>
                 <Text style={styles.title}>Watch your courses on the go!</Text>
                 <Text style={styles.darkText}>Download courses so you can continue to skill up - even when you're offline</Text>
             </View>
