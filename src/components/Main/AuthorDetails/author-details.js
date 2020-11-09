@@ -2,64 +2,32 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import SectionCourses from '../Home/SectionCourses/section-courses';
 
-const AuthorDetails = () => {
+const AuthorDetails = ({ navigation }) => {
     const [showDesc, setShowDesc] = useState(false);
 
     const courses = [
-        {	        
-            id: '1',	            
-            title: 'React Native',	            
-            author: 'Main',	           
-            level: 'Beginner',	          
-            released: 'May 6, 2020',	           
-            duration: '20 hours',	        
-        },	       
-        {	      
-            id: '2',	     
-            title: 'iOS',	           
-            author: 'Main',	           
-            level: 'Beginner',	         
-            released: 'May 6, 2020',	           
-            duration: '25 hours',	         
-        },	     
-        {	       
-            id: '3',	          
-            title: 'iOS',	        
-            author: 'Main',	          
-            level: 'Beginner',	          
-            released: 'May 6, 2020',	       
-            duration: '25 hours',	        
+        {
+            id: '1',
+            title: 'React Native',
+            author: 'Main',
+            level: 'Beginner',
+            released: 'May 6, 2020',
+            duration: '20 hours',
+            url: 'https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
         },
-        {	        
-            id: '4',	            
-            title: 'React Native',	            
-            author: 'Main',	           
-            level: 'Beginner',	          
-            released: 'May 6, 2020',	           
-            duration: '20 hours',	        
-        },	       
-        {	      
-            id: '5',	     
-            title: 'iOS',	           
-            author: 'Main',	           
-            level: 'Beginner',	         
-            released: 'May 6, 2020',	           
-            duration: '25 hours',	         
-        },	     
-        {	       
-            id: '6',	          
-            title: 'iOS',	        
-            author: 'Main',	          
-            level: 'Beginner',	          
-            released: 'May 6, 2020',	       
-            duration: '25 hours',	        
-        }	
+        {
+            id: '2',
+            title: 'iOS',
+            author: 'Main',
+            level: 'Beginner',
+            released: 'May 6, 2020',
+            duration: '25 hours',
+            url: 'https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+        },
     ];
 
     return (
         <ScrollView style={{margin: 10}}>
-            <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 35, marginBottom: 20}}>Author</Text>
-            
             <View style={{alignItems: 'center', marginBottom: 5}}>
                 <Image 
                     style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
@@ -81,16 +49,16 @@ const AuthorDetails = () => {
                 <Text style={{color: '#FF5252', fontSize: 17}}>{showDesc ? 'Less' : 'More'}</Text>
             </TouchableOpacity>
 
-            <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
-                <TouchableOpacity>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
+                <View>
                     <Image source={require('../../../../assets/link_icon8.png')} style={{width: 30, height: 30, marginRight: 10}}/>
-                </TouchableOpacity>
+                </View>
                 <View style={{flex: 1}}>
                     <Text style={styles.description} numberOfLines={1}>
                         http://msmvps.com/blogs/deborahk
                     </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
 
             <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
                 <TouchableOpacity>
@@ -106,7 +74,7 @@ const AuthorDetails = () => {
 
             <View style={{height: 1, width: '100%', backgroundColor: '#BDBDBD'}} />
 
-            <SectionCourses courses={courses} type={2} hideButton={true}/>
+            <SectionCourses courses={courses} type={2} hideButton={true} navigation={navigation}/>
             <View style={{margin: 10}}/>
         </ScrollView>
     )

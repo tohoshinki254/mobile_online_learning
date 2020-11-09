@@ -17,6 +17,8 @@ import PathDetails from './src/components/Main/PathDetails/path-details';
 import AuthorDetails from './src/components/Main/AuthorDetails/author-details';
 import ListCourses from './src/components/ListCourses/list-courses';
 import ListPaths from './src/components/ListPaths/list-paths';
+import CourseDetail from './src/components/CourseDetail/course-detail';
+import RelatedPathsCourses from './src/components/Main/Home/RelatedPathsCourses/related-paths-courses';
 import { navName } from './src/Global/constant';
 
 const Stack = createStackNavigator();
@@ -88,6 +90,14 @@ export default function App() {
 
         <Stack.Screen name={navName.listPaths}
           component={ListPaths}
+        />
+
+        <Stack.Screen name={navName.courseDetails}
+          component={CourseDetail}
+        />
+
+        <Stack.Screen name={navName.relatedPathsCourses}
+          component={RelatedPathsCourses}
         />
       </Stack.Navigator>
     </NavigationContainer>

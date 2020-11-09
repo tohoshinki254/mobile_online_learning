@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ScrollView }
 import Content from './content';
 import RadiusButton from '../Common/radius-button';
 import IconButton from '../Common/icon-button';
-import Video from 'react-native-video';
+import { navName } from '../../Global/constant';
 
-const CourseDetail = (props) => {
+const CourseDetail = ({ navigation }) => {
     const contents = [
         {
             index: '1',
@@ -52,14 +52,10 @@ const CourseDetail = (props) => {
 
     return (
         <View style={{margin: 10}}>
-            {/* <Video source={{uri: "https://www.youtube.com/watch?v=G3ABje1ftEs"}}
-                style={{position: 'absolute', top: 0, left: 0, height: 200}}
-            /> */}
-
             <ScrollView>
                 <Text style={styles.title} numberOfLines={2}>Microsoft Azure Administrator: Automate Deployment and Config</Text>
                 <View style={{flexDirection: 'row', marginBottom: 15}}>
-                    <RadiusButton onPress={() => {}} text='Michael Teske' />
+                    <RadiusButton onPress={() => navigation.push(navName.author)} text='Michael Teske' />
                 </View>
                 <Text style={styles.darkText}>Beginner . Oct 29, 2020 . 34m28s</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
@@ -99,7 +95,7 @@ const CourseDetail = (props) => {
                 </View>
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress={() => {}}
+                    onPress={() => navigation.push(navName.relatedPathsCourses)}
                 >
                     <Image source={require('../../../assets/related_courses_detail.png')} style={{width: 25, height: 25}}/>
                     <Text style={{color: 'white', fontSize: 15, marginLeft: 15}}>Related paths & courses</Text>

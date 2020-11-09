@@ -8,11 +8,13 @@ export const navName = {
     browse: 'Browse',
     search: 'Search',
     profile: 'Profile',
-    newRelease: 'New',
+    newRelease: 'New Releases',
     skill: 'Skill',
     topic: 'Topic',
     path: 'Path',
     author: 'Author',
-    listPaths: 'List Paths',
-    listCourses: 'List Courses'
+    listPaths: 'Paths',
+    listCourses: 'Courses',
+    courseDetails: 'Course Details',
+    relatedPathsCourses: 'Related paths & courses'
 }

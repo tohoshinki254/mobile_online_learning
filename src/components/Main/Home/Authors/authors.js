@@ -66,7 +66,9 @@ const Authors = ({title, type, hideButton, eventButton, navigation}) => {
     };
 
     const renderListAuthorsType2 = (author) => (
-            <View style={{margin: 10, alignItems: 'center', flexDirection: 'row'}}>
+            <TouchableOpacity style={{margin: 10, alignItems: 'center', flexDirection: 'row'}}
+                onPress={() => navigation.navigate(navName.author)}
+            >
                 <Image 
                     style={{width: 65, height: 65, borderRadius: 65/2}}
                     source={{url: author.image}}
@@ -75,7 +77,7 @@ const Authors = ({title, type, hideButton, eventButton, navigation}) => {
                     <Text style={{color: '#424242', fontSize: 17}}>{author.name}</Text>
                     <Text style={styles.darkText}>{author.courses}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
     );
 
     return (

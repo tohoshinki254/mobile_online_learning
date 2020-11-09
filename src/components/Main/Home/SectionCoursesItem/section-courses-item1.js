@@ -1,9 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { navName } from '../../../../Global/constant';
 
-const SectionCoursesItem1 = ({item}) => {
+const SectionCoursesItem1 = ({item, navigation}) => {
+    const getDetails = () => {
+        navigation.push(navName.courseDetails)
+    }
+
     return (
-        <View style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => getDetails()}>
             <Image source={{url: item.url}} style={styles.image}/>
             <View style={{flex: 1, marginLeft: 15, paddingRight: 5}}>
                 <Text style={{color: '#424242', fontSize: 17, marginBottom: 3}} numberOfLines={2}>{item.title}</Text>
@@ -15,7 +20,7 @@ const SectionCoursesItem1 = ({item}) => {
                     style={{width: 20, height: 20}}     
                 />
             </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
     )
 }
 

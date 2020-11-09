@@ -50,7 +50,7 @@ const SectionPaths = ({paths, title, type, hideButton, eventButton, navigation})
                 <View>
                     <FlatList 
                         data={paths}
-                        renderItem={({item}) => <SectionPathItems2 item={item}/>}
+                        renderItem={({item}) => <SectionPathItems2 item={item} navigation={navigation}/>}
                         ItemSeparatorComponent={FlatListItemSeparator}
                     />
                 </View>

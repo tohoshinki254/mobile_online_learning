@@ -3,7 +3,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import SectionCourses from './SectionCourses/section-courses';
 import SectionPaths from './SectionPaths/section-paths';
 import Authors from './Authors/authors';
-const Home = () => {
+const Home = ({ navigation }) => {
     const courses = [
         {
             id: '1',
@@ -57,10 +57,20 @@ const Home = () => {
 
     return (
         <ScrollView style={styles.root}>
-            <SectionCourses courses={courses} title='Continue learning' type={1} hideButton={false} eventButton='See all >'/>
+            <SectionCourses courses={courses} 
+                title='Continue learning' 
+                type={1} 
+                hideButton={false} eventButton='See all >'
+                navigation={navigation}
+            />
             <View style={{margin: 7}} />
             
-            <SectionPaths paths={paths} title='Paths' type={1} hideButton={false} eventButton='See all >' />
+            <SectionPaths paths={paths} 
+                title='Paths' 
+                type={1} 
+                hideButton={false} eventButton='See all >'
+                navigation={navigation} 
+            />
             <View style={{margin: 7}} />
 
             <View style={{margin: 10}}>
@@ -72,7 +82,11 @@ const Home = () => {
             </View>
             <View style={{margin: 7}} />
 
-            <Authors title="Top Authors" type={2} hideButton={true}/>
+            <Authors title="Top Authors" 
+                type={2} 
+                hideButton={true}
+                navigation={navigation}
+            />
         </ScrollView>
     )
 }

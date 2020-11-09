@@ -1,9 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { navName } from '../../../../Global/constant';
 
-const SectionCoursesItem2 = ({item}) => {
+const SectionCoursesItem2 = ({item, navigation}) => {
+    const getDetails = () => {
+        navigation.push(navName.courseDetails)
+    }
+
     return (
-        <View style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => getDetails()}>
             <Image source={{url: item.url}} style={styles.image}/>
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14, marginBottom: 3}}>{item.title}</Text>
@@ -11,7 +16,7 @@ const SectionCoursesItem2 = ({item}) => {
                 <Text style={styles.darkText}>{item.level}</Text>
                 <Text style={styles.darkText}>{`${item.released} . ${item.duration}`}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

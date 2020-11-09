@@ -209,7 +209,6 @@ const ListPaths = () => {
 
     return (
         <ScrollView style={{margin: 10}}>
-            <Text style={styles.title}>Paths</Text>
             {paths.map(item => (
                 <View>
                     <SectionPaths paths={item.data} title={item.title} type={1} hideButton={false} eventButton='See all >'/>
@@ -221,13 +220,6 @@ const ListPaths = () => {
     )
 }
 
-const styles = StyleSheet.create({
-    title: {
-        color: '#616161', 
-        fontWeight: 'bold', 
-        fontSize: 35, 
-        marginBottom: 20
-    }
-});
+const styles = StyleSheet.create({});
 
 export default ListPaths;

@@ -4,7 +4,7 @@ import { navName } from '../../../../Global/constant';
 
 const SectionPathItems1 = ({item, navigation}) => {
     return (
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate(navName.path)}>
+        <TouchableOpacity style={styles.item} onPress={() => navigation.push(navName.path)}>
             <Image source={{url: 'https://ak.picdn.net/shutterstock/videos/30978124/thumb/1.jpg'}} style={styles.image}/>
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14, marginBottom: 5}}>{item.title}</Text>

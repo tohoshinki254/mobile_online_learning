@@ -56,7 +56,6 @@ const Browse = ({ navigation }) => {
 
     return (
         <ScrollView style={styles.root} >
-            <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 35, marginBottom: 20}}>Browse</Text>
             <ImageButton 
                 title='NEW RELEASES' 
                 onPress={() => navigation.navigate(navName.newRelease)}

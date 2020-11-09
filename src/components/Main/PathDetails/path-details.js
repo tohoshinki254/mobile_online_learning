@@ -2,41 +2,33 @@ import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import SectionCourses from '../Home/SectionCourses/section-courses';
 
-const PathDetails = () => {
+const PathDetails = ({ navigation }) => {
     const [showDesc, setShowDesc] = useState(false);
 
     const courses = [
-        {	        
-            id: '1',	            
-            title: 'React Native',	            
-            author: 'Main',	           
-            level: 'Beginner',	          
-            released: 'May 6, 2020',	           
-            duration: '20 hours',	        
-        },	       
-        {	      
-            id: '2',	        
-            title: 'iOS',	           
-            author: 'Main',	           
-            level: 'Beginner',	         
-            released: 'May 6, 2020',	           
-            duration: '25 hours',	         
-        },	     
-        {	       
-            id: '3',	          
-            title: 'iOS',	        
-            author: 'Main',	          
-            level: 'Beginner',	          
-            released: 'May 6, 2020',	       
-            duration: '25 hours',	        
-        }	
+        {
+            id: '1',
+            title: 'React Native',
+            author: 'Main',
+            level: 'Beginner',
+            released: 'May 6, 2020',
+            duration: '20 hours',
+            url: 'https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+        },
+        {
+            id: '2',
+            title: 'iOS',
+            author: 'Main',
+            level: 'Beginner',
+            released: 'May 6, 2020',
+            duration: '25 hours',
+            url: 'https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+        },
     ];
 
     return (
         <ScrollView>
             <View style={{margin: 10}}>
-                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 35, marginBottom: 20}}>Path</Text>
-                
                 <View style={{flexDirection: 'row', marginBottom: 17}}>
                     <Image source={{url: 'https://cdn.iconscout.com/icon/free/png-512/node-js-1174925.png'}} style={{width: 50, height: 50, marginRight: 7}}/>
                     <View style={{flexDirection: 'column'}}>
@@ -72,7 +64,7 @@ const PathDetails = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={{height: 1 ,backgroundColor: '#BDBDBD', borderRadius: 50, marginTop: 10}}/>
-                <SectionCourses courses={courses} type={2} hideButton={true}/>
+                <SectionCourses courses={courses} type={2} hideButton={true} navigation={navigation}/>
             </View>
         </ScrollView>
     )

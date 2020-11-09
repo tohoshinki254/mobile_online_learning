@@ -2,11 +2,12 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import SectionCoursesItem1 from '../SectionCoursesItem/section-courses-item1';
 import SectionCoursesItem2 from '../SectionCoursesItem/section-courses-item2';
+import { navName } from '../../../../Global/constant';
 
-const SectionCourses = ({courses, title, type, hideButton, eventButton}) => {
+const SectionCourses = ({courses, title, type, hideButton, eventButton, navigation}) => {
     const renderListItems = (courses) => {
         return courses.map(item => 
-            <SectionCoursesItem2 item={item} />
+            <SectionCoursesItem2 item={item} navigation={navigation}/>
         );
     }
 
@@ -25,6 +26,16 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton}) => {
         );
     }
 
+    const handleButton = () => {
+        if (eventButton === "See all >") {
+            navigation.push(navName.listCourses);
+        }
+
+        if (eventButton === "Remove all") {
+
+        }
+    }
+
     return (
         <View>
             <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', marginBottom: 10}}>
@@ -35,7 +46,7 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton}) => {
                             padding: 4, borderRadius: 50, minWidth: 80,
                             justifyContent: 'center', alignItems: 'center'
                         }}
-                        onPress={() => {}}
+                        onPress={() => handleButton()}
                     >
                         <Text style={{color: 'white', fontSize: 13}}>{eventButton}</Text>
                     </TouchableOpacity>
@@ -45,7 +56,7 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton}) => {
                 <View>
                     <FlatList 
                         data={courses}
-                        renderItem={({item}) => <SectionCoursesItem1 item={item}/>}
+                        renderItem={({item}) => <SectionCoursesItem1 item={item} navigation={navigation}/>}
                         ItemSeparatorComponent={FlatListItemSeparator}
                     />
                 </View>
