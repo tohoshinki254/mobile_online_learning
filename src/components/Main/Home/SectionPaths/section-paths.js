@@ -27,7 +27,12 @@ const SectionPaths = ({paths, title, type, hideButton, eventButton, navigation})
     }
 
     const seeAllPaths = () => {
-        navigation.navigate(navName.listPaths);
+        if (title === 'Paths') {
+            navigation.push(navName.listPaths);
+        }
+        else {
+            navigation.push(navName.topic);
+        }
     }
 
     return (

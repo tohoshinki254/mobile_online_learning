@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import SectionCourses from '../Main/Home/SectionCourses/section-courses';
 
-const ListCourses = () => {
+const ListCourses = ({ navigation }) => {
     const courses = [
         {
             id: '1',
@@ -26,7 +26,12 @@ const ListCourses = () => {
 
     return (
         <View style={styles.root}>
-            <SectionCourses courses={courses} title='Courses' type={2} hideButton={true}/>
+            <SectionCourses courses={courses} 
+                title='' 
+                type={2} 
+                hideButton={true}
+                navigation={navigation}
+            />
         </View>
     )
 }

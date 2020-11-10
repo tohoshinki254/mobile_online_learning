@@ -93,9 +93,10 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     root: {
-        marginTop: 10,
+        marginTop: 24,
         marginLeft: 10,
         marginRight: 10,
+        paddingTop: 6
     },
     image: {
         width: 50,

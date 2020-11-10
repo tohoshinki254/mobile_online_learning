@@ -48,7 +48,7 @@ const Register = ({ navigation }) => {
                         secureTextEntry={true}
                     />
 
-                    <Button onPress={() => {}} text="Create an account"/>
+                    <Button onPress={() => navigation.navigate(navName.login)} text="Create an account"/>
 
                     <TouchableOpacity
                         style={styles.othersOption}

@@ -54,7 +54,7 @@ const Authors = ({title, type, hideButton, eventButton, navigation}) => {
     const renderListAuthorsType1 = (authors) => {
         return authors.map(author => 
             <TouchableOpacity style={{marginRight: 15, alignItems: 'center'}}
-                onPress={() => navigation.navigate(navName.author)}
+                onPress={() => navigation.push(navName.author)}
             >
                 <Image 
                     style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
@@ -67,7 +67,7 @@ const Authors = ({title, type, hideButton, eventButton, navigation}) => {
 
     const renderListAuthorsType2 = (author) => (
             <TouchableOpacity style={{margin: 10, alignItems: 'center', flexDirection: 'row'}}
-                onPress={() => navigation.navigate(navName.author)}
+                onPress={() => navigation.push(navName.author)}
             >
                 <Image 
                     style={{width: 65, height: 65, borderRadius: 65/2}}

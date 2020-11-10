@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import SectionPaths from '../Main/Home/SectionPaths/section-paths';
 
-const ListPaths = () => {
+const ListPaths = ({ navigation }) => {
     const paths = [
         {
             title: 'Conferences',
@@ -211,7 +211,12 @@ const ListPaths = () => {
         <ScrollView style={{margin: 10}}>
             {paths.map(item => (
                 <View>
-                    <SectionPaths paths={item.data} title={item.title} type={1} hideButton={false} eventButton='See all >'/>
+                    <SectionPaths paths={item.data} 
+                        title={item.title} 
+                        type={1} 
+                        hideButton={false} eventButton='See all >'
+                        navigation={navigation}
+                    />
                     <View style={{margin: 17}} />
                 </View>
             ))

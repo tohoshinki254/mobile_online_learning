@@ -4,7 +4,7 @@ import SectionPaths from '../SectionPaths/section-paths';
 import SectionCourses from '../SectionCourses/section-courses';
 import Authors from '../Authors/authors';
 
-const PopularSkillDetails = ({skill}) => {
+const PopularSkillDetails = ({skill, navigation}) => {
     const courses = [
         {	        
             id: 1,	            
@@ -52,13 +52,35 @@ const PopularSkillDetails = ({skill}) => {
 
     return (
         <ScrollView style={{margin: 10}}>
-            <SectionPaths paths={paths} title='Paths' type={1} hideButton={false} eventButton='See all >'/>
+            <SectionPaths paths={paths} 
+                title='Paths' 
+                type={1} 
+                hideButton={false} eventButton='See all >'
+                navigation={navigation}
+            />
             <View style={{margin: 10}} />
-            <SectionCourses courses={courses} title='New' type={1} hideButton={false} eventButton='See all >'/>
+            
+            <SectionCourses courses={courses} 
+                title='New' 
+                type={1} 
+                hideButton={false} eventButton='See all >'
+                navigation={navigation}
+            />
             <View style={{margin: 10}} />
-            <SectionCourses courses={courses} title='Trending' type={1} hideButton={false} eventButton='See all >'/>
+            
+            <SectionCourses courses={courses} 
+                title='Trending' 
+                type={1} 
+                hideButton={false} eventButton='See all >'
+                navigation={navigation}
+            />
             <View style={{margin: 10}} />
-            <Authors title="Top Authors" type={1} hideButton={true}/>
+            
+            <Authors title="Top Authors" 
+                type={1} 
+                hideButton={true}
+                navigation={navigation}
+            />
             <View style={{margin: 17}} />
         </ScrollView>
     )

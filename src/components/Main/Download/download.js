@@ -38,7 +38,7 @@ const Download = ({ navigation }) => {
         <View style={{margin: 10}}>
             {(courses === undefined || courses.length == 0) ? renderEmptyCourses() :
                 <SectionCourses courses={courses} 
-                    title='Downloads' 
+                    title='' 
                     type={2} 
                     hideButton={false} eventButton='Remove all'
                     navigation={navigation}

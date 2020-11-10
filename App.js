@@ -4,7 +4,6 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-nat
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Login from './src/components/Authentication/Login/login';
 import Register from './src/components/Authentication/Register/register';
 import ForgetPassword from './src/components/Authentication/ForgetPassword/forget-password';
@@ -19,6 +18,7 @@ import ListCourses from './src/components/ListCourses/list-courses';
 import ListPaths from './src/components/ListPaths/list-paths';
 import CourseDetail from './src/components/CourseDetail/course-detail';
 import RelatedPathsCourses from './src/components/Main/Home/RelatedPathsCourses/related-paths-courses';
+import Download from './src/components/Main/Download/download';
 import { navName } from './src/Global/constant';
 
 const Stack = createStackNavigator();
@@ -44,20 +44,7 @@ export default function App() {
 
         <Stack.Screen name={navName.main}
           component={Main}
-          options={({ navigation, route }) => ({
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => {}}
-                style={{marginLeft: 10}}
-              >
-                <Icon name="cog" color='#616161' size={30}/>
-              </TouchableOpacity>
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate(navName.profile)}>
-                <Image source={require('./assets/no_avatar.png')} style={{width: 30, height: 30, marginRight: 10}}/>
-              </TouchableOpacity>
-            )
-          })}
+          options={{headerShown: false}}
         />
 
         <Stack.Screen name={navName.profile}
@@ -98,6 +85,10 @@ export default function App() {
 
         <Stack.Screen name={navName.relatedPathsCourses}
           component={RelatedPathsCourses}
+        />
+
+        <Stack.Screen name={navName.download}
+          component={Download}
         />
       </Stack.Navigator>
     </NavigationContainer>

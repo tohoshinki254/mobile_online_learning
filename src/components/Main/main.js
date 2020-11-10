@@ -2,9 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Home from './Home/home';
-import Download from './Download/download';
 import Browse from './Browse/browse';
 import Search from './Search/search';
+import Profile from '../AccountManagement/Profile/profile';
 import { navName } from '../../Global/constant';
 
 const Tab = createBottomTabNavigator();
@@ -25,12 +25,12 @@ const Main = () => {
                     },
                 }}
             />
-            <Tab.Screen name={navName.download} 
-                component={Download}
+            <Tab.Screen name={navName.search} 
+                component={Search}
                 options={{
-                    tabBarLabel: navName.download,
+                    tabBarLabel: navName.search,
                     tabBarIcon: ({ color }) => {
-                        return <Icon name="download" size={27} color={color} />;
+                        return <Icon name="search" size={27} color={color} />;
                     }
                 }}
             />
@@ -43,12 +43,12 @@ const Main = () => {
                     }
                 }}
             />
-            <Tab.Screen name={navName.search} 
-                component={Search}
+            <Tab.Screen name={navName.profile}
+                component={Profile}
                 options={{
-                    tabBarLabel: navName.search,
+                    tabBarLabel: navName.profile,
                     tabBarIcon: ({ color }) => {
-                        return <Icon name="search" size={27} color={color} />;
+                        return <Icon name="user" size={27} color={color} />;
                     }
                 }}
             />

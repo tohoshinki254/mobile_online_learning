@@ -4,8 +4,9 @@ import SectionCourses from '../Home/SectionCourses/section-courses';
 import SectionPaths from '../Home/SectionPaths/section-paths';
 import Authors from '../Home/Authors/authors';
 import RadiusButton from '../../Common/radius-button';
+import { navName } from '../../../Global/constant';
 
-const TopicDetails = () => {
+const TopicDetails = ({ navigation }) => {
     const skills = [
         'Angular', 'JavaScript', 'C#', 'Java', 'Data Analysis', 'ASP.NET', 'Node.js', 'Design Patterns',
         'Python', 'React', '.NET', 'SQL Server', 'Database Administration', 'Part Modeling'
@@ -52,7 +53,7 @@ const TopicDetails = () => {
 
     const renderListSkills = (skills) => {
         return skills.map(item => 
-            <RadiusButton onPress={() => {}} text={item} />
+            <RadiusButton onPress={() => navigation.push(navName.skill)} text={item} />
         );
     }
 
@@ -72,16 +73,35 @@ const TopicDetails = () => {
                 </ScrollView>
                 <View style={{margin: 15}} />
                 
-                <SectionPaths paths={paths} title='Paths' type={1} hideButton={false} eventButton='See all >'/>
+                <SectionPaths paths={paths} 
+                    title='Paths' 
+                    type={1} 
+                    hideButton={false} eventButton='See all >'
+                    navigation={navigation}
+                />
                 <View style={{margin: 10}} />
                 
-                <SectionCourses courses={courses} title='New' type={1} hideButton={false} eventButton='See all >'/>
+                <SectionCourses courses={courses} 
+                    title='New' 
+                    type={1} 
+                    hideButton={false} eventButton='See all >'
+                    navigation={navigation}
+                />
                 <View style={{margin: 10}} />
                 
-                <SectionCourses courses={courses} title='Trending' type={1} hideButton={false} eventButton='See all >'/>
+                <SectionCourses courses={courses} 
+                    title='Trending' 
+                    type={1} 
+                    hideButton={false} eventButton='See all >'
+                    navigation={navigation}
+                />
                 <View style={{margin: 10}} />
                 
-                <Authors title="Top Authors" type={1} hideButton={true}/>
+                <Authors title="Top Authors" 
+                    type={1} 
+                    hideButton={true}
+                    navigation={navigation}
+                />
                 <View style={{margin: 17}} />
             </View>
         </ScrollView>
