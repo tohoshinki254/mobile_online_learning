@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { SearchBar } from 'react-native-elements';
 import Login from './src/components/Authentication/Login/login';
 import Register from './src/components/Authentication/Register/register';
 import ForgetPassword from './src/components/Authentication/ForgetPassword/forget-password';
@@ -24,6 +25,7 @@ import { navName } from './src/Global/constant';
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [searchText, setSearchText] = useState('');
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={navName.login}>

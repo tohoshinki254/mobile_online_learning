@@ -38,7 +38,7 @@ const SectionPaths = ({paths, title, type, hideButton, eventButton, navigation})
     return (
         <View>
             <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', marginBottom: 10}}>
-                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
+                <Text style={styles.title}>{title}</Text>
                 {hideButton ? null :
                     <TouchableOpacity 
                         style={{backgroundColor: '#FF5252', 
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
         color: '#616161',
         fontWeight: 'bold',
         fontSize: 18,
-        margin: 10,
     }
 });
 

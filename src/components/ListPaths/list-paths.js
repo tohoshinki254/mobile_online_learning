@@ -219,8 +219,7 @@ const ListPaths = ({ navigation }) => {
                     />
                     <View style={{margin: 17}} />
                 </View>
-            ))
-            }
+            ))}
         </ScrollView>
     )
 }

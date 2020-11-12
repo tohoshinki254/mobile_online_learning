@@ -1,15 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import SectionCourses from '../Main/Home/SectionCourses/section-courses';
+import SectionPaths from '../Main/Home/SectionPaths/section-paths';
 
-const ListCourses = ({ navigation, route }) => {
-    const courses = route.params?.courses;
-    const title = `${courses.length} results`;
+const ListPathsTopic = ({ navigation, route }) => {
+    const paths = route.params?.paths;
+    const title = `${paths.length} results`;
     return (
         <View style={styles.root}>
-            <SectionCourses courses={courses} 
-                title={title} 
-                type={2} 
+            <SectionPaths paths={paths}
+                title={title}
+                type={2}
                 hideButton={true}
                 navigation={navigation}
             />
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ListCourses;
+export default ListPathsTopic;
