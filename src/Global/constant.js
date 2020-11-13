@@ -18,4 +18,5 @@ export const navName = {
     courseDetails: 'Course Details',
     relatedPathsCourses: 'Related paths & courses',
     setting: 'Setting',
+    pathsTopic: 'List Paths',
 }

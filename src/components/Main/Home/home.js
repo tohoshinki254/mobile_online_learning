@@ -53,7 +53,38 @@ const Home = ({ navigation }) => {
         },
     ];
 
-
+    const authors = [
+        {
+            id: '1',
+            name: 'Scott Allen 1',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '10 courses'
+        },
+        {
+            id: '2',
+            name: 'Scott Allen 2',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '11 courses'
+        },
+        {
+            id: '3',
+            name: 'Scott Allen 3',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '12 courses'
+        },
+        {
+            id: '4',
+            name: 'Scott Allen 4',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '13 courses'
+        },
+        {
+            id: '5',
+            name: 'Scott Allen 5',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '14 courses'
+        },
+    ];
 
     return (
         <ScrollView style={styles.root}>
@@ -73,7 +104,7 @@ const Home = ({ navigation }) => {
             />
             <View style={{margin: 7}} />
 
-            <View style={{margin: 10}}>
+            <View>
                 <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>Channels</Text>
                 <View style={{marginTop: 15, flexDirection: 'column', justifyContent: 'center', alignContent: 'center'}}>
                     <Image source={{url: 'https://icons-for-free.com/iconfiles/png/512/communication+connection+phone+radio+sign+wave+wireless-1320184554711907087.png'}} style={styles.image}/>
@@ -82,7 +113,8 @@ const Home = ({ navigation }) => {
             </View>
             <View style={{margin: 7}} />
 
-            <Authors title="Top Authors" 
+            <Authors authors={authors}
+                title="Top Authors" 
                 type={2} 
                 hideButton={true}
                 navigation={navigation}

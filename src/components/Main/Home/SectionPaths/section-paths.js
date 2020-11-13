@@ -31,7 +31,7 @@ const SectionPaths = ({paths, title, type, hideButton, eventButton, navigation})
             navigation.push(navName.listPaths);
         }
         else {
-            navigation.push(navName.topic);
+            navigation.push(navName.pathsTopic, { paths: paths });
         }
     }
 

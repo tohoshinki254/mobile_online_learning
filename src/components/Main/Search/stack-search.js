@@ -120,6 +120,7 @@ const StackSearch = () => {
                     type: 2,
                     hideButton: true,
                     title: `${authors.length} results`,
+                    margin: 10,
                 }}
             />
         </Tab.Navigator>

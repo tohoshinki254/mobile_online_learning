@@ -19,7 +19,7 @@ const ListPathsTopic = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
     root: {
-        marginTop: 20,
+        marginTop: 10,
         marginLeft: 10,
         marginRight: 10,
     },

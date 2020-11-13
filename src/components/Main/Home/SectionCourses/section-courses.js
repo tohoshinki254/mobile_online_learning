@@ -28,7 +28,7 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton, navigati
 
     const handleButton = () => {
         if (eventButton === "See all >") {
-            navigation.push(navName.listCourses);
+            navigation.push(navName.listCourses, { courses: courses });
         }
 
         if (eventButton === "Remove all") {

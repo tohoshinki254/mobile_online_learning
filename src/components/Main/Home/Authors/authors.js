@@ -3,39 +3,6 @@ import { Image, StyleSheet, Text, View, ScrollView, FlatList, TouchableOpacity }
 import { navName } from '../../../../Global/constant';
 
 const Authors = ({authors, title, type, hideButton, eventButton, navigation, route}) => {
-    // const authors = [
-    //     {
-    //         id: '1',
-    //         name: 'Scott Allen 1',
-    //         image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
-    //         courses: '10 courses'
-    //     },
-    //     {
-    //         id: '2',
-    //         name: 'Scott Allen 2',
-    //         image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
-    //         courses: '11 courses'
-    //     },
-    //     {
-    //         id: '3',
-    //         name: 'Scott Allen 3',
-    //         image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
-    //         courses: '12 courses'
-    //     },
-    //     {
-    //         id: '4',
-    //         name: 'Scott Allen 4',
-    //         image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
-    //         courses: '13 courses'
-    //     },
-    //     {
-    //         id: '5',
-    //         name: 'Scott Allen 5',
-    //         image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
-    //         courses: '14 courses'
-    //     },
-    // ];
-
     const FlatListItemSeparator = () => {
         return (
           <View
@@ -82,7 +49,7 @@ const Authors = ({authors, title, type, hideButton, eventButton, navigation, rou
     );
 
     return (
-        <View style={styles.root}>
+        <View style={{ margin: route != undefined ? route.params?.margin : 0}}>
             <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', marginBottom: 10}}>
                 <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{(route !== undefined ? route.params?.title : title)}</Text>
                 {(route !== undefined ? route.params?.hideButton : hideButton) ? null : 

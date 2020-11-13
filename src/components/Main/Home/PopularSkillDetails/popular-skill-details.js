@@ -50,6 +50,39 @@ const PopularSkillDetails = ({skill, navigation}) => {
         },
     ];
 
+    const authors = [
+        {
+            id: '1',
+            name: 'Scott Allen 1',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '10 courses'
+        },
+        {
+            id: '2',
+            name: 'Scott Allen 2',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '11 courses'
+        },
+        {
+            id: '3',
+            name: 'Scott Allen 3',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '12 courses'
+        },
+        {
+            id: '4',
+            name: 'Scott Allen 4',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '13 courses'
+        },
+        {
+            id: '5',
+            name: 'Scott Allen 5',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg',
+            courses: '14 courses'
+        },
+    ];
+
     return (
         <ScrollView style={{margin: 10}}>
             <SectionPaths paths={paths} 
@@ -76,7 +109,8 @@ const PopularSkillDetails = ({skill, navigation}) => {
             />
             <View style={{margin: 10}} />
             
-            <Authors title="Top Authors" 
+            <Authors authors={authors}
+                title="Top Authors" 
                 type={1} 
                 hideButton={true}
                 navigation={navigation}
