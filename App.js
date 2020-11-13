@@ -20,6 +20,7 @@ import ListPaths from './src/components/ListPaths/list-paths';
 import CourseDetail from './src/components/CourseDetail/course-detail';
 import RelatedPathsCourses from './src/components/Main/Home/RelatedPathsCourses/related-paths-courses';
 import Download from './src/components/Main/Download/download';
+import Setting from './src/components/AccountManagement/Setting/setting';
 import { navName } from './src/Global/constant';
 
 const Stack = createStackNavigator();
@@ -83,6 +84,7 @@ export default function App() {
 
         <Stack.Screen name={navName.courseDetails}
           component={CourseDetail}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen name={navName.relatedPathsCourses}
@@ -91,6 +93,10 @@ export default function App() {
 
         <Stack.Screen name={navName.download}
           component={Download}
+        />
+
+        <Stack.Screen name={navName.setting}
+          component={Setting}
         />
       </Stack.Navigator>
     </NavigationContainer>

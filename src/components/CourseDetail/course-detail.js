@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { Video } from 'expo-av';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Content from './content';
 import RadiusButton from '../Common/radius-button';
 import IconButton from '../Common/icon-button';
@@ -51,8 +53,25 @@ const CourseDetail = ({ navigation }) => {
     const [showDesc, setShowDesc] = useState(false);
 
     return (
-        <View style={{margin: 10}}>
-            <ScrollView>
+        <View style={{ marginTop: 20 }}>
+            <TouchableOpacity style={{ position: 'absolute', top: 20, left: 20, zIndex: 1}}
+                onPress={() => navigation.goBack()}
+            >
+                <Icon name="times" size={27} color="white" />
+            </TouchableOpacity>
+
+            <Video
+                source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                rate={1.0}
+                volume={1.0}
+                isMuted={false}
+                resizeMode="cover"
+                shouldPlay
+                isLooping
+                style={{ width: '100%', height: 170 }}
+            />
+
+            <ScrollView style={{margin: 10}}>
                 <Text style={styles.title} numberOfLines={2}>Microsoft Azure Administrator: Automate Deployment and Config</Text>
                 <View style={{flexDirection: 'row', marginBottom: 15}}>
                     <RadiusButton onPress={() => navigation.push(navName.author)} text='Michael Teske' />
@@ -100,12 +119,16 @@ const CourseDetail = ({ navigation }) => {
                     <Image source={require('../../../assets/related_courses_detail.png')} style={{width: 25, height: 25}}/>
                     <Text style={{color: 'white', fontSize: 15, marginLeft: 15}}>Related paths & courses</Text>
                 </TouchableOpacity>
+                {FlatListItemSeparator()}
                 
-                <FlatList 
-                    data={contents}
-                    renderItem={({item}) => <Content item={item}/>}
-                    ItemSeparatorComponent={FlatListItemSeparator}
-                />
+                <View style={{ paddingBottom: 175 }}>
+                    <Text style={[styles.title, {marginTop: 15}]}>Content</Text>
+                    <FlatList 
+                        data={contents}
+                        renderItem={({item}) => <Content item={item}/>}
+                        ItemSeparatorComponent={FlatListItemSeparator}
+                    />
+                </View>
             </ScrollView>
         </View>
     )

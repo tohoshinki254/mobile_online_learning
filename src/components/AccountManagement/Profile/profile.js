@@ -58,7 +58,9 @@ const Profile = ({ navigation }) => {
             </View>
             <View style={{margin: 15}}/>
             
-            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
+                onPress={() => navigation.push(navName.setting)}
+            >
                 <Text style={[styles.title, {marginRight: 20}]}>Setting</Text>
                 <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
             </TouchableOpacity>
