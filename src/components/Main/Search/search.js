@@ -3,6 +3,7 @@ import { StyleSheet, StatusBar } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
 import StackSearch from './stack-search';
+import { navName } from '../../../Global/constant';
 
 const Stack = createStackNavigator();
 
@@ -10,7 +11,7 @@ const Search = () => {
     const [searchText, setSearchText] = useState('');
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName={navName.search}>
             <Stack.Screen name="Search" 
                 component={StackSearch} 
                 options={{
@@ -25,7 +26,7 @@ const Search = () => {
                             onChangeText={searchText => setSearchText(searchText)}
                             value={searchText}
                         />
-                    )
+                    ),
                 }}
             />
         </Stack.Navigator>

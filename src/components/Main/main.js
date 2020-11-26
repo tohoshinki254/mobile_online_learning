@@ -1,10 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Home from './Home/home';
-import Browse from './Browse/browse';
+import HomeTabNavigator from '../Main/Home/home-tab-navigator';
+import BrowseTabNavigator from '../Main/Browse/browse-tab-navigator';
+import ProfileTabNavigator from '../AccountManagement/Profile/profile-tab-navigator';
 import Search from './Search/search';
-import Profile from '../AccountManagement/Profile/profile';
 import { navName } from '../../Global/constant';
 
 const Tab = createBottomTabNavigator();
@@ -17,9 +17,9 @@ const Main = () => {
             }}
         >
             <Tab.Screen name={navName.home} 
-                component={Home}
+                component={HomeTabNavigator}
                 options={{
-                    tabBarLabel: navName.name,
+                    tabBarLabel: navName.home,
                     tabBarIcon: ({ color }) => {
                         return <Icon name="home" size={27} color={color} />;
                     },
@@ -35,7 +35,7 @@ const Main = () => {
                 }}
             />
             <Tab.Screen name={navName.browse} 
-                component={Browse}
+                component={BrowseTabNavigator}
                 options={{
                     tabBarLabel: navName.browse,
                     tabBarIcon: ({ color }) => {
@@ -44,7 +44,7 @@ const Main = () => {
                 }}
             />
             <Tab.Screen name={navName.profile}
-                component={Profile}
+                component={ProfileTabNavigator}
                 options={{
                     tabBarLabel: navName.profile,
                     tabBarIcon: ({ color }) => {
