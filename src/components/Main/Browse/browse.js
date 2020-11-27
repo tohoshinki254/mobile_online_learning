@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import ImageButton from '../../Common/image-button';
 import RadiusButton from '../../Common/radius-button';
 import SectionPaths from '../Home/SectionPaths/section-paths';

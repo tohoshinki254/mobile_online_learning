@@ -9,6 +9,8 @@ import ListPaths from '../../ListPaths/list-paths';
 import PathDetails from '../../Main/PathDetails/path-details';
 import AuthorDetails from '../../Main/AuthorDetails/author-details';
 import ListPathsTopic from '../../ListPaths/list-paths-topic';
+import Download from '../../Main/Download/download';
+import Setting from '../Setting/setting';
 
 const ProfileTabNavigation = createStackNavigator();
 
@@ -40,6 +42,12 @@ const ProfileTabNavigator = () => {
             />
             <ProfileTabNavigation.Screen name={navName.pathsTopic}
                 component={ListPathsTopic}
+            />
+            <ProfileTabNavigation.Screen name={navName.download}
+                component={Download}
+            />
+            <ProfileTabNavigation.Screen name={navName.setting}
+                component={Setting}
             />
         </ProfileTabNavigation.Navigator>
     )

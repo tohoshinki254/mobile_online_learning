@@ -7,7 +7,9 @@ import RadiusButton from '../Common/radius-button';
 import IconButton from '../Common/icon-button';
 import { navName } from '../../Global/constant';
 
-const CourseDetail = ({ navigation }) => {
+const CourseDetail = ({ route, navigation }) => {
+    const { item } = route.params;
+
     const contents = [
         {
             index: '1',
@@ -72,11 +74,11 @@ const CourseDetail = ({ navigation }) => {
             />
 
             <ScrollView style={{margin: 10}}>
-                <Text style={styles.title} numberOfLines={2}>Microsoft Azure Administrator: Automate Deployment and Config</Text>
+                <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
                 <View style={{flexDirection: 'row', marginBottom: 15}}>
-                    <RadiusButton onPress={() => navigation.push(navName.author)} text='Michael Teske' />
+                    <RadiusButton onPress={() => navigation.push(navName.author)} text={item.author} />
                 </View>
-                <Text style={styles.darkText}>Beginner . Oct 29, 2020 . 34m28s</Text>
+                <Text style={styles.darkText}>{item.level} . {item.released} . {item.duration}</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
                     <IconButton url='https://cdn.iconscout.com/icon/premium/png-256-thumb/bookmark-44-206919.png'
                         text='Bookmark'
@@ -93,13 +95,10 @@ const CourseDetail = ({ navigation }) => {
                 </View>
                 {FlatListItemSeparator()}
                 <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 5}}>
-                    <Text style={{fontSize: 15, color: '#616161', flex: 1}} numberOfLines={showDesc ? undefined : 3}>It is a long established fact that a reader will be distracted by the readable content of a 
-                        page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less 
-                        normal distribution of letters, as opposed to using 'Content here, content here', making it 
-                        look like readable English. Many desktop publishing packages and web page editors now use 
-                        Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web 
-                        sites still in their infancy. Various versions have evolved over the years, sometimes by 
-                        accident, sometimes on purpose (injected humour and the like).
+                    <Text style={{fontSize: 15, color: '#616161', flex: 1}} 
+                        numberOfLines={showDesc ? undefined : 3}
+                    >
+                        {item.description}
                     </Text>
                     <TouchableOpacity style={{backgroundColor: 'lightgray', borderRadius: '3',
                                 width: '10%', justifyContent: 'center', alignItems: 'center'}}

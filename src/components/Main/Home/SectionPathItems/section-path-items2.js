@@ -4,8 +4,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { navName } from '../../../../Global/constant';
 
 const SectionPathItems2 = ({item, navigation }) => {
+    const seePathDetails = () => {
+        navigation.push(navName.path, { item: item });
+    }
+
     return (
-        <TouchableOpacity style={styles.item} onPress={() => navigation.push(navName.path)}>
+        <TouchableOpacity style={styles.item} onPress={() => seePathDetails()}>
             <Image source={{url: item.url}} style={styles.image}/>
             <View style={{marginLeft: 15, marginRight: 10}}>
                 <Text style={{color: '#424242', fontSize: 17}}>{item.title}</Text>

@@ -2,13 +2,28 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import SectionCourses from '../Home/SectionCourses/section-courses';
 
-const AuthorDetails = ({ navigation }) => {
+const AuthorDetails = ({ route, navigation }) => {
     const [showDesc, setShowDesc] = useState(false);
+    
+    const { author } = route.params;
 
     const courses = [
         {
             id: '1',
             title: 'React - The Complete Guide (incl Hooks, React Router, Redux)',
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Maximilian Schwarzmuller',
             level: 'All Levels',
             released: 'November 11, 2020',
@@ -18,6 +33,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '2',
             title: 'The Complete React Developer Course (w/ Hooks and Redux)',
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Andrew Mead',
             level: 'Beginner',
             released: 'October 10, 2020',
@@ -27,6 +55,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '3',
             title: 'GraphQL with React: The Complete Developers Guide',
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Stephen Grider',
             level: 'Intermediate',
             released: 'November 11, 2020',
@@ -36,6 +77,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '4',
             title: 'Complete React Developer in 2020 (w/ Redux, Hooks, GraphQL)',
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Andrei Neagoie',
             level: 'All Levels',
             released: 'November 11, 2020',
@@ -45,6 +99,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '5',
             title: 'NodeJS - The Complete Guide (MVC, REST APIs, GraphQL, Deno)',
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Maximilian Schwarzmuller',
             level: 'All Levels',
             released: 'November 11, 2020',
@@ -54,6 +121,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '6',
             title: "MongoDB - The Complete Developer's Guide 2020",
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Maximilian Schwarzmuller',
             level: 'All Levels',
             released: 'October 10, 2020',
@@ -63,6 +143,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '7',
             title: 'React Native - The Practical Guide [2020 Edition]',
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Maximilian Schwarzmuller',
             level: 'All Levels',
             released: 'October 10, 2020',
@@ -72,6 +165,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '8',
             title: 'The Complete Web Developer in 2020: Zero to Mastery',
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Andrew Mead',
             level: 'All Levels',
             released: 'September 9, 2020',
@@ -81,6 +187,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '9',
             title: "Typescript: The Complete Developer's Guide [2020]",
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Stephen Grider',
             level: 'Beginner',
             released: 'October 10, 2020',
@@ -90,6 +209,19 @@ const AuthorDetails = ({ navigation }) => {
         {
             id: '10',
             title: 'Angular - The Complete Guide (2020 Edition)',
+            description: `This course is fully up-to-date with the latest version of React and includes React Hooks! Of course it will be kept up-to-date in the future
+
+            ---
+            
+            What's this course about?
+            
+            Learn React or dive deeper into it. Learn the theory, solve assignments, practice in demo projects and build one big application which is improved throughout the course: The Burger Builder!
+            
+            More details please!
+            
+            JavaScript is the major driver of modern web applications since it's the only programming language which runs in the browser and hence allows you to provide highly reactive apps. You'll be able to achieve mobile-app like user experiences in the web.
+            
+            But using JavaScript can be challenging - it quickly becomes overwhelming to create a nice web app with vanilla JavaScript and jQuery only.`,
             author: 'Andrew Mead',
             level: 'All Levels',
             released: 'October 10, 2020',
@@ -103,19 +235,14 @@ const AuthorDetails = ({ navigation }) => {
             <View style={{alignItems: 'center', marginBottom: 5}}>
                 <Image 
                     style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
-                    source={{url: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg'}}
+                    source={{url: author.image}}
                 />
-                <Text style={styles.title} numberOfLines={1}>Deborah Kurata</Text>
+                <Text style={styles.title} numberOfLines={1}>{author.name}</Text>
                 <Text style={styles.darkText}>Pluralsight Author</Text>
             </View>
 
-            <Text style={styles.description} numberOfLines={showDesc ? undefined : 8}>It is a long established fact that a reader will be distracted by the readable content of a 
-                page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less 
-                normal distribution of letters, as opposed to using 'Content here, content here', making it 
-                look like readable English. Many desktop publishing packages and web page editors now use 
-                Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web 
-                sites still in their infancy. Various versions have evolved over the years, sometimes by 
-                accident, sometimes on purpose (injected humour and the like).
+            <Text style={styles.description} numberOfLines={showDesc ? undefined : 8}>
+                {author.description}
             </Text>
             <TouchableOpacity onPress={() => setShowDesc(!showDesc)} style={{marginBottom: 15}}>
                 <Text style={{color: '#FF5252', fontSize: 17}}>{showDesc ? 'Less' : 'More'}</Text>

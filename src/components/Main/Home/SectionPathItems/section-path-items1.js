@@ -3,8 +3,12 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { navName } from '../../../../Global/constant';
 
 const SectionPathItems1 = ({item, navigation}) => {
+    const seePathDetails = () => {
+        navigation.push(navName.path, { item: item });
+    }
+
     return (
-        <TouchableOpacity style={styles.item} onPress={() => navigation.push(navName.path)}>
+        <TouchableOpacity style={styles.item} onPress={() => seePathDetails()}>
             <Image source={{url: item.url}} style={styles.image}/>
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14, marginBottom: 5}} numberOfLines={1}>{item.title}</Text>

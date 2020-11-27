@@ -4,7 +4,7 @@ import { navName } from '../../../../Global/constant';
 
 const SectionCoursesItem1 = ({item, navigation}) => {
     const getDetails = () => {
-        navigation.push(navName.courseDetails)
+        navigation.push(navName.courseDetails, { item: item })
     }
 
     return (
