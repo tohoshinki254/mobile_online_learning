@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeTabNavigator from '../Main/Home/home-tab-navigator';
 import BrowseTabNavigator from '../Main/Browse/browse-tab-navigator';
 import ProfileTabNavigator from '../AccountManagement/Profile/profile-tab-navigator';
-import Search from './Search/search';
+import SearchTabNavigator from '../Main/Search/search-tab-navigator';
 import { navName } from '../../Global/constant';
 
 const Tab = createBottomTabNavigator();
@@ -26,7 +26,7 @@ const Main = () => {
                 }}
             />
             <Tab.Screen name={navName.search} 
-                component={Search}
+                component={SearchTabNavigator}
                 options={{
                     tabBarLabel: navName.search,
                     tabBarIcon: ({ color }) => {

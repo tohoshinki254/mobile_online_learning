@@ -156,6 +156,7 @@ const CourseDetail = ({ route, navigation }) => {
                     <RadiusButton onPress={() => seeAuthorDetails()} text={item.author} />
                 </View>
                 <Text style={styles.darkText}>{item.level} . {item.released} . {item.duration}</Text>
+
                 <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
                     <IconButton url='https://cdn.iconscout.com/icon/premium/png-256-thumb/bookmark-44-206919.png'
                         text='Bookmark'
