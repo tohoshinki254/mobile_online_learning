@@ -11,6 +11,7 @@ import AuthorDetails from '../../Main/AuthorDetails/author-details';
 import ListPathsTopic from '../../ListPaths/list-paths-topic';
 import Download from '../../Main/Download/download';
 import Setting from '../Setting/setting';
+import RelatedPathsCourses from '../../Main/Home/RelatedPathsCourses/related-paths-courses';
 
 const ProfileTabNavigation = createStackNavigator();
 
@@ -48,6 +49,9 @@ const ProfileTabNavigator = () => {
             />
             <ProfileTabNavigation.Screen name={navName.setting}
                 component={Setting}
+            />
+            <ProfileTabNavigation.Screen name={navName.relatedPathsCourses}
+                component={RelatedPathsCourses}
             />
         </ProfileTabNavigation.Navigator>
     )

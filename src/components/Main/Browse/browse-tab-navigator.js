@@ -10,6 +10,8 @@ import PathDetails from '../PathDetails/path-details';
 import ListPathsTopic from '../../ListPaths/list-paths-topic';
 import CourseDetail from '../../CourseDetail/course-detail';
 import AuthorDetails from '../AuthorDetails/author-details';
+import RelatedPathsCourses from '../Home/RelatedPathsCourses/related-paths-courses';
+import ListCourses from '../../ListCourses/list-courses';
 
 const BrowseTabNavigation = createStackNavigator();
 
@@ -40,9 +42,16 @@ const BrowseTabNavigator = () => {
             />
             <BrowseTabNavigation.Screen name={navName.courseDetails}
                 component={CourseDetail}
+                options={{ headerShown: false }}
             />
             <BrowseTabNavigation.Screen name={navName.author}
                 component={AuthorDetails}
+            />
+            <BrowseTabNavigation.Screen name={navName.relatedPathsCourses}
+                component={RelatedPathsCourses}
+            />
+            <BrowseTabNavigation.Screen name={navName.listCourses}
+                component={ListCourses}
             />
         </BrowseTabNavigation.Navigator>
     )

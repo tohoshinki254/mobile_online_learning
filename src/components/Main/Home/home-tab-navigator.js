@@ -7,6 +7,7 @@ import ListPaths from '../../ListPaths/list-paths';
 import PathDetails from '../PathDetails/path-details';
 import AuthorDetails from '../AuthorDetails/author-details';
 import ListPathsTopic from '../../ListPaths/list-paths-topic';
+import RelatedPathsCourses from '../Home/RelatedPathsCourses/related-paths-courses';
 import { navName } from '../../../Global/constant';
 
 const HomeTabNavigationStack = createStackNavigator();
@@ -36,6 +37,9 @@ const HomeTabNavigator = () => {
             />
             <HomeTabNavigationStack.Screen name={navName.pathsTopic}
                 component={ListPathsTopic}
+            />
+            <HomeTabNavigationStack.Screen name={navName.relatedPathsCourses}
+                component={RelatedPathsCourses}
             />
         </HomeTabNavigationStack.Navigator>
     )

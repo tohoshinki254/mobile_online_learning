@@ -11,6 +11,10 @@ function Login({ navigation }) {
         navigation.navigate(navName.main);
     }
 
+    const withoutLogin = () => {
+        navigation.navigate(navName.main);
+    }
+
     return (
         <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -37,6 +41,9 @@ function Login({ navigation }) {
                     />
 
                     <Button onPress={() => loggedIn()} text="Sign In"/>
+                    <View style={{marginBottom: 30}} />
+
+                    <Button onPress={() => withoutLogin()} text="Explore without a subscription"/>
 
                     <TouchableOpacity
                         style={styles.othersOption}

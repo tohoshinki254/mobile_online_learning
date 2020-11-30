@@ -243,7 +243,7 @@ const Profile = ({ navigation }) => {
                 <Image source={require('../../../../assets/no_avatar.png')} style={styles.image}/>
                 <Text style={styles.name}>Thanh Tien</Text>
             </View>
-            <View style={{margin: 15}}/>
+            <View style={{margin: 10}}/>
 
             <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
                 onPress={() => navigation.push(navName.download, { courses: courses })}
@@ -251,40 +251,48 @@ const Profile = ({ navigation }) => {
                 <Text style={[styles.title, {marginRight: 20}]}>Downloads</Text>
                 <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
             </TouchableOpacity>
-            <View style={{margin: 15}}/>
+            <View style={{margin: 10}}/>
 
             <Text style={styles.title}>Interests</Text>
             <ScrollView horizontal={true} style={{marginTop: 13}}>
                 {renderListSkills(skills)}
             </ScrollView>
-            <View style={{margin: 15}}/>
+            <View style={{margin: 10}}/>
 
             <Text style={styles.title}>Activity Insights (last 30 days)</Text>
-            <View style={{margin: 15}}/>
+            <View style={{margin: 10}}/>
 
             <Text style={styles.darkText}>TOTAL ACTIVE DAYS</Text>
             <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
                 <Text style={styles.title}>0</Text>
                 <Text style={[styles.darkText, {marginLeft: 15}]}>0 day streak</Text>
             </View>
-            <View style={{margin: 15}}/>
+            <View style={{margin: 10}}/>
 
             <Text style={styles.darkText}>MOST ACTIVE TIME OF DAY</Text>
             <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
                 <Text style={styles.title}>7:00 AM</Text>
             </View>
-            <View style={{margin: 15}}/>
+            <View style={{margin: 10}}/>
 
             <Text style={styles.darkText}>MOST VIEWED SUBJECT</Text>
             <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
                 <Text style={styles.title}>N/A</Text>
             </View>
-            <View style={{margin: 15}}/>
+            <View style={{margin: 10}}/>
             
             <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
                 onPress={() => navigation.push(navName.setting)}
             >
                 <Text style={[styles.title, {marginRight: 20}]}>Setting</Text>
+                <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+            </TouchableOpacity>
+
+            <View style={{margin: 10}}/>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
+                onPress={() => navigation.popToTop()}
+            >
+                <Text style={[styles.title, {marginRight: 20}]}>Logout</Text>
                 <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
             </TouchableOpacity>
         </View>

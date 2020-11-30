@@ -49,7 +49,7 @@ const Authors = ({authors, title, type, hideButton, eventButton, navigation, rou
     );
 
     return (
-        <View style={{ margin: route != undefined ? route.params?.margin : 0}}>
+        <View style={{ margin: route != undefined ? 10 : 0}}>
             <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', marginBottom: 10}}>
                 <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{(route !== undefined ? route.params?.title : title)}</Text>
                 {(route !== undefined ? route.params?.hideButton : hideButton) ? null : 
