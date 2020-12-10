@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Button from '../../Common/button';
-import { navName } from '../../../Global/constant';
+import { forgetPassword } from '../../../actions/authentication-actions';
 
 const ForgetPassword = ({ navigation }) => {
-    const [email, onChangeEmail] = useState();
+    const [email, setEmail] = useState();
+
+    const [status, setStatus] = useState({
+        successful: false,
+        message: ''
+    });
+
+    useEffect(() => {
+        if (status.successful) {
+            alert('Check email');
+            navigation.goBack();
+        } else {
+            if (status.message !== '') {
+                alert(status.message);
+            }
+        }
+    }, [status]);
+
     return (
         <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -24,12 +41,12 @@ const ForgetPassword = ({ navigation }) => {
                     <Text style={styles.text}>Email</Text>
                     <TextInput 
                         style={styles.textInput}
-                        onChangeText={email => onChangeEmail(email)}
+                        onChangeText={email => setEmail(email)}
                         value={email}
                     />
                     
                     <View style={{marginBottom: 30}}>
-                        <Button onPress={() => {}} text="Send email"/>
+                        <Button onPress={() => forgetPassword(email, setStatus)} text="Send email"/>
                     </View>
                     
                     <Button onPress={() => navigation.goBack()} text="Cancel"/>

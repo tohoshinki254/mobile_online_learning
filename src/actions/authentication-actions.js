@@ -27,7 +27,6 @@ export const register = (username, email, phone, password, name, setStatus) => {
         password: password,
         name: name
     }).then((response) => {
-        console.log(response.status);
         if (response.status === 200) {
             setStatus({ successful: true, message: response.data.message });
         } else {
@@ -36,4 +35,18 @@ export const register = (username, email, phone, password, name, setStatus) => {
     }).catch((error) => {
         setStatus({ successful: false, message: 'Error' });
     });
+}
+
+export const forgetPassword = (email, setStatus) => {
+    axios.post(API_URL + 'user/forget-pass/send-email', {
+        email: email
+    }).then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, message: response.data.message });
+        } else {
+            setStatus({ successful: false, message: response.data.message });
+        }
+    }).catch((error) => {
+        setStatus({ successful: false, message: 'Error' });
+    })
 }

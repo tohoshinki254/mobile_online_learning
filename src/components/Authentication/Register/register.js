@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import Button from '../../Common/button';
 import { navName } from '../../../Global/constant';
 import { register } from '../../../actions/authentication-actions';
 
 const Register = ({ navigation }) => {
-    const [name, setName] = useState();
-    const [username, setUsername] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [phone, setPhone] = useState();
-    const [rePassword, setRePassword] = useState();
+    const [name, setName] = useState({ value: '', error: false });
+    const [username, setUsername] = useState({ value: '', error: false });
+    const [email, setEmail] = useState({ value: '', error: false });
+    const [password, setPassword] = useState({ value: '', error: false });
+    const [phone, setPhone] = useState({ value: '', error: false });
+    const [rePassword, setRePassword] = useState({ value: '', error: false });
 
     const [status, setStatus] = useState({
         successful: false,
@@ -26,7 +26,40 @@ const Register = ({ navigation }) => {
                 alert(status.message);
             }
         }
-    }, [status])
+    }, [status]);
+
+    const handleUsernameChange = (username) => {
+        const pattern = new RegExp(`/^[a-zA-Z0-9.\-_$@*!]{6,16}$/`);
+        const newUsername = { value: username, error: !pattern.test() };
+        setUsername(newUsername);
+    }
+
+    const handleNameChange = (name) => {
+        const newName = { value: name, error: value === '' };
+        setName(newName);
+    }
+
+    const handleEmailChange = (email) => {
+        const pattern = new RegExp(/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        const newEmail = { value: email, error: !pattern.test() };
+        setEmail(newEmail);
+    }
+
+    const handlePasswordChange = (password) => {
+        const pattern = new RegExp(`/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/`);
+        const newPassword = { value: password, error: !pattern.test() };
+        setPassword(newPassword);
+    }
+
+    const handleRePasswordChange = (rePassword) => {
+        const newRePassword = {value: rePassword, error: !(rePassword === password.value)}
+        setRePassword(newRePassword);
+    }
+
+    const handlePhoneChange = (phone) => {
+        const newPhone = { value: phone, error: phone === '' };
+        setPhone(newPhone);
+    }
 
     return (
         <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
@@ -41,51 +74,73 @@ const Register = ({ navigation }) => {
                     <Text style={styles.text}>Username</Text>
                     <TextInput 
                         style={styles.textInput}
-                        onChangeText={username => setUsername(username)}
-                        value={username}
+                        onChangeText={handleUsernameChange}
+                        value={username.value}
                     />
+                    {/* {username.error ? 
+                        <Text style={styles.error}>Only contain a-z, 0-9 and length from 6 to 16]</Text> : 
+                        <View style={{marginBottom: 20}}/>
+                    } */}
 
                     <Text style={styles.text}>Name</Text>
                     <TextInput 
                         style={styles.textInput}
-                        onChangeText={name => setName(name)}
-                        value={name}
+                        onChangeText={handleNameChange}
+                        value={name.value}
                     />
+                    {/* {name.error ? 
+                        <Text style={styles.error}>Your name is not empty</Text> : 
+                        <View style={{marginBottom: 20}}/>
+                    } */}
 
                     <Text style={styles.text}>Email</Text>
                     <TextInput 
                         style={styles.textInput}
-                        onChangeText={email => setEmail(email)}
-                        value={email}
+                        onChangeText={handleEmailChange}
+                        value={email.value}
                     />
+                    {/* {email.error ? 
+                        <Text style={styles.error}>Email wrong format</Text> : 
+                        <View style={{marginBottom: 20}}/>
+                    } */}
 
                     <Text style={styles.text}>Phone</Text>
                     <TextInput 
                         style={styles.textInput}
-                        onChangeText={phone => setPhone(phone)}
-                        value={phone}
+                        onChangeText={handlePhoneChange}
+                        value={phone.value}
                         keyboardType='numeric'
                     />
+                    {/* {phone.error ? 
+                        <Text style={styles.error}>Phone is not empty</Text> : 
+                        <View style={{marginBottom: 20}}/>
+                    } */}
 
                     <Text style={styles.text}>Password</Text>
                     <TextInput 
                         style={styles.textInput}
-                        onChangeText={password => setPassword(password)}
-                        value={password}
-                        textContentType={password}
+                        onChangeText={handlePasswordChange}
+                        value={password.value}
                         secureTextEntry={true}
                     />
+                    {/* {password.error ? 
+                        <Text style={styles.error}>Must contain a-z, A-Z & 0-9 and length greater than 8</Text> : 
+                        <View style={{marginBottom: 20}}/>
+                    } */}
 
                     <Text style={styles.text}>Confirm Password</Text>
                     <TextInput 
                         style={styles.textInput}
-                        onChangeText={rePassword => setRePassword(rePassword)}
-                        value={rePassword}
-                        textContentType={password}
+                        onChangeText={handleRePasswordChange}
+                        value={rePassword.value}
                         secureTextEntry={true}
                     />
+                    {/* {rePassword.error ? 
+                        <Text style={styles.error}>Does not match password above</Text> : 
+                        <View style={{marginBottom: 20}}/>
+                    } */}
 
-                    <Button onPress={() => register(username, email, phone, password, name, setStatus)} 
+                    <Button onPress={() => register(username.value, email.value, phone.value, password.value, name.value, setStatus)} 
                         text="Create an account"
                     />
 
@@ -106,7 +161,7 @@ const styles = StyleSheet.create({
     root: {
         width: '100%',
         padding: 10,
-        marginTop: 24
+        marginTop: 24,
     },
     text: {
         fontSize: 13,
@@ -121,12 +176,17 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderColor: 'gray',
         padding: 5,
-        marginBottom: 20,
+        marginBottom: 20
     },
     othersOption: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 30,
+        marginBottom: 30
+    },
+    error: {
+        color: 'red',
+        marginBottom: 20
     }
 });
 
