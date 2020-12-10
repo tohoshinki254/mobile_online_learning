@@ -1,67 +1,69 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Button from '../../Common/button';
 import { navName } from '../../../Global/constant';
+import { AuthenticationContext } from '../../../providers/authentication-provider';
 
 function Login({ navigation }) {
     const [username, onChangeUsername] = useState();
     const [password, onChangePassword] = useState();
+    const authContext = useContext(AuthenticationContext);
 
-    const loggedIn = () => {
-        navigation.navigate(navName.main);
-    }
+    useEffect(() => {
+        if (authContext.state.isAuthenticated) {
+            navigation.navigate(navName.main);
+        }
+    }, [authContext])
 
     const withoutLogin = () => {
         navigation.navigate(navName.main);
     }
 
     return (
-        <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.root}>
-                    <Text 
-                        style={{alignSelf: 'center', fontSize: 25, marginBottom: 40, color: '#616161'}}
-                    >
-                        Sign In
-                    </Text>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.root}>
+                <Text 
+                    style={{alignSelf: 'center', fontSize: 25, marginBottom: 40, color: '#616161'}}
+                >
+                    Sign In
+                </Text>
 
-                    <Text style={styles.text}>Email or username</Text>
-                    <TextInput 
-                        style={styles.textInput}
-                        onChangeText={username => onChangeUsername(username)}
-                        value={username}
-                    />
+                <Text style={styles.text}>Email</Text>
+                <TextInput 
+                    style={styles.textInput}
+                    onChangeText={username => onChangeUsername(username)}
+                    value={username}
+                />
 
-                    <Text style={styles.text}>Password</Text>
-                    <TextInput 
-                        style={styles.textInput}
-                        onChangeText={password => onChangePassword(password)}
-                        value={password}
-                        secureTextEntry={true}
-                    />
+                <Text style={styles.text}>Password</Text>
+                <TextInput 
+                    style={styles.textInput}
+                    onChangeText={password => onChangePassword(password)}
+                    value={password}
+                    secureTextEntry={true}
+                />
 
-                    <Button onPress={() => loggedIn()} text="Sign In"/>
-                    <View style={{marginBottom: 30}} />
+                <Button onPress={() => {authContext.login(username, password)}} text="Sign In"/>
+                <View style={{marginBottom: 30}} />
 
-                    <Button onPress={() => withoutLogin()} text="Explore without a subscription"/>
+                <Button onPress={() => withoutLogin()} text="Explore without a subscription"/>
 
-                    <TouchableOpacity
-                        style={styles.othersOption}
-                        onPress={() => navigation.navigate(navName.forgetPassword)}
-                    >
-                        <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>Forget Password</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.othersOption}
+                    onPress={() => navigation.navigate(navName.forgetPassword)}
+                >
+                    <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>Forget Password</Text>
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        style={styles.othersOption}
-                        onPress={() => navigation.navigate(navName.register)}
-                    >
-                        <Text style={{fontSize: 17, color: 'darkgrey'}}>New here?</Text>
-                        <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Create an account</Text>
-                    </TouchableOpacity>
-                </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+                <TouchableOpacity
+                    style={styles.othersOption}
+                    onPress={() => navigation.navigate(navName.register)}
+                >
+                    <Text style={{fontSize: 17, color: 'darkgrey'}}>New here?</Text>
+                    <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Create an account</Text>
+                </TouchableOpacity>
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 
