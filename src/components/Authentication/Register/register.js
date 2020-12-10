@@ -35,7 +35,7 @@ const Register = ({ navigation }) => {
     }
 
     const handleNameChange = (name) => {
-        const newName = { value: name, error: value === '' };
+        const newName = { value: name, error: name === '' };
         setName(newName);
     }
 
