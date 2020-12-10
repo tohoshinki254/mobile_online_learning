@@ -18,3 +18,22 @@ export const login = (dispatch) => (username, password) => {
         dispatch({ type: LOGIN_FAILED })
     });
 }
+
+export const register = (username, email, phone, password, name, setStatus) => {
+    axios.post(API_URL + 'user/register', {
+        username: username,
+        email: email,
+        phone: phone,
+        password: password,
+        name: name
+    }).then((response) => {
+        console.log(response.status);
+        if (response.status === 200) {
+            setStatus({ successful: true, message: response.data.message });
+        } else {
+            setStatus({ successful: false, message: response.data.message });
+        }
+    }).catch((error) => {
+        setStatus({ successful: false, message: 'Error' });
+    });
+}
