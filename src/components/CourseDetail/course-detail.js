@@ -78,11 +78,14 @@ const CourseDetail = ({ route, navigation }) => {
             />
 
             <ScrollView style={{margin: 10}}>
-                <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
+                <Text style={styles.title} numberOfLines={2}>{item.title || item.courseTitle}</Text>
                 <View style={{flexDirection: 'row', marginBottom: 15}}>
-                    <RadiusButton onPress={() => seeAuthorDetails()} text={item["instructor.user.name"]} />
+                    <RadiusButton onPress={() => seeAuthorDetails()} text={item["instructor.user.name"] || item.instructorName} />
                 </View>
-                <Text style={styles.darkText}>{`${monthNames[parseInt(item.createdAt.slice(5, 7)) - 1]} ${item.createdAt.slice(8, 10)}, ${item.createdAt.slice(0, 4)}  .  ${item.totalHours}h`}</Text>
+                <Text style={styles.darkText}>{item.createAt !== undefined ? 
+                    `${monthNames[parseInt(item.createdAt.slice(5, 7)) - 1]} ${item.createdAt.slice(8, 10)}, ${item.createdAt.slice(0, 4)}  .  ${item.totalHours}h`
+                    : `${monthNames[parseInt(item.latestLearnTime.slice(5, 7)) - 1]} ${item.latestLearnTime.slice(8, 10)}, ${item.latestLearnTime.slice(0, 4)}  .  ${item.process}h`}
+                </Text>
 
                 <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
                     <IconButton url='https://cdn.iconscout.com/icon/premium/png-256-thumb/bookmark-44-206919.png'

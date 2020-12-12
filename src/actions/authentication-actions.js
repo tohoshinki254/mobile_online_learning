@@ -8,13 +8,15 @@ export const login = (dispatch) => (username, password) => {
     axios.post(API_URL + 'user/login', {
         email: username,
         password: password
-    }).then((response) => {
+    })
+    .then((response) => {
         if (response.status === 200) {
             dispatch({ type: LOGIN_SUCCESSFUL, data: response.data })
         } else {
             dispatch({ type: LOGIN_FAILED })
         }
-    }).catch((error) => {
+    })
+    .catch((error) => {
         dispatch({ type: LOGIN_FAILED })
     });
 }
@@ -26,13 +28,15 @@ export const register = (username, email, phone, password, name, setStatus) => {
         phone: phone,
         password: password,
         name: name
-    }).then((response) => {
+    })
+    .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, message: response.data.message });
         } else {
             setStatus({ successful: false, message: response.data.message });
         }
-    }).catch((error) => {
+    })
+    .catch((error) => {
         setStatus({ successful: false, message: 'Error' });
     });
 }
@@ -40,13 +44,15 @@ export const register = (username, email, phone, password, name, setStatus) => {
 export const forgetPassword = (email, setStatus) => {
     axios.post(API_URL + 'user/forget-pass/send-email', {
         email: email
-    }).then((response) => {
+    })
+    .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, message: response.data.message });
         } else {
             setStatus({ successful: false, message: response.data.message });
         }
-    }).catch((error) => {
+    })
+    .catch((error) => {
         setStatus({ successful: false, message: 'Error' });
     })
 }
