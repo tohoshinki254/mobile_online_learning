@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, ScrollView, FlatList, TouchableOpacity } from 'react-native';
-import { navName } from '../../../../Global/constant';
+import { StyleSheet, Text, View, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import AuthorItem1 from './author-item1';
+import AuthorItem2 from './author-item2';
 
 const Authors = ({authors, title, type, hideButton, eventButton, navigation, route}) => {
     const FlatListItemSeparator = () => {
@@ -21,31 +22,18 @@ const Authors = ({authors, title, type, hideButton, eventButton, navigation, rou
     const renderListAuthorsType1 = (authors) => {
         if (authors === undefined) return;
         return authors.map(author => 
-            <TouchableOpacity style={{marginRight: 15, alignItems: 'center'}}
-                onPress={() => navigation.push(navName.author, { author: author })}
-            >
-                <Image 
-                    style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
-                    source={{url: author.image}}
-                />
-                <Text style={{color: '#424242', fontSize: 15, maxWidth: 100}}>{author.name}</Text>
-            </TouchableOpacity>
+            <AuthorItem1
+                author={author}
+                navigation={navigation}
+            />
         );
     };
 
     const renderListAuthorsType2 = (author) => (
-            <TouchableOpacity style={{margin: 10, alignItems: 'center', flexDirection: 'row'}}
-                onPress={() => navigation.push(navName.author, { author: author })}
-            >
-                <Image 
-                    style={{width: 65, height: 65, borderRadius: 65/2}}
-                    source={{url: author.image}}
-                />
-                <View style={{marginLeft: 20}}>
-                    <Text style={{color: '#424242', fontSize: 17}}>{author.name}</Text>
-                    <Text style={styles.darkText}>{author.courses}</Text>
-                </View>
-            </TouchableOpacity>
+        <AuthorItem2 
+            author={author}
+            navigation={navigation}
+        />
     );
 
     return (
@@ -75,7 +63,7 @@ const Authors = ({authors, title, type, hideButton, eventButton, navigation, rou
                 :
                 <View style={{marginLeft: 5}}>
                     <ScrollView horizontal={true}>
-                        {renderListAuthorsType1(route !== undefined ? route.params?.authors : authors)}
+                        {renderListAuthorsType1(authors)}
                     </ScrollView>
                 </View>
             }
