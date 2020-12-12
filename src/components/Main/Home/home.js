@@ -134,7 +134,6 @@ const Home = ({ navigation }) => {
     }, [authContext, continueCourses, setContinueCourses])
 
     const renderContinueCourses = () => {
-        console.log(continueCourses);
         if (continueCourses.courses.length !== 0) {
             return <View>
                 <SectionCourses courses={continueCourses.courses} 

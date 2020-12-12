@@ -17,3 +17,23 @@ export const getNewCourses = (limit, page, setStatus) => {
         setStatus({ successful: false });
     })
 }
+
+export const getDetailWithLesson = (token, courseId, setStatus) => {
+    axios.get(API_URL + 'course/detail-with-lesson/' + courseId, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, details: response.data.payload });
+            
+        } else {
+            setStatus({ successful: false })
+            
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false });
+    })
+}

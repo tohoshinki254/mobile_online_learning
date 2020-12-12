@@ -17,11 +17,11 @@ const Content = ({item}) => {
         <View style={{marginTop: 10}}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 17}}>
                 <View style={styles.index}> 
-                    <Text style={{fontWeight: 'bold', color: '#616161'}}>{item.index}</Text>
+                    <Text style={{fontWeight: 'bold', color: '#616161'}}>{item.numberOrder}</Text>
                 </View>
                 <View style={{flex: 1, marginLeft: 15}}> 
-                    <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
-                    <Text style={{color: 'grey', fontSize: 15}}>{item.duration}</Text>
+                    <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
+                    <Text style={{color: 'grey', fontSize: 15}}>{item.sumHours}h</Text>
                 </View>
                 <TouchableOpacity>
                     <Image source={{url: 'https://static.thenounproject.com/png/1380510-200.png'}}
@@ -29,8 +29,8 @@ const Content = ({item}) => {
                     />
                 </TouchableOpacity>
             </View>
-            {item.content.map(content => (
-                renderContent(content)
+            {item.lesson.map(content => (
+                renderContent(content.name)
             ))}
         </View> 
     )
