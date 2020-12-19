@@ -6,9 +6,10 @@ import Content from './content';
 import RadiusButton from '../Common/radius-button';
 import IconButton from '../Common/icon-button';
 import { navName, monthNames } from '../../Global/constant';
-import { getDetailWithLesson } from '../../actions/course-actions';
+import { getDetailWithLesson, getCourseInfo } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
 import { likeCourse } from '../../actions/user-actions';
+import { getDetailInstructor } from '../../actions/instructor-actions';
 
 const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
@@ -16,10 +17,14 @@ const CourseDetail = ({ route, navigation }) => {
     const authContext = useContext(AuthenticationContext);
     const [course, setCourse] = useState({ successful: false, details: null });
     const [like, setLike] = useState({ successful: false });
+    const [author, setAuthor] = useState({ successful: false, info: null });
 
     useEffect(() => {
         if (!course.successful && (course.details === null || course.details === undefined)) {
-            getDetailWithLesson(authContext.state.token, item.id, setCourse);
+            getCourseInfo(authContext.state.token, item.id, setCourse);
+        }
+        if (course.successful) {
+            getDetailInstructor(course.details.instructorId, setAuthor);
         }
     }, [authContext, course, setCourse])
 
@@ -39,7 +44,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     const seeAuthorDetails = () => {
-        navigation.push(navName.author/*, { author: authors.find(a => a.name === item.author)}*/)
+        navigation.push(navName.author, { author: author.info });
     }
 
     const likeCourseAction = () => {
@@ -49,7 +54,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     return (
-        <View style={{ marginTop: 20, marginBottom: 175 }}>
+        <View style={{ marginTop: 20, marginBottom: 175, height: '100%' }}>
             {course.successful ?
             <View >
                 <TouchableOpacity style={{ position: 'absolute', top: 20, left: 20, zIndex: 1}}
@@ -69,12 +74,13 @@ const CourseDetail = ({ route, navigation }) => {
                     style={{ width: '100%', height: 170 }}
                 />
 
-                <ScrollView style={{margin: 10, marginBottom: 175}}>
+                <ScrollView style={{margin: 10, marginBottom: 175}} showsVerticalScrollIndicator={false}>
                     <Text style={styles.title} numberOfLines={2}>{course.details.title}</Text>
-                    <View style={{flexDirection: 'row', marginBottom: 15}}>
-                        <RadiusButton onPress={() => seeAuthorDetails()} text={course.details["instructorName"]} />
+                    <View style={{flexDirection: 'row', marginBottom: 15, justifyContent: 'space-between'}}>
+                        <RadiusButton onPress={() => seeAuthorDetails()} text={author.successful ? author.info.name : null} />
                     </View>
                     <Text style={styles.darkText}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours}h`}</Text>
+                    <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold' }}>{course.details.price === 0 ? "FREE" : item.price + " VND"}</Text>
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
                         <IconButton url='https://cdn.iconscout.com/icon/premium/png-256-thumb/bookmark-44-206919.png'
@@ -85,8 +91,8 @@ const CourseDetail = ({ route, navigation }) => {
                             text='Like'
                             onPress={() => likeCourseAction()}
                         />
-                        <IconButton url='https://www.svgimages.com/svg-image/s8/download-folder-icon-grey-256x256.png'
-                            text='Download'
+                        <IconButton url='https://www.shareicon.net/data/2015/08/16/85981_buy_512x512.png'
+                            text='Buy now'
                             onPress={() => {}}
                         />
                     </View>
@@ -116,14 +122,8 @@ const CourseDetail = ({ route, navigation }) => {
                         <Text style={{color: 'white', fontSize: 15, marginLeft: 15}}>Related paths & courses</Text>
                     </TouchableOpacity>
                     {FlatListItemSeparator()}
-                    
-                    
-                    <Text style={[styles.title, {marginTop: 15}]}>Content</Text>
-                    <FlatList 
-                        data={course.details.section}
-                        renderItem={({item}) => <Content item={item}/>}
-                        ItemSeparatorComponent={FlatListItemSeparator}
-                    />
+
+                    <Content courseId={item.id} />
                 </ScrollView>
             </View>
             : null}

@@ -18,6 +18,11 @@ const SectionCoursesItem1 = ({item, navigation}) => {
                 {item.createdAt !== undefined ? `${monthNames[parseInt(item.createdAt.slice(5, 7)) - 1]} ${item.createdAt.slice(8, 10)}, ${item.createdAt.slice(0, 4)}  .  ${item.totalHours}h`
                         : (item.latestLearnTime !== undefined ? `${monthNames[parseInt(item.latestLearnTime.slice(5, 7)) - 1]} ${item.latestLearnTime.slice(8, 10)}, ${item.latestLearnTime.slice(0, 4)}  .  ${item.process}h` : null)}
                 </Text>
+                {item.price !== undefined ?
+                    <Text style={styles.price}>
+                        {item.price === 0 ? "FREE" : item.price + " VND"}
+                    </Text>
+                : null}
             </View>
             <TouchableOpacity>
                 <Image source={{url: 'https://static.thenounproject.com/png/1380510-200.png'}}
@@ -30,7 +35,7 @@ const SectionCoursesItem1 = ({item, navigation}) => {
 
 const styles = StyleSheet.create({
     item: {
-        margin: 10,
+        margin: 5,
         flexDirection: 'row',
     },
     image: {
@@ -41,6 +46,11 @@ const styles = StyleSheet.create({
         color: 'gray',
         fontSize: 14,
         marginTop: 3,
+    },
+    price: {
+        color: 'red',
+        fontSize: 15,
+        marginTop: 3
     }
 });
 

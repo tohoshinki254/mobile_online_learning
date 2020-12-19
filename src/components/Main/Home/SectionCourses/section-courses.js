@@ -58,6 +58,7 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton, navigati
                         data={courses}
                         renderItem={({item}) => <SectionCoursesItem1 item={item} navigation={navigation}/>}
                         ItemSeparatorComponent={FlatListItemSeparator}
+                        showsVerticalScrollIndicator={false}
                     />
                 </View>
                 :

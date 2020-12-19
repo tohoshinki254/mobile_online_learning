@@ -1,20 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import RadiusButton from '../../Common/radius-button';
 import { navName } from '../../../Global/constant';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
+import { getCategoryDetails } from '../../../actions/category-actions';
 
 const Profile = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
     const userInfo = authContext.state.userInfo;
 
-    const skills = [
-        'Angular', 'JavaScript', 'C#', 'Java', 'Data Analysis', 'ASP.NET', 'Node.js', 'Design Patterns'
-    ];
+    // const categories = [];
+    // const [detail, setDetail] = useState();
+    // for (let i = 0; i < userInfo.favoriteCategories.length; i++) {
+    //     getCategoryDetails(userInfo.favoriteCategories[i], setDetail);
+    //     categories.push(detail);
+    //     if (categories.length === 2) {
+    //         break;
+    //     }
+    // }
 
-    const renderListSkills = (skills) => {
-        return skills.map(item => 
-            <RadiusButton onPress={() => navigation.push(navName.skill)} text={item} />
+    // console.log(categories);
+
+    const renderListSkills = (categories) => {
+        return categories.slice(0,2).map(item => 
+            <RadiusButton /*onPress={() => navigation.push(navName.skill)}*/ text={item.name} />
         );
     }
 
@@ -35,8 +44,8 @@ const Profile = ({ navigation }) => {
             <View style={{margin: 10}}/>
 
             <Text style={styles.title}>Interests</Text>
-            <ScrollView horizontal={true} style={{marginTop: 13}}>
-                {renderListSkills(skills)}
+            <ScrollView horizontal={true} style={{marginTop: 13}} showsHorizontalScrollIndicator={false}>
+                {/* {renderListSkills(categories)} */}
             </ScrollView>
             <View style={{margin: 10}}/>
 

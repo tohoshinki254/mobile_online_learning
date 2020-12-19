@@ -18,7 +18,7 @@ const NewReleases = ({ navigation }) => {
     }, [status, setStatus])
 
     return (
-        <View style={{marginBottom: 90, marginLeft: 10, marginRight: 10, marginTop: 10}}>
+        <View style={{marginBottom: 100, marginLeft: 10, marginRight: 10, marginTop: 10}}>
             <SectionCourses courses={status.courses} title={status.courses.length + " courses"} type={2} hideButton={true} navigation={navigation}/>
         </View>
     )

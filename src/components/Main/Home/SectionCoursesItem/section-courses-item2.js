@@ -17,6 +17,11 @@ const SectionCoursesItem2 = ({item, navigation}) => {
                     {item.createdAt !== undefined ? `${monthNames[parseInt(item.createdAt.slice(5, 7)) - 1]} ${item.createdAt.slice(8, 10)}, ${item.createdAt.slice(0, 4)}  .  ${item.totalHours}h`
                         : (item.latestLearnTime !== undefined ? `${monthNames[parseInt(item.latestLearnTime.slice(5, 7)) - 1]} ${item.latestLearnTime.slice(8, 10)}, ${item.latestLearnTime.slice(0, 4)}  .  ${item.process}h` : null)}
                 </Text>
+                {item.price !== undefined ?
+                    <Text style={styles.price}>
+                        {item.price === 0 ? "FREE" : item.price + " VND"}
+                    </Text>
+                : null}
             </View>
         </TouchableOpacity>
     )
@@ -36,6 +41,10 @@ const styles = StyleSheet.create({
     },
     darkText: {
         color: 'gray',
+    },
+    price: {
+        color: 'red',
+        fontSize: 15
     }
 });
 
