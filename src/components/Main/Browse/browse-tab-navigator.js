@@ -12,6 +12,7 @@ import CourseDetail from '../../CourseDetail/course-detail';
 import AuthorDetails from '../AuthorDetails/author-details';
 import RelatedPathsCourses from '../Home/RelatedPathsCourses/related-paths-courses';
 import ListCourses from '../../ListCourses/list-courses';
+import RecommendCourses from '../Home/RecommendCourses/recommend-courses';
 
 const BrowseTabNavigation = createStackNavigator();
 
@@ -52,6 +53,9 @@ const BrowseTabNavigator = () => {
             />
             <BrowseTabNavigation.Screen name={navName.listCourses}
                 component={ListCourses}
+            />
+            <BrowseTabNavigation.Screen name={navName.recommend}
+                component={RecommendCourses}
             />
         </BrowseTabNavigation.Navigator>
     )

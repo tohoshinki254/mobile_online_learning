@@ -56,3 +56,17 @@ export const getFavoriteCourses = (token, setStatus) => {
         setStatus({ successful: false, courses: [] });
     })
 }
+
+export const getRecommendCourses = (userId, limit, offset, setStatus) => {
+    axios.get(API_URL + 'user/recommend-course/' + userId + '/' + limit + '/' + offset)
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, courses: response.data.payload });
+        } else {
+            setStatus({ successful: false, courses: [] });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, courses: [] });
+    })
+}

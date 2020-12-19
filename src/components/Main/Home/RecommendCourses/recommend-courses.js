@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
 import SectionCourses from '../SectionCourses/section-courses';
-import { getNewCourses } from '../../../../actions/course-actions';
+import { AuthenticationContext } from '../../../../providers/authentication-provider';
+import { getRecommendCourses } from '../../../../actions/user-actions'
 
-const NewReleases = ({ navigation }) => {
+const RecommendCourses = ({ navigation }) => {
+    const authContext = useContext(AuthenticationContext);
+
     const [status, setStatus] = useState({
         successful: false,
         courses: []
@@ -11,11 +14,11 @@ const NewReleases = ({ navigation }) => {
     
     useEffect(() => {
         const limit = 20;
-        const page = 1;
+        const offset = 1;
         if (!status.successful) {
-            getNewCourses(limit, page, setStatus);
+            getRecommendCourses(authContext.state.userInfo.id, limit, offset, setStatus);
         }
-    }, [status, setStatus])
+    }, [status, setStatus, authContext])
 
     return (
         <View style={{marginBottom: 90, marginLeft: 10, marginRight: 10, marginTop: 10}}>
@@ -26,4 +29,4 @@ const NewReleases = ({ navigation }) => {
 
 const styles = StyleSheet.create({});
 
-export default NewReleases;
+export default RecommendCourses;

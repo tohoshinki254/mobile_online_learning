@@ -92,7 +92,7 @@ const Browse = ({ navigation }) => {
             <View style={{padding: 7}} />
             <ImageButton 
                 title='RECOMMENDED FOR YOU'
-                onPress={() => {}}
+                onPress={() => navigation.navigate(navName.recommend)}
                 URL="https://images.unsplash.com/photo-1432958576632-8a39f6b97dc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=752&q=80"
                 fontSize={24}
             />
