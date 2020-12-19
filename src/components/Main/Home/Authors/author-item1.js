@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native'
 import { navName } from '../../../../Global/constant';
 import { getDetailInstructor } from '../../../../actions/instructor-actions';

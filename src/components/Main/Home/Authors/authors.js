@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import AuthorItem1 from './author-item1';
 import AuthorItem2 from './author-item2';
