@@ -38,8 +38,6 @@ const CourseDetail = ({ route, navigation }) => {
         );
     }
 
-    
-
     const seeAuthorDetails = () => {
         navigation.push(navName.author/*, { author: authors.find(a => a.name === item.author)}*/)
     }

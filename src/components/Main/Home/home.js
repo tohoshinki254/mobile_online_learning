@@ -1,15 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import SectionCourses from './SectionCourses/section-courses';
-import SectionPaths from './SectionPaths/section-paths';
 import Authors from './Authors/authors';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
-import { getProcessCourses } from '../../../actions/user-actions';
+import { getProcessCourses, getFavoriteCourses } from '../../../actions/user-actions';
 import { getInstructors } from '../../../actions/instructor-actions';
 import { getNewCourses } from '../../../actions/course-actions';
 
 const Home = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
+
+    const [favoriteCourses, setFavoriteCourses] = useState({ successful: false, courses: [] });
+    useEffect(() => {
+        if (!favoriteCourses.successful) {
+            getFavoriteCourses(authContext.state.token, setFavoriteCourses);
+        }
+    }, [favoriteCourses, setFavoriteCourses])
 
     const [newReleases, setNewReleases] = useState({ successful: false, courses: [] });
     useEffect(() => {
@@ -56,6 +62,16 @@ const Home = ({ navigation }) => {
             {newReleases.courses.length !== 0 ?
                 <SectionCourses courses={newReleases.courses} 
                     title='New releases' 
+                    type={1} 
+                    hideButton={false} eventButton='See all >'
+                    navigation={navigation}
+                />
+            : null}
+            <View style={{margin: 7}} />
+
+            {favoriteCourses.courses.length !== 0 ?
+                <SectionCourses courses={favoriteCourses.courses} 
+                    title='Favorite courses' 
                     type={1} 
                     hideButton={false} eventButton='See all >'
                     navigation={navigation}

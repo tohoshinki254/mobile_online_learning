@@ -38,3 +38,21 @@ export const likeCourse = (token, courseId, setStatus) => {
         setStatus({ successful: false });
     })
 }
+
+export const getFavoriteCourses = (token, setStatus) => {
+    axios.get(API_URL + 'user/get-favorite-courses', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, courses: response.data.payload });
+        } else {
+            setStatus({ successful: false, courses: [] });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, courses: [] });
+    })
+}
