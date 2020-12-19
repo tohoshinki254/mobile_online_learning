@@ -19,7 +19,8 @@ export const navName = {
     relatedPathsCourses: 'Related paths & courses',
     setting: 'Setting',
     pathsTopic: 'List Paths',
-    recommend: 'Recommend'
+    recommend: 'Recommend',
+    updateProfile: 'Update Profile'
 };
 
 // export const API_URL = "https://api.letstudy.org/";

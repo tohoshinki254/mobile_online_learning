@@ -70,3 +70,21 @@ export const getRecommendCourses = (userId, limit, offset, setStatus) => {
         setStatus({ successful: false, courses: [] });
     })
 }
+
+export const updateProfile = (token, data, setStatus) => {
+    axios.put(API_URL + 'user/update-profile', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, info: response.data.userInfo });
+        } else {
+            setStatus({ successful: false, info: null });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, info: null });
+    })
+}
