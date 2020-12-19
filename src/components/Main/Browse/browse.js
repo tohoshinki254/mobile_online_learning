@@ -6,13 +6,9 @@ import SectionPaths from '../Home/SectionPaths/section-paths';
 import Authors from '../Home/Authors/authors';
 import { navName } from '../../../Global/constant';
 import { getInstructors } from '../../../actions/instructor-actions';
+import { getAllCategory } from '../../../actions/category-actions';
 
 const Browse = ({ navigation }) => {
-    const skills = [
-        'Angular', 'JavaScript', 'C#', 'Java', 'Data Analysis', 'ASP.NET', 'Node.js', 'Design Patterns',
-        'Python', 'React', '.NET', 'SQL Server', 'Database Administration', 'Part Modeling'
-    ];
-
     const paths = [
         {
             id: '1',
@@ -56,8 +52,14 @@ const Browse = ({ navigation }) => {
         },
     ];
 
-    const [authors, setAuthors] = useState({ successful: false, list: [] });
+    const [category, setCategory] = useState({ successful: false, list: [] });
+    useEffect(() => {
+        if (!category.successful && category.list.length === 0) {
+            getAllCategory(setCategory);
+        }
+    }, [category, setCategory])
 
+    const [authors, setAuthors] = useState({ successful: false, list: [] });
     useEffect(() => {
         if (!authors.successful && authors.list.length === 0) {
             getInstructors(setAuthors);
@@ -73,14 +75,14 @@ const Browse = ({ navigation }) => {
         navigation.navigate(navName.topic);
     }
 
-    const renderListSkills = (skills) => {
-        return skills.map(item => 
-            <RadiusButton onPress={() => navigateSkill()} text={item} />
+    const renderListSkills = (list) => {
+        return list.map(item => 
+            <RadiusButton /*onPress={() => navigateSkill()}*/ text={item.name} />
         );
     }
 
     return (
-        <ScrollView style={styles.root} >
+        <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
             <ImageButton 
                 title='NEW RELEASES' 
                 onPress={() => navigation.navigate(navName.newRelease)}
@@ -96,44 +98,10 @@ const Browse = ({ navigation }) => {
             />
 
             <View style={{margin: 17}} />
-            <Text style={styles.title}>Popular skills</Text>
-            <ScrollView horizontal={true}>
-                {renderListSkills(skills)}
+            <Text style={styles.title}>Categories</Text>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {renderListSkills(category.list)}
             </ScrollView>
-
-            <View style={{margin: 17}} />
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flexDirection: 'column', width: '48%'}}>
-                    <ImageButton 
-                        title='CONFERENCES' 
-                        onPress={() => navigateTopic()}
-                        URL="https://images.pexels.com/photos/3194518/pexels-photo-3194518.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        fontSize={18}
-                    />
-                    <View style={{padding: 7}} />
-                    <ImageButton 
-                        title='DATA PROFESSIONAL'
-                        onPress={() => navigateTopic()}
-                        URL="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        fontSize={18}
-                    />
-                </View>
-                <View style={{flexDirection: 'column', width: '48%'}}>
-                    <ImageButton 
-                        title='CERTIFICATIONS' 
-                        onPress={() => navigateTopic()}
-                        URL="https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        fontSize={18}
-                    />
-                    <View style={{padding: 7}} />
-                    <ImageButton 
-                        title='BUSINESS PROFESSIONAL'
-                        onPress={() => navigateTopic()}
-                        URL="https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        fontSize={18}
-                    />
-                </View>
-            </View>
             
             <View style={{margin: 17}} />
             <SectionPaths paths={paths} 

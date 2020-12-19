@@ -5,9 +5,9 @@ export const getAllCategory = (setStatus) => {
     axios.get(API_URL + 'category/all')
     .then((response) => {
         if (response.status === 200) {
-            setStatus({ successful: true, categories: response.data.payload });
+            setStatus({ successful: true, list: response.data.payload });
         } else {
-            setStatus({ successful: false });
+            setStatus({ successful: false, list: [] });
         }
     })
     .catch((error) => {
