@@ -8,7 +8,7 @@ const IconButton = ({url, text, onPress}) => {
                 <Image source={{url: url}} style={styles.image}/>
             </View>
             <Text style={styles.text}>{text}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> 
     )
 }
 

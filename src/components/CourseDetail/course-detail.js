@@ -8,12 +8,14 @@ import IconButton from '../Common/icon-button';
 import { navName, monthNames } from '../../Global/constant';
 import { getDetailWithLesson } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
+import { likeCourse } from '../../actions/user-actions';
 
 const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
-    
+    const [showDesc, setShowDesc] = useState(false);
     const authContext = useContext(AuthenticationContext);
     const [course, setCourse] = useState({ successful: false, details: null });
+    const [like, setLike] = useState({ successful: false });
 
     useEffect(() => {
         if (!course.successful && (course.details === null || course.details === undefined)) {
@@ -36,10 +38,16 @@ const CourseDetail = ({ route, navigation }) => {
         );
     }
 
-    const [showDesc, setShowDesc] = useState(false);
+    
 
     const seeAuthorDetails = () => {
         navigation.push(navName.author/*, { author: authors.find(a => a.name === item.author)}*/)
+    }
+
+    const likeCourseAction = () => {
+        if (!like.successful) {
+            likeCourse(authContext.state.token, item.id, setLike);
+        }
     }
 
     return (
@@ -66,7 +74,7 @@ const CourseDetail = ({ route, navigation }) => {
                 <ScrollView style={{margin: 10, marginBottom: 175}}>
                     <Text style={styles.title} numberOfLines={2}>{course.details.title}</Text>
                     <View style={{flexDirection: 'row', marginBottom: 15}}>
-                        <RadiusButton onPress={() => seeAuthorDetails()} text={item["instructorName"]} />
+                        <RadiusButton onPress={() => seeAuthorDetails()} text={course.details["instructorName"]} />
                     </View>
                     <Text style={styles.darkText}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours}h`}</Text>
 
@@ -75,9 +83,9 @@ const CourseDetail = ({ route, navigation }) => {
                             text='Bookmark'
                             onPress={() => {}}
                         />
-                        <IconButton url='https://icon-library.com/images/add-icon-transparent/add-icon-transparent-23.jpg'
-                            text='Add to channel'
-                            onPress={() => {}}
+                        <IconButton url='https://webstockreview.net/images/like-icon-png-4.png'
+                            text='Like'
+                            onPress={() => likeCourseAction()}
                         />
                         <IconButton url='https://www.svgimages.com/svg-image/s8/download-folder-icon-grey-256x256.png'
                             text='Download'

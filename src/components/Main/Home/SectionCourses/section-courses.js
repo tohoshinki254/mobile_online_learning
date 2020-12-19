@@ -62,7 +62,7 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton, navigati
                 </View>
                 :
                 <View>
-                    <ScrollView horizontal={true}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         {renderListItems(courses)}
                     </ScrollView>
                 </View>

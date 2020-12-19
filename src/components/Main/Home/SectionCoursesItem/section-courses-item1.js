@@ -4,6 +4,7 @@ import { navName, monthNames } from '../../../../Global/constant';
 
 const SectionCoursesItem1 = ({item, navigation}) => {
     const getDetails = () => {
+        console.log(item);
         navigation.push(navName.courseDetails, { item: item })
     }
  
