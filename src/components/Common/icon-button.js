@@ -1,10 +1,11 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const IconButton = ({url, text, onPress}) => {
+const IconButton = ({success, url, text, onPress}) => {
+    console.log(success);
     return (
         <TouchableOpacity onPress={onPress} style={styles.root}>
-            <View style={{backgroundColor: 'lightgray', borderRadius: '50%', padding: 15}}>
+            <View style={{backgroundColor: success ? '#EF5350' : 'lightgray', borderRadius: '50%', padding: 15}}>
                 <Image source={{url: url}} style={styles.image}/>
             </View>
             <Text style={styles.text}>{text}</Text>

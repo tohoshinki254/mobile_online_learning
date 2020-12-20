@@ -5,10 +5,20 @@ import Authors from './Authors/authors';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { getProcessCourses, getFavoriteCourses } from '../../../actions/user-actions';
 import { getInstructors } from '../../../actions/instructor-actions';
-import { getNewCourses } from '../../../actions/course-actions';
+import { getNewCourses, getCourseFollowFavoriteCategories } from '../../../actions/course-actions';
 
 const Home = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
+
+    const [followCategories, setFollowCategories] = useState({ successful: false, courses: [] });
+    useEffect(() => {
+        const data = {
+            userId: authContext.state.userInfo.id
+        };
+        if (!followCategories.successful) {
+            getCourseFollowFavoriteCategories(data, setFollowCategories);
+        }
+    }, [followCategories, setFollowCategories]);
 
     const [favoriteCourses, setFavoriteCourses] = useState({ successful: false, courses: [] });
     useEffect(() => {
@@ -58,9 +68,9 @@ const Home = ({ navigation }) => {
         <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
             {renderContinueCourses()}
             
-            {newReleases.courses.length !== 0 ?
-                <SectionCourses courses={newReleases.courses} 
-                    title='New releases' 
+            {followCategories.courses.length !== 0 ?
+                <SectionCourses courses={followCategories.courses} 
+                    title='Favorite Categories' 
                     type={1} 
                     hideButton={false} eventButton='See all >'
                     navigation={navigation}
@@ -70,7 +80,7 @@ const Home = ({ navigation }) => {
 
             {favoriteCourses.courses.length !== 0 ?
                 <SectionCourses courses={favoriteCourses.courses} 
-                    title='Favorite courses' 
+                    title='Like' 
                     type={1} 
                     hideButton={false} eventButton='See all >'
                     navigation={navigation}

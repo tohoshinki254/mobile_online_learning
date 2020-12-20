@@ -10,6 +10,7 @@ import { getCourseInfo } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
 import { likeCourse } from '../../actions/user-actions';
 import { getDetailInstructor } from '../../actions/instructor-actions';
+import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
 import Rating from '../Common/rating';
 
 const CourseDetail = ({ route, navigation }) => {
@@ -19,6 +20,14 @@ const CourseDetail = ({ route, navigation }) => {
     const [course, setCourse] = useState({ successful: false, details: null });
     const [like, setLike] = useState({ successful: false });
     const [author, setAuthor] = useState({ successful: false, info: null });
+    const [buy, setBuy] = useState({ successful: false, message: 'error' });
+    const [payment, setPayment] = useState({ successful: false, info: null });
+
+    useEffect(() => {
+        if (!payment.successful) {
+            getPaymentInfo(authContext.state.token, item.id, setPayment);
+        }
+    }, [payment, setPayment, authContext])
 
     useEffect(() => {
         if (!course.successful && (course.details === null || course.details === undefined)) {
@@ -53,6 +62,15 @@ const CourseDetail = ({ route, navigation }) => {
             likeCourse(authContext.state.token, item.id, setLike);
         }
     }
+    
+    const buyCourse = () => {
+        if (course.details.price === 0) {
+            const data = {
+                courseId: item.id
+            };
+            buyFreeCourse(authContext.state.token, data, setBuy);
+        }
+    }
 
     return (
         <View style={{ marginTop: 20, marginBottom: 175, height: '100%' }}>
@@ -81,27 +99,26 @@ const CourseDetail = ({ route, navigation }) => {
                         <RadiusButton onPress={() => seeAuthorDetails()} text={author.successful ? author.info.name : null} />
                     </View>
                     
-                    <Text style={styles.darkText}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours}h`}</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={[styles.darkText, { marginRight: 10 }]}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours}h`}</Text>
+                        <Rating number={course.details.ratedNumber} />
+                    </View>
                     
-                    <Rating number={course.details.ratedNumber} />
-                    
-                    <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold', marginTop: 15 }}>
+                    <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold' }}>
                         {course.details.price === 0 ? "FREE" : item.price + " VND"}
                     </Text>
                     
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
-                        <IconButton url='https://cdn.iconscout.com/icon/premium/png-256-thumb/bookmark-44-206919.png'
-                            text='Bookmark'
-                            onPress={() => {}}
-                        />
-                        <IconButton url='https://webstockreview.net/images/like-icon-png-4.png'
+                        <IconButton success={like.successful}
+                            url='https://webstockreview.net/images/like-icon-png-4.png'
                             text='Like'
                             onPress={() => likeCourseAction()}
                         />
-                        <IconButton url='https://www.shareicon.net/data/2015/08/16/85981_buy_512x512.png'
+                        <IconButton success={payment.info.didUserBuyCourse}
+                            url='https://www.shareicon.net/data/2015/08/16/85981_buy_512x512.png'
                             text='Buy now'
-                            onPress={() => {}}
+                            onPress={() => buyCourse()}
                         />
                     </View>
                     {FlatListItemSeparator()}
