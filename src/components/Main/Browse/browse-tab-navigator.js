@@ -4,9 +4,6 @@ import { navName } from '../../../Global/constant';
 import Browse from './browse';
 import NewReleases from '../Home/NewReleases/new-releases';
 import PopularSkillDetails from '../Home/PopularSkillDetails/popular-skill-details';
-import ListPaths from '../../ListPaths/list-paths';
-import PathDetails from '../PathDetails/path-details';
-import ListPathsTopic from '../../ListPaths/list-paths-topic';
 import CourseDetail from '../../CourseDetail/course-detail';
 import AuthorDetails from '../AuthorDetails/author-details';
 import RelatedPathsCourses from '../Home/RelatedPathsCourses/related-paths-courses';
@@ -27,15 +24,6 @@ const BrowseTabNavigator = () => {
             />
             <BrowseTabNavigation.Screen name={navName.skill}
                 component={PopularSkillDetails}
-            />
-            <BrowseTabNavigation.Screen name={navName.listPaths}
-                component={ListPaths}
-            />
-            <BrowseTabNavigation.Screen name={navName.path}
-                component={PathDetails}
-            />
-            <BrowseTabNavigation.Screen name={navName.pathsTopic}
-                component={ListPathsTopic}
             />
             <BrowseTabNavigation.Screen name={navName.courseDetails}
                 component={CourseDetail}

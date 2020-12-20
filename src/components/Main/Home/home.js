@@ -29,7 +29,6 @@ const Home = ({ navigation }) => {
     const [authors, setAuthors] = useState({ successful: false, list: [] });
     useEffect(() => {
         if (!authors.successful && authors.list.length === 0) {
-            console.log('aaa');
             getInstructors(setAuthors);
         }
     }, [authors, setAuthors])
