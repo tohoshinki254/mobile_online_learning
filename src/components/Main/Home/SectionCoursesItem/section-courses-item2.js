@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { navName, monthNames } from '../../../../Global/constant';
+import Rating from '../../../Common/rating';
 
 const SectionCoursesItem2 = ({item, navigation}) => {
     const getDetails = () => { 
@@ -13,7 +14,7 @@ const SectionCoursesItem2 = ({item, navigation}) => {
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14, marginBottom: 3}} numberOfLines={1}>{item.title || item.courseTitle}</Text>
                 <Text style={styles.darkText} numberOfLines={1}>{item["instructor.user.name"] || item.instructorName}</Text>
-                <Text style={styles.darkText}>
+                <Text style={styles.darkText} numberOfLines={1}>
                     {item.createdAt !== undefined ? `${monthNames[parseInt(item.createdAt.slice(5, 7)) - 1]} ${item.createdAt.slice(8, 10)}, ${item.createdAt.slice(0, 4)}  .  ${item.totalHours}h`
                         : (item.latestLearnTime !== undefined ? `${monthNames[parseInt(item.latestLearnTime.slice(5, 7)) - 1]} ${item.latestLearnTime.slice(8, 10)}, ${item.latestLearnTime.slice(0, 4)}  .  ${item.process}h` : null)}
                 </Text>
@@ -22,6 +23,7 @@ const SectionCoursesItem2 = ({item, navigation}) => {
                         {item.price === 0 ? "FREE" : item.price + " VND"}
                     </Text>
                 : null}
+                <Rating number={item.ratedNumber} />
             </View>
         </TouchableOpacity>
     )
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
     item: {
         margin: 5,
         width: 250,
-        height: 200,
+        height: 210,
         backgroundColor: 'lightgray',
         borderRadius: 5,
     },

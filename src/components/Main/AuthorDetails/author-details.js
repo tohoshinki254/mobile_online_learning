@@ -13,7 +13,7 @@ const AuthorDetails = ({ route, navigation }) => {
     }
 
     return (
-        <ScrollView style={{margin: 10}}>
+        <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>
             <View style={{alignItems: 'center', marginBottom: 5}}>
                 <Image 
                     style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}

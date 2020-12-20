@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { navName, monthNames } from '../../../../Global/constant';
+import Rating from '../../../Common/rating';
 
 const SectionCoursesItem1 = ({item, navigation}) => {
     const getDetails = () => {
@@ -23,6 +24,8 @@ const SectionCoursesItem1 = ({item, navigation}) => {
                         {item.price === 0 ? "FREE" : item.price + " VND"}
                     </Text>
                 : null}
+                <View style={{marginBottom: 3}}/>
+                <Rating number={item.ratedNumber} />
             </View>
             <TouchableOpacity>
                 <Image source={{url: 'https://static.thenounproject.com/png/1380510-200.png'}}
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
     price: {
         color: 'red',
         fontSize: 15,
-        marginTop: 3
+        marginTop: 3,
     }
 });
 

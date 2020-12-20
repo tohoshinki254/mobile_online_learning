@@ -6,10 +6,11 @@ import Content from './content';
 import RadiusButton from '../Common/radius-button';
 import IconButton from '../Common/icon-button';
 import { navName, monthNames } from '../../Global/constant';
-import { getDetailWithLesson, getCourseInfo } from '../../actions/course-actions';
+import { getCourseInfo } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
 import { likeCourse } from '../../actions/user-actions';
 import { getDetailInstructor } from '../../actions/instructor-actions';
+import Rating from '../Common/rating';
 
 const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
@@ -79,8 +80,15 @@ const CourseDetail = ({ route, navigation }) => {
                     <View style={{flexDirection: 'row', marginBottom: 15, justifyContent: 'space-between'}}>
                         <RadiusButton onPress={() => seeAuthorDetails()} text={author.successful ? author.info.name : null} />
                     </View>
+                    
                     <Text style={styles.darkText}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours}h`}</Text>
-                    <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold' }}>{course.details.price === 0 ? "FREE" : item.price + " VND"}</Text>
+                    
+                    <Rating number={course.details.ratedNumber} />
+                    
+                    <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold', marginTop: 15 }}>
+                        {course.details.price === 0 ? "FREE" : item.price + " VND"}
+                    </Text>
+                    
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
                         <IconButton url='https://cdn.iconscout.com/icon/premium/png-256-thumb/bookmark-44-206919.png'
