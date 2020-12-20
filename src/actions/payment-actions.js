@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL } from '../Global/constant';
 
-export const buyFreeCourse = (token, data, setStatus) => {
+export const buyFreeCourse = (token, data, setStatus, setState) => {
     axios.post(API_URL + 'payment/get-free-courses', data, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -10,6 +10,7 @@ export const buyFreeCourse = (token, data, setStatus) => {
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, message: response.data.message });
+            setState({ successful: true, info: true });
         } else {
             setStatus({ successful: false, message: response.data.message });
         }
@@ -27,7 +28,7 @@ export const getPaymentInfo = (token, courseId, setStatus) => {
     })
     .then((response) => {
         if (response.status === 200) {
-            setStatus({ successful: true, info: response.data });
+            setStatus({ successful: true, info: response.data.didUserBuyCourse });
         } else {
             setStatus({ successful: false, info: null });
         }

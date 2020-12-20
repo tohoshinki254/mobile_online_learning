@@ -19,7 +19,7 @@ export const getProcessCourses = (token, setStatus) => {
     })
 }
 
-export const likeCourse = (token, courseId, setStatus) => {
+export const likeCourse = (token, courseId, setStatus, setState) => {
     axios.post(API_URL + 'user/like-course', {
         courseId: courseId
     } ,{
@@ -30,6 +30,7 @@ export const likeCourse = (token, courseId, setStatus) => {
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, message: response.data.message });
+            setState({ successful: true, status: true });
         } else {
             setStatus({ successful: false });
         }
@@ -86,5 +87,23 @@ export const updateProfile = (token, data, setStatus) => {
     })
     .catch((error) => {
         setStatus({ successful: false, info: null });
+    })
+}
+
+export const getCourseLikeStatus = (token, courseId, setStatus) => {
+    axios.get(API_URL + 'user/get-course-like-status/' + courseId, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, status: response.data.likeStatus });
+        } else {
+            setStatus({ successful: false, status: null });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, status: null });
     })
 }

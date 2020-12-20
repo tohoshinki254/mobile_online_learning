@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Video } from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Content from './content';
@@ -8,7 +8,7 @@ import IconButton from '../Common/icon-button';
 import { navName, monthNames } from '../../Global/constant';
 import { getCourseInfo } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
-import { likeCourse } from '../../actions/user-actions';
+import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
 import { getDetailInstructor } from '../../actions/instructor-actions';
 import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
 import Rating from '../Common/rating';
@@ -19,9 +19,16 @@ const CourseDetail = ({ route, navigation }) => {
     const authContext = useContext(AuthenticationContext);
     const [course, setCourse] = useState({ successful: false, details: null });
     const [like, setLike] = useState({ successful: false });
+    const [statusLike, setStatusLike] = useState({ successful: false, status: false });
     const [author, setAuthor] = useState({ successful: false, info: null });
     const [buy, setBuy] = useState({ successful: false, message: 'error' });
     const [payment, setPayment] = useState({ successful: false, info: null });
+
+    useEffect(() => {
+        if (!statusLike.successful) {
+            getCourseLikeStatus(authContext.state.token, item.id, setStatusLike);
+        }
+    }, [statusLike, setStatusLike, authContext])
 
     useEffect(() => {
         if (!payment.successful) {
@@ -59,7 +66,7 @@ const CourseDetail = ({ route, navigation }) => {
 
     const likeCourseAction = () => {
         if (!like.successful) {
-            likeCourse(authContext.state.token, item.id, setLike);
+            likeCourse(authContext.state.token, item.id, setLike, setStatusLike);
         }
     }
     
@@ -68,7 +75,7 @@ const CourseDetail = ({ route, navigation }) => {
             const data = {
                 courseId: item.id
             };
-            buyFreeCourse(authContext.state.token, data, setBuy);
+            buyFreeCourse(authContext.state.token, data, setBuy, setPayment);
         }
     }
 
@@ -110,12 +117,12 @@ const CourseDetail = ({ route, navigation }) => {
                     
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
-                        <IconButton success={like.successful}
+                        <IconButton success={statusLike.successful ? statusLike.status : false}
                             url='https://webstockreview.net/images/like-icon-png-4.png'
                             text='Like'
                             onPress={() => likeCourseAction()}
                         />
-                        <IconButton success={payment.info.didUserBuyCourse}
+                        <IconButton success={payment.successful ? payment.info : false}
                             url='https://www.shareicon.net/data/2015/08/16/85981_buy_512x512.png'
                             text='Buy now'
                             onPress={() => buyCourse()}
