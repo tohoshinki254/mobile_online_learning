@@ -4,7 +4,6 @@ import { navName } from '../../../Global/constant';
 import Browse from './browse';
 import NewReleases from '../Home/NewReleases/new-releases';
 import PopularSkillDetails from '../Home/PopularSkillDetails/popular-skill-details';
-import TopicDetails from '../TopicDetails/topic-details';
 import ListPaths from '../../ListPaths/list-paths';
 import PathDetails from '../PathDetails/path-details';
 import ListPathsTopic from '../../ListPaths/list-paths-topic';
@@ -28,9 +27,6 @@ const BrowseTabNavigator = () => {
             />
             <BrowseTabNavigation.Screen name={navName.skill}
                 component={PopularSkillDetails}
-            />
-            <BrowseTabNavigation.Screen name={navName.topic}
-                component={TopicDetails}
             />
             <BrowseTabNavigation.Screen name={navName.listPaths}
                 component={ListPaths}

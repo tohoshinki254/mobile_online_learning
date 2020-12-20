@@ -16,8 +16,6 @@ const Rating = ({ number }) => {
     let star = [];
     const [rating, setRating] = useState(number);
 
-    console.log(rating);
-
     for (let i = 1; i <= numStars; i++) {
         star.push(
             // <TouchableWithoutFeedback key={i} onPress={() => setRating(i)}>

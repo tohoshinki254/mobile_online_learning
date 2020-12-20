@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import ImageButton from '../../Common/image-button';
 import RadiusButton from '../../Common/radius-button';
-import SectionPaths from '../Home/SectionPaths/section-paths';
 import Authors from '../Home/Authors/authors';
+import SectionCourses from '../Home/SectionCourses/section-courses';
 import { navName } from '../../../Global/constant';
 import { getInstructors } from '../../../actions/instructor-actions';
 import { getAllCategory } from '../../../actions/category-actions';
+import { getTopSell } from '../../../actions/course-actions';
 
 const Browse = ({ navigation }) => {
     const paths = [
@@ -52,6 +53,17 @@ const Browse = ({ navigation }) => {
         },
     ];
 
+    const [topSell, setTopSell] = useState({ successful: false, courses: [] });
+    useEffect(() => {
+        const data = {
+            limit: 20,
+            page: 1
+        };
+        if (!topSell.successful) {
+            getTopSell(data, setTopSell);
+        }
+    }, [topSell, setTopSell]);
+
     const [category, setCategory] = useState({ successful: false, list: [] });
     useEffect(() => {
         if (!category.successful && category.list.length === 0) {
@@ -71,10 +83,6 @@ const Browse = ({ navigation }) => {
         navigation.navigate(navName.skill);
     }
 
-    const navigateTopic = () => {
-        navigation.navigate(navName.topic);
-    }
-
     const renderListSkills = (list) => {
         return list.map(item => 
             <RadiusButton /*onPress={() => navigateSkill()}*/ text={item.name} />
@@ -86,14 +94,14 @@ const Browse = ({ navigation }) => {
             <ImageButton 
                 title='NEW RELEASES' 
                 onPress={() => navigation.navigate(navName.newRelease)}
-                URL="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+                URL="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
                 fontSize={24}
             />
             <View style={{padding: 7}} />
             <ImageButton 
                 title='RECOMMENDED FOR YOU'
                 onPress={() => navigation.navigate(navName.recommend)}
-                URL="https://images.unsplash.com/photo-1432958576632-8a39f6b97dc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=752&q=80"
+                URL="https://images.unsplash.com/photo-1598662779094-110c2bad80b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=815&q=80"
                 fontSize={24}
             />
 
@@ -104,13 +112,14 @@ const Browse = ({ navigation }) => {
             </ScrollView>
             
             <View style={{margin: 17}} />
-            <SectionPaths paths={paths} 
-                title='Paths' 
-                type={1} 
-                hideButton={false} 
-                eventButton='See all >'
-                navigation={navigation}
-            />
+            {topSell.courses.length !== 0 ?
+                <SectionCourses courses={topSell.courses} 
+                    title='Top sell' 
+                    type={1} 
+                    hideButton={false} eventButton='See all >'
+                    navigation={navigation}
+                />
+            : null}
 
             <View style={{margin: 17}} />
             {authors.list.length !== 0 ? 

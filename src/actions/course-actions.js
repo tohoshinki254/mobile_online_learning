@@ -55,3 +55,17 @@ export const getCourseInfo = (token, id, setStatus) => {
         setStatus({ successful: false });
     })
 }
+
+export const getTopSell = (data, setStatus) => {
+    axios.post(API_URL + 'course/top-sell', data)
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, courses: response.data.payload });
+        } else {
+            setStatus({ successful: false, courses: [] });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, courses: [] });  
+    })
+}
