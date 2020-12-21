@@ -149,3 +149,17 @@ export const searchHistory = (token, setStatus) => {
         setStatus({ successful: false, data: [] });
     })
 }
+
+export const deleteSearchHistory = (token, id) => {
+    axios.delete(API_URL + 'course/delete-search-history/' + id, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        console.log(response.data.message);
+    })
+    .catch((error) => {
+        console.log('Error');
+    })
+}

@@ -4,7 +4,7 @@ import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SectionCourses from '../Home/SectionCourses/section-courses';
 import Authors from '../Home/Authors/authors';
-import { search, searchV2, searchHistory } from '../../../actions/course-actions';
+import { search, searchV2, searchHistory, deleteSearchHistory } from '../../../actions/course-actions';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 
 const BeforeSearch = (history, clearAll) => {
@@ -40,7 +40,7 @@ const Search = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
 
     useEffect(() => {
-        if (!history.successful) {
+        if (!history.successful || !submitted.successful) {
             searchHistory(authContext.state.token, setHistory);
         }
     }, [history, setHistory, authContext])
@@ -53,12 +53,12 @@ const Search = ({ navigation }) => {
     }
     const onSubmit = () => {
         setSubmitted({ successful: true });
-        let temp = history;
-        temp.unshift(searchText);
-        setHistory(temp);
     }
 
     const clearAll = () => {
+        for (let i = 0; i < history.data.length; i++) {
+            deleteSearchHistory(authContext.state.token, history.data[i].id);
+        }
         setHistory({ successful: false, data: [] });
     }
 
