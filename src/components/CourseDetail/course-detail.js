@@ -90,11 +90,11 @@ const CourseDetail = ({ route, navigation }) => {
                 </TouchableOpacity>
 
                 <Video
-                    source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                    source={{ uri: course.details.promoVidUrl || 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
-                    resizeMode="cover"
+                    resizeMode="stretch"
                     shouldPlay
                     isLooping
                     style={{ width: '100%', height: 170 }}
@@ -112,7 +112,7 @@ const CourseDetail = ({ route, navigation }) => {
                     </View>
                     
                     <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold' }}>
-                        {course.details.price === 0 ? "FREE" : item.price + " VND"}
+                        {course.details.price === 0 ? "FREE" : course.details.price + " VND"}
                     </Text>
                     
 
