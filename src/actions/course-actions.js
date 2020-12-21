@@ -97,3 +97,55 @@ export const getCourseFollowFavoriteCategories = (data, setStatus) => {
         setStatus({ successful: false, courses: [] });
     })
 }
+
+export const search = (keyword, setStatus) => {
+    axios.post(API_URL + 'course/search', {
+        keyword: keyword
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, info: response.data.payload });
+        } else {
+            setStatus({ successful: false, info: null });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, info: null });
+    })
+}
+
+export const searchV2 = (keyword, setStatus) => {
+    axios.post(API_URL + 'course/searchV2', {
+        keyword: keyword,
+        limit: 20,
+        page: 1
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, info: response.data.payload });
+        } else {
+            setStatus({ successful: false, info: null });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, info: null });
+    })
+}
+
+export const searchHistory = (token, setStatus) => {
+    axios.get(API_URL + 'course/search-history', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, data: response.data.payload.data });
+        } else {
+            setStatus({ successful: false, data: [] });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, data: [] });
+    })
+}
