@@ -157,9 +157,9 @@ export const deleteSearchHistory = (token, id) => {
         }
     })
     .then((response) => {
-        console.log(response.data.message);
+        // console.log(response.data.message);
     })
     .catch((error) => {
-        console.log('Error');
+        // console.log('Error');
     })
 }

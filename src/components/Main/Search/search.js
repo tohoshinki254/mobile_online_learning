@@ -40,7 +40,7 @@ const Search = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
 
     useEffect(() => {
-        if (!history.successful || !submitted.successful) {
+        if (!history.successful) {
             searchHistory(authContext.state.token, setHistory);
         }
     }, [history, setHistory, authContext])
@@ -49,10 +49,11 @@ const Search = ({ navigation }) => {
         setSearchText(searchText);
         if (searchText === '') {
             setSubmitted({ successful: false, info: null });
+            setHistory({ successful: false, data: [] });
         }
     }
     const onSubmit = () => {
-        setSubmitted({ successful: true });
+        searchV2(searchText, setSubmitted);
     }
 
     const clearAll = () => {
@@ -77,20 +78,26 @@ const Search = ({ navigation }) => {
             />
             {submitted.successful ? 
                 <ScrollView style={styles.list}>
-                    <SectionCourses courses={[]}
-                        title='Courses' 
-                        type={1} 
-                        hideButton={false} eventButton='See all >'
-                        navigation={navigation}
-                    />
-                    <View style={{margin: 7}} />
+                    {submitted.info.courses.data.length !== 0 ? 
+                    <View>
+                        <SectionCourses courses={submitted.info.courses.data}
+                            title='Courses' 
+                            type={1} 
+                            hideButton={false} eventButton='See all >'
+                            navigation={navigation}
+                        />
+                        <View style={{margin: 7}} />
+                    </View>
+                    : null}
 
-                    <Authors authors={[]}
+                    {submitted.info.instructors.data.length !== 0 ?
+                    <Authors authors={submitted.info.instructors.data}
                         title="Authors" 
                         type={1} 
                         hideButton={true}
                         navigation={navigation}
                     />
+                    : null}
                 </ScrollView>
                 :
                 BeforeSearch(history, clearAll)
