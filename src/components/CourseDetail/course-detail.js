@@ -6,21 +6,23 @@ import Content from './content';
 import RadiusButton from '../Common/radius-button';
 import IconButton from '../Common/icon-button';
 import { navName, monthNames } from '../../Global/constant';
-import { getCourseInfo } from '../../actions/course-actions';
+import { getCourseInfo, getCourseDetails } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
 import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
 import { getDetailInstructor } from '../../actions/instructor-actions';
 import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
 import Rating from '../Common/rating';
+import Comment from './comment';
 
 const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
     const [showDesc, setShowDesc] = useState(false);
+    const [showContent, setShowContent] = useState(true);
+    const [showComment, setShowComment] = useState(true);
     const authContext = useContext(AuthenticationContext);
     const [course, setCourse] = useState({ successful: false, details: null });
     const [like, setLike] = useState({ successful: false });
     const [statusLike, setStatusLike] = useState({ successful: false, status: false });
-    const [author, setAuthor] = useState({ successful: false, info: null });
     const [buy, setBuy] = useState({ successful: false, message: 'error' });
     const [payment, setPayment] = useState({ successful: false, info: null });
 
@@ -38,10 +40,7 @@ const CourseDetail = ({ route, navigation }) => {
 
     useEffect(() => {
         if (!course.successful && (course.details === null || course.details === undefined)) {
-            getCourseInfo(authContext.state.token, item.id, setCourse);
-        }
-        if (course.successful) {
-            getDetailInstructor(course.details.instructorId, setAuthor);
+            getCourseDetails(item.id, setCourse);
         }
     }, [authContext, course, setCourse])
 
@@ -61,7 +60,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     const seeAuthorDetails = () => {
-        navigation.push(navName.author, { author: author.info });
+        navigation.push(navName.author, { author: course.details.instructor });
     }
 
     const likeCourseAction = () => {
@@ -80,7 +79,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     return (
-        <View style={{ marginTop: 20, marginBottom: 175, height: '100%' }}>
+        <View style={{ marginTop: 20, marginBottom: 200, height: '100%' }}>
             {course.successful ?
             <View >
                 <TouchableOpacity style={{ position: 'absolute', top: 20, left: 20, zIndex: 1}}
@@ -103,12 +102,12 @@ const CourseDetail = ({ route, navigation }) => {
                 <ScrollView style={{margin: 10, marginBottom: 175}} showsVerticalScrollIndicator={false}>
                     <Text style={styles.title} numberOfLines={2}>{course.details.title}</Text>
                     <View style={{flexDirection: 'row', marginBottom: 15, justifyContent: 'space-between'}}>
-                        <RadiusButton onPress={() => seeAuthorDetails()} text={author.successful ? author.info.name : null} />
+                        <RadiusButton onPress={() => seeAuthorDetails()} text={course.details.instructor.name} />
                     </View>
                     
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={[styles.darkText, { marginRight: 10 }]}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours}h`}</Text>
-                        <Rating number={course.details.ratedNumber} />
+                        <Rating number={course.details.averagePoint} />
                     </View>
                     
                     <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold' }}>
@@ -148,14 +147,38 @@ const CourseDetail = ({ route, navigation }) => {
                     </View>
                     <TouchableOpacity 
                         style={styles.button}
-                        onPress={() => navigation.push(navName.relatedPathsCourses)}
+                        onPress={() => navigation.push(navName.relatedPathsCourses, { list: course.details.coursesLikeCategory })}
                     >
                         <Image source={require('../../../assets/related_courses_detail.png')} style={{width: 25, height: 25}}/>
-                        <Text style={{color: 'white', fontSize: 15, marginLeft: 15}}>Related paths & courses</Text>
+                        <Text style={{color: 'white', fontSize: 15, marginLeft: 15}}>Related courses</Text>
                     </TouchableOpacity>
                     {FlatListItemSeparator()}
 
-                    <Content courseId={item.id} />
+                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15}}
+                        onPress={() => setShowContent(!showContent)}
+                    >
+                        <Text style={styles.title}>Content</Text>
+                        {showContent ?
+                            <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_up_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                            :
+                            <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_down_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                        }
+                    </TouchableOpacity>
+                    {showContent ? <Content sections={course.details.section} /> : null}
+
+                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15}}
+                        onPress={() => setShowComment(!showComment)}
+                    >
+                        <Text style={styles.title}>Comment</Text>
+                        {showComment ?
+                            <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_up_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                            :
+                            <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_down_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                        }
+                    </TouchableOpacity>
+                    {showComment ? <Comment /> : null}
+                    
+                    <View style={{ marginTop: 20}}></View>
                 </ScrollView>
             </View>
             : null}

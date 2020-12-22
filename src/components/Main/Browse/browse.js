@@ -47,13 +47,13 @@ const Browse = ({ navigation }) => {
     }, [authors, setAuthors])
 
 
-    const navigateSkill = () => {
-        navigation.navigate(navName.skill);
+    const navigateSkill = (name) => {
+        navigation.navigate(navName.skill, { name: name });
     }
 
     const renderListSkills = (list) => {
         return list.map(item => 
-            <RadiusButton /*onPress={() => navigateSkill()}*/ text={item.name} />
+            <RadiusButton onPress={() => navigateSkill(item.name)} text={item.name} />
         );
     }
 

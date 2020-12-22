@@ -1,18 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList } from 'react-native';
-import { getDetailWithLesson } from '../../actions/course-actions';
-import { AuthenticationContext } from '../../providers/authentication-provider';
 
-const Content = ({courseId}) => {
-    const [course, setCourse] = useState({ successful: false, details: null });
-    const authContext = useContext(AuthenticationContext);
-
-    useEffect(() => {
-        if (!course.successful) {
-            getDetailWithLesson(authContext.state.token, courseId, setCourse);
-        }
-    }, []) 
-
+const Content = ({ sections }) => {
     const renderContent = (item) => (
         <View style={{marginTop: 10}}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 17}}>
@@ -23,14 +12,9 @@ const Content = ({courseId}) => {
                     <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
                     <Text style={{color: 'grey', fontSize: 15}}>{item.sumHours}h</Text>
                 </View>
-                <TouchableOpacity>
-                    <Image source={{url: 'https://static.thenounproject.com/png/1380510-200.png'}}
-                        style={{width: 25, height: 25}}     
-                    />
-                </TouchableOpacity>
             </View>
             {item.lesson.map(content => (
-                <View style={{flexDirection: 'row', marginLeft: 8, alignItems: 'center', marginBottom: 17, maxWidth: 300}}>
+            <View style={{flexDirection: 'row', marginLeft: 8, alignItems: 'center', marginBottom: 17, maxWidth: 300}}>
                 <Image source={{url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Location_dot_grey.svg/1200px-Location_dot_grey.svg.png'}}
                     style={{width: 13, height: 13, marginRight: 24}}
                 />
@@ -57,16 +41,13 @@ const Content = ({courseId}) => {
 
     return (
         <View style={{ marginBottom: 20 }}>
-            {course.successful && course.details.section !== null ?
             <View>
-                <Text style={[styles.title, {marginTop: 15}]}>Content</Text>
                 <FlatList 
-                    data={course.details.section}
+                    data={sections}
                     renderItem={({item}) => renderContent(item)}
                     ItemSeparatorComponent={FlatListItemSeparator}
                 />
             </View>
-            : null}
         </View>
     )
 }

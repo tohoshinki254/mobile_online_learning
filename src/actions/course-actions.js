@@ -163,3 +163,36 @@ export const deleteSearchHistory = (token, id) => {
         // console.log('Error');
     })
 }
+
+// userId random
+export const getCourseDetails = (id, setStatus) => {
+    axios.get(API_URL + 'course/get-course-detail/' + id + '/7')
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, details: response.data.payload });
+        } else {
+            setStatus({ successful: false, details: null });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, info: null });
+    })
+}
+
+export const postRatingCourse = (token, data, setStatus) => {
+    axios.post(API_URL + 'course/rating-course', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, info: response.data.payload });
+        } else {
+            setStatus({ successful: false, info: response.data.message });
+        }
+    })
+    .error((error) => {
+        setStatus({ successful: false, info: null });
+    })
+}
