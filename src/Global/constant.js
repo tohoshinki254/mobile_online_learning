@@ -9,7 +9,7 @@ export const navName = {
     search: 'Search',
     profile: 'Profile',
     newRelease: 'New Releases',
-    skill: 'Skill',
+    skill: 'Category',
     topic: 'Topic',
     path: 'Path',
     author: 'Author',
