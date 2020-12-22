@@ -176,7 +176,7 @@ const CourseDetail = ({ route, navigation }) => {
                             <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_down_grey_192x192.png'}} style={{width: 30, height: 30}}/>
                         }
                     </TouchableOpacity>
-                    {showComment ? <Comment /> : null}
+                    {showComment ? <Comment details={course.details}/> : null}
                     
                     <View style={{ marginTop: 20}}></View>
                 </ScrollView>
