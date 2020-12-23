@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList } from 'react-native';
 
-const Content = ({ sections }) => {
+const Content = ({ sections, lessonClick }) => {
     const renderContent = (item) => (
         <View style={{marginTop: 10}}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 17}}>
@@ -14,12 +14,14 @@ const Content = ({ sections }) => {
                 </View>
             </View>
             {item.lesson.map(content => (
-            <View style={{flexDirection: 'row', marginLeft: 8, alignItems: 'center', marginBottom: 17, maxWidth: 300}}>
+            <TouchableOpacity style={{flexDirection: 'row', marginLeft: 8, alignItems: 'center', marginBottom: 17, maxWidth: 300}}
+                onPress={() => lessonClick(content.videoUrl)}
+            >
                 <Image source={{url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Location_dot_grey.svg/1200px-Location_dot_grey.svg.png'}}
                     style={{width: 13, height: 13, marginRight: 24}}
                 />
                 <Text style={styles.content}>{content.name}</Text>
-            </View>
+            </TouchableOpacity>
             ))}
         </View> 
     )

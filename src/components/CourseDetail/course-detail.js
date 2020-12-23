@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Video } from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Content from './content';
 import RadiusButton from '../Common/radius-button';
 import IconButton from '../Common/icon-button';
+import YoutubeVideo from '../Common/youtube-video';
 import { navName, monthNames } from '../../Global/constant';
 import { getCourseDetails } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
@@ -16,14 +17,13 @@ import Comment from './comment';
 const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
     const [showDesc, setShowDesc] = useState(false);
-    const [showContent, setShowContent] = useState(true);
-    const [showComment, setShowComment] = useState(true);
     const authContext = useContext(AuthenticationContext);
     const [course, setCourse] = useState({ successful: false, details: null });
     const [like, setLike] = useState({ successful: false });
     const [statusLike, setStatusLike] = useState({ successful: false, status: false });
     const [buy, setBuy] = useState({ successful: false, message: 'error' });
     const [payment, setPayment] = useState({ successful: false, info: null });
+    const [video, setVideo] = useState(null);
 
     useEffect(() => {
         if (!statusLike.successful) {
@@ -40,21 +40,15 @@ const CourseDetail = ({ route, navigation }) => {
     useEffect(() => {
         if (!course.successful && (course.details === null || course.details === undefined)) {
             getCourseDetails(item.id, setCourse);
+            if (course.successful) {
+                setVideo(course.details.promoVidUrl);
+            }
         }
     }, [authContext, course, setCourse])
 
     const FlatListItemSeparator = () => {
         return (
-          <View
-            style={{
-              height: 1,
-              width: '95%',
-              backgroundColor: '#BDBDBD',
-              alignSelf: 'center',
-              margin: 5,
-              borderRadius: 50,
-            }}
-          />
+          <View style={{ height: 1, width: '95%',backgroundColor: '#BDBDBD',alignSelf: 'center',margin: 5,borderRadius: 50,}} />
         );
     }
 
@@ -77,6 +71,17 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }
 
+    const checkTypeVideo = (link) => {
+        return link !== null ? link.search("youtube") != -1 : false;
+    }
+    const lessonClick = (link) => {
+        setVideo(link);
+    }
+    const displayVideo = () => {
+        return video !== null ? video : course.details.promoVidUrl;
+    }
+
+
     return (
         <View style={{ marginTop: 20, marginBottom: 200, height: '100%' }}>
             {course.successful ?
@@ -87,16 +92,19 @@ const CourseDetail = ({ route, navigation }) => {
                     <Icon name="times" size={27} color="white" />
                 </TouchableOpacity>
 
-                <Video
-                    source={{ uri: course.details.promoVidUrl || 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                {checkTypeVideo(displayVideo()) ? 
+                <YoutubeVideo id={displayVideo().slice(displayVideo().length - 11, displayVideo().length)}/>
+                : <Video
+                    source={{ uri: displayVideo() || 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                     rate={1.0}
                     volume={1.0}
-                    isMuted={false}
                     resizeMode="stretch"
-                    shouldPlay
+                    style={{ width: '100%', height: 215 }}
+                    useNativeControls={true}
                     isLooping
-                    style={{ width: '100%', height: 170 }}
-                />
+                    isMuted={false}
+                />}
+                
 
                 <ScrollView style={{margin: 10, marginBottom: 175}} showsVerticalScrollIndicator={false}>
                     <Text style={styles.title} numberOfLines={2}>{course.details.title}</Text>
@@ -153,29 +161,11 @@ const CourseDetail = ({ route, navigation }) => {
                     </TouchableOpacity>
                     {FlatListItemSeparator()}
 
-                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15}}
-                        onPress={() => setShowContent(!showContent)}
-                    >
-                        <Text style={styles.title}>Content</Text>
-                        {showContent ?
-                            <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_up_grey_192x192.png'}} style={{width: 30, height: 30}}/>
-                            :
-                            <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_down_grey_192x192.png'}} style={{width: 30, height: 30}}/>
-                        }
-                    </TouchableOpacity>
-                    {showContent ? <Content sections={course.details.section} /> : null}
+                    <Text style={styles.title}>Content</Text>
+                    <Content sections={course.details.section} lessonClick={lessonClick} />
 
-                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15}}
-                        onPress={() => setShowComment(!showComment)}
-                    >
-                        <Text style={styles.title}>Comment</Text>
-                        {showComment ?
-                            <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_up_grey_192x192.png'}} style={{width: 30, height: 30}}/>
-                            :
-                            <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_down_grey_192x192.png'}} style={{width: 30, height: 30}}/>
-                        }
-                    </TouchableOpacity>
-                    {showComment ? <Comment details={course.details}/> : null}
+                    <Text style={styles.title}>Comment</Text>
+                    <Comment details={course.details}/>
                     
                     <View style={{ marginTop: 20}}></View>
                 </ScrollView>

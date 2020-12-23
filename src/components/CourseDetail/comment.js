@@ -2,15 +2,18 @@ import React from 'react';
 import { StyleSheet, Text, View, Animated } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Rating from '../Common/rating';
+import { monthNames } from '../../Global/constant';
 
 const renderComment = (item) => (
-    <View style={{ marginBottom: 20 }}>
+    <View style={{ marginBottom: 40 }}>
         {item !== undefined ?
         <View>
             <Text style={{ color: '#616161', fontWeight: 'bold', fontSize: 17, marginBottom: 7}}>{item.user.name}</Text>
             <View style={{ flexDirection: 'row', marginBottom: 7 }}>
                 <Rating number={item.averagePoint} />
-                <Text style={{ marginLeft: 10, color: '#616161'}}>1 day ago</Text>
+                <Text style={{ marginLeft: 10, color: '#616161'}}>
+                    {`${monthNames[parseInt(item.createdAt.slice(5, 7)) - 1]} ${item.createdAt.slice(8, 10)}, ${item.createdAt.slice(0, 4)}`}
+                </Text>
             </View>
             <Text style={{ fontSize: 17, color: '#616161' }}>{item.content}</Text>
         </View>
@@ -25,15 +28,6 @@ const percentBar = (percent) => (
 )
 
 const Comment = ({ details }) => {
-    const star = [0, 0, 0, 0, 0];
-    for (let i = 0; i < details.ratings.ratingList.length; i++) {
-        star[Math.floor(details.ratings.ratingList[i].averagePoint) - 1]++;
-    }
-
-    for (let i = 0; i < 5; i++) {
-        star[i] = star[i] * 20;
-    }
-
     return (
         <View style={{ marginLeft: 10, marginRight: 10, marginBottom: 10}}>
             <View style={{ flexDirection: 'row', marginBottom: 20 }}>
@@ -45,27 +39,27 @@ const Comment = ({ details }) => {
                     <View style={styles.percent}>
                         <Text style={{ color: 'grey' }}>5&nbsp;</Text>
                         <FontAwesome name="star" color="#fbc02d" size={15} />
-                        {percentBar(star[4])}
+                        {percentBar(details.ratings.stars[4])}
                     </View>
                     <View style={styles.percent}>
                         <Text style={{ color: 'grey' }}>4&nbsp;</Text>
                         <FontAwesome name="star" color="#fbc02d" size={15} />
-                        {percentBar(star[3])}
+                        {percentBar(details.ratings.stars[3])}
                     </View>
                     <View style={styles.percent}>
                         <Text style={{ color: 'grey' }}>3&nbsp;</Text>
                         <FontAwesome name="star" color="#fbc02d" size={15} />
-                        {percentBar(star[2])}
+                        {percentBar(details.ratings.stars[2])}
                     </View>
                     <View style={styles.percent}>
                         <Text style={{ color: 'grey' }}>2&nbsp;</Text>
                         <FontAwesome name="star" color="#fbc02d" size={15} />
-                        {percentBar(star[1])}
+                        {percentBar(details.ratings.stars[1])}
                     </View>
                     <View style={styles.percent}>
                         <Text style={{ color: 'grey' }}>1&nbsp;</Text>
                         <FontAwesome name="star" color="#fbc02d" size={15} />
-                        {percentBar(star[0])}
+                        {percentBar(details.ratings.stars[0])}
                     </View>
                 </View>
             </View>
