@@ -41,7 +41,6 @@ const ProfileTabNavigator = () => {
             />
             <ProfileTabNavigation.Screen name={navName.updateProfile}
                 component={UpdateProfile}
-                options={{ headerShown: false }}
             />
             <ProfileTabNavigation.Screen name={navName.rating}
                 component={Rating}

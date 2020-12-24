@@ -15,11 +15,12 @@ const Button = ({onPress, text}) => {
 const styles = StyleSheet.create({
     button: {
         width: '100%',
-        height: 50,
+        height: 40,
         backgroundColor: '#EF5350',
         borderRadius: 4,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        minWidth: 150,
     }
 });
 

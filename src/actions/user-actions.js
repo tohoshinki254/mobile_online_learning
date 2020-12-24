@@ -107,3 +107,22 @@ export const getCourseLikeStatus = (token, courseId, setStatus) => {
         setStatus({ successful: false, status: null });
     })
 }
+
+export const changeAvatar = (token, formData) => {
+    axios.post(API_URL + 'user/upload-avatar', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            console.log('200');
+        } else {
+            console.log('400');
+        }
+    })
+    .catch((error) => {
+        console.log('500');
+    })
+}
