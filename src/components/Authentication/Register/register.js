@@ -10,7 +10,6 @@ const Register = ({ navigation }) => {
     const [email, setEmail] = useState({ value: '', error: false });
     const [password, setPassword] = useState({ value: '', error: false });
     const [phone, setPhone] = useState({ value: '', error: false });
-    const [rePassword, setRePassword] = useState({ value: '', error: false });
 
     const [status, setStatus] = useState({
         successful: false,
@@ -29,8 +28,8 @@ const Register = ({ navigation }) => {
     }, [status]);
 
     const handleUsernameChange = (username) => {
-        const pattern = new RegExp(`/^[a-zA-Z0-9.\-_$@*!]{6,16}$/`);
-        const newUsername = { value: username, error: !pattern.test() };
+        const pattern = new RegExp(/^[a-zA-Z0-9.\-_$@*!]{6,16}$/);
+        const newUsername = { value: username, error: !pattern.test(username) };
         setUsername(newUsername);
     }
 
@@ -41,19 +40,14 @@ const Register = ({ navigation }) => {
 
     const handleEmailChange = (email) => {
         const pattern = new RegExp(/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-        const newEmail = { value: email, error: !pattern.test() };
+        const newEmail = { value: email, error: !pattern.test(email) };
         setEmail(newEmail);
     }
 
     const handlePasswordChange = (password) => {
-        const pattern = new RegExp(`/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/`);
+        const pattern = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/);
         const newPassword = { value: password, error: !pattern.test() };
         setPassword(newPassword);
-    }
-
-    const handleRePasswordChange = (rePassword) => {
-        const newRePassword = {value: rePassword, error: !(rePassword === password.value)}
-        setRePassword(newRePassword);
     }
 
     const handlePhoneChange = (phone) => {
@@ -62,9 +56,9 @@ const Register = ({ navigation }) => {
     }
 
     return (
-        <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
+        <KeyboardAvoidingView behavior="height" style={{flex: 1}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <ScrollView style={styles.root}>
+                <View style={styles.root}>
                     <Text 
                         style={{alignSelf: 'center', fontSize: 25, marginBottom: 20, color: '#616161'}}
                     >
@@ -74,13 +68,12 @@ const Register = ({ navigation }) => {
                     <Text style={styles.text}>Username</Text>
                     <TextInput 
                         style={styles.textInput}
-                        onChangeText={handleUsernameChange}
+                        onChangeText={(text) => handleUsernameChange(text)}
                         value={username.value}
                     />
-                    {/* {username.error ? 
-                        <Text style={styles.error}>Only contain a-z, 0-9 and length from 6 to 16]</Text> : 
-                        <View style={{marginBottom: 20}}/>
-                    } */}
+                    {username.error ? 
+                    <Text style={styles.error}>Only contain a-z, 0-9 and length from 6 to 16</Text>
+                    : <View style={{ marginBottom: 20 }}/>}
 
                     <Text style={styles.text}>Name</Text>
                     <TextInput 
@@ -88,10 +81,10 @@ const Register = ({ navigation }) => {
                         onChangeText={handleNameChange}
                         value={name.value}
                     />
-                    {/* {name.error ? 
+                    {name.error ? 
                         <Text style={styles.error}>Your name is not empty</Text> : 
                         <View style={{marginBottom: 20}}/>
-                    } */}
+                    }
 
                     <Text style={styles.text}>Email</Text>
                     <TextInput 
@@ -99,10 +92,10 @@ const Register = ({ navigation }) => {
                         onChangeText={handleEmailChange}
                         value={email.value}
                     />
-                    {/* {email.error ? 
+                    {email.error ? 
                         <Text style={styles.error}>Email wrong format</Text> : 
                         <View style={{marginBottom: 20}}/>
-                    } */}
+                    }
 
                     <Text style={styles.text}>Phone</Text>
                     <TextInput 
@@ -111,10 +104,10 @@ const Register = ({ navigation }) => {
                         value={phone.value}
                         keyboardType='numeric'
                     />
-                    {/* {phone.error ? 
+                    {phone.error ? 
                         <Text style={styles.error}>Phone is not empty</Text> : 
                         <View style={{marginBottom: 20}}/>
-                    } */}
+                    }
 
                     <Text style={styles.text}>Password</Text>
                     <TextInput 
@@ -123,22 +116,10 @@ const Register = ({ navigation }) => {
                         value={password.value}
                         secureTextEntry={true}
                     />
-                    {/* {password.error ? 
+                    {password.error ? 
                         <Text style={styles.error}>Must contain a-z, A-Z & 0-9 and length greater than 8</Text> : 
                         <View style={{marginBottom: 20}}/>
-                    } */}
-
-                    <Text style={styles.text}>Confirm Password</Text>
-                    <TextInput 
-                        style={styles.textInput}
-                        onChangeText={handleRePasswordChange}
-                        value={rePassword.value}
-                        secureTextEntry={true}
-                    />
-                    {/* {rePassword.error ? 
-                        <Text style={styles.error}>Does not match password above</Text> : 
-                        <View style={{marginBottom: 20}}/>
-                    } */}
+                    }
 
                     <Button onPress={() => register(username.value, email.value, phone.value, password.value, name.value, setStatus)} 
                         text="Create an account"
@@ -151,7 +132,7 @@ const Register = ({ navigation }) => {
                         <Text style={{fontSize: 17, color: 'darkgrey'}}>Have an account?</Text>
                         <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Sign In</Text>
                     </TouchableOpacity>
-                </ScrollView>
+                </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     )
@@ -171,12 +152,11 @@ const styles = StyleSheet.create({
     },  
     textInput: {
         width: '100%',
-        height: 50,
+        height: 40,
         borderWidth: 1.5,
         borderRadius: 4,
         borderColor: 'gray',
         padding: 5,
-        marginBottom: 20
     },
     othersOption: {
         flexDirection: 'row',

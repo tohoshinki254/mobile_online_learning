@@ -15,7 +15,7 @@ const Content = ({ sections, lessonClick }) => {
             </View>
             {item.lesson.map(content => (
             <TouchableOpacity style={{flexDirection: 'row', marginLeft: 8, alignItems: 'center', marginBottom: 17, maxWidth: 300}}
-                onPress={() => lessonClick(content.videoUrl)}
+                onPress={() => {lessonClick(content.videoUrl)}}
             >
                 <Image source={{url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Location_dot_grey.svg/1200px-Location_dot_grey.svg.png'}}
                     style={{width: 13, height: 13, marginRight: 24}}

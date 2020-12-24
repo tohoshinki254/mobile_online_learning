@@ -6,9 +6,9 @@ import NewReleases from '../Home/NewReleases/new-releases';
 import PopularSkillDetails from '../Home/PopularSkillDetails/popular-skill-details';
 import CourseDetail from '../../CourseDetail/course-detail';
 import AuthorDetails from '../AuthorDetails/author-details';
-import RelatedPathsCourses from '../Home/RelatedPathsCourses/related-paths-courses';
 import ListCourses from '../../ListCourses/list-courses';
 import RecommendCourses from '../Home/RecommendCourses/recommend-courses';
+import Rating from '../../CourseDetail/comment';
 
 const BrowseTabNavigation = createStackNavigator();
 
@@ -32,14 +32,15 @@ const BrowseTabNavigator = () => {
             <BrowseTabNavigation.Screen name={navName.author}
                 component={AuthorDetails}
             />
-            <BrowseTabNavigation.Screen name={navName.relatedPathsCourses}
-                component={RelatedPathsCourses}
-            />
             <BrowseTabNavigation.Screen name={navName.listCourses}
                 component={ListCourses}
             />
             <BrowseTabNavigation.Screen name={navName.recommend}
                 component={RecommendCourses}
+            />
+            <BrowseTabNavigation.Screen name={navName.rating}
+                component={Rating}
+                options={{ headerShown: false }}
             />
         </BrowseTabNavigation.Navigator>
     )

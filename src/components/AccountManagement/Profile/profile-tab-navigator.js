@@ -8,8 +8,8 @@ import ListCourses from '../../ListCourses/list-courses';
 import AuthorDetails from '../../Main/AuthorDetails/author-details';
 import Download from '../../Main/Download/download';
 import Setting from '../Setting/setting';
-import RelatedPathsCourses from '../../Main/Home/RelatedPathsCourses/related-paths-courses';
 import UpdateProfile from './update-profile';
+import Rating from '../../CourseDetail/comment';
 
 const ProfileTabNavigation = createStackNavigator();
 
@@ -39,11 +39,12 @@ const ProfileTabNavigator = () => {
             <ProfileTabNavigation.Screen name={navName.setting}
                 component={Setting}
             />
-            <ProfileTabNavigation.Screen name={navName.relatedPathsCourses}
-                component={RelatedPathsCourses}
-            />
             <ProfileTabNavigation.Screen name={navName.updateProfile}
                 component={UpdateProfile}
+                options={{ headerShown: false }}
+            />
+            <ProfileTabNavigation.Screen name={navName.rating}
+                component={Rating}
                 options={{ headerShown: false }}
             />
         </ProfileTabNavigation.Navigator>

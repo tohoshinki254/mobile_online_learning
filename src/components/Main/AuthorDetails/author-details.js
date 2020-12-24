@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import SectionCourses from '../Home/SectionCourses/section-courses';
+import Rating from '../../Common/rating';
 
 const AuthorDetails = ({ route, navigation }) => {
-    const [showDesc, setShowDesc] = useState(false);
-    
     const { author } = route.params;
 
     const courses = author.courses;
@@ -14,48 +13,50 @@ const AuthorDetails = ({ route, navigation }) => {
 
     return (
         <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>
-            <View style={{alignItems: 'center', marginBottom: 5}}>
+            <View style={{alignItems: 'center', marginBottom: 5, flexDirection: 'row'}}>
                 <Image 
                     style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
                     source={{url: author.avatar}}
                 />
-                <Text style={styles.title} numberOfLines={1}>{author.name}</Text>
-                <Text style={styles.darkText}>ITEDU Author</Text>
+                <View style={{ marginLeft: 10 }}>
+                    <Text style={styles.title} numberOfLines={1}>{author.name}</Text>
+                    <Text style={styles.darkText}>{author.major}</Text>
+                    <View style={{flexDirection: 'row'}}>
+                        <Rating number={author.averagePoint} modify={false}/>
+                        <Text style={{ color: 'grey', marginLeft: 5 }}>({author.countRating} ratings)</Text>
+                    </View>
+                </View>
             </View>
 
-            <Text style={styles.description} numberOfLines={showDesc ? undefined : 8}>
-                {author.intro}
-            </Text>
-            <TouchableOpacity onPress={() => setShowDesc(!showDesc)} style={{marginBottom: 15}}>
-                <Text style={{color: '#FF5252', fontSize: 17}}>{showDesc ? 'Less' : 'More'}</Text>
-            </TouchableOpacity>
+            <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
+                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Intro</Text>
+                <Text style={{fontSize: 15, color: '#616161'}} >
+                    {author.intro !== null ? author.intro : 'Không có'}
+                </Text>
+            </View>
 
-            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
-                <View>
-                    <Image source={require('../../../../assets/link_icon8.png')} style={{width: 30, height: 30, marginRight: 10}}/>
-                </View>
-                <View style={{flex: 1}}>
-                    <Text style={styles.description} numberOfLines={1}>
-                        {author.email}
+            <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
+                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Skill</Text>
+                {author.skills.length !== 0 ? author.skills.map(item => (
+                    <Text style={{fontSize: 15, color: '#616161'}} >
+                        {item}
                     </Text>
-                </View>
-            </TouchableOpacity>
+                )) : <Text style={{fontSize: 15, color: '#616161'}} >Không có</Text>}
+                
+            </View>
 
-            {/* <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
-                <TouchableOpacity>
-                    <Image source={require('../../../../assets/facebook_icon8.png')} style={{width: 30, height: 30, marginRight: 30}}/>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Image source={require('../../../../assets/twitter_icon8.png')} style={{width: 30, height: 30, marginRight: 30}}/>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Image source={require('../../../../assets/network_icon8.png')} style={{width: 30, height: 30, marginRight: 30}}/>
-                </TouchableOpacity>
-            </View> */}
+            <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10, marginBottom: 30}}>
+                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Contact</Text>
+                <Text style={{fontSize: 15, color: '#616161'}} >Email: {author.email}</Text>
+                <Text style={{fontSize: 15, color: '#616161'}} >Phone: {author.phone}</Text>
+            </View>
 
-            <View style={{height: 1, width: '100%', backgroundColor: '#BDBDBD'}} />
-
-            <SectionCourses courses={author.courses} type={2} hideButton={true} navigation={navigation}/>
+            <SectionCourses courses={author.courses} 
+                title="Courses"
+                type={1} 
+                hideButton={false} eventButton='See all >'
+                navigation={navigation}
+            />
             <View style={{margin: 10}}/>
         </ScrollView>
     )
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
         color: '#616161', 
         fontWeight: 'bold', 
         fontSize: 20, 
-        marginBottom: 10, 
+        marginBottom: 5, 
         maxHeight: 70
     },
     darkText: {

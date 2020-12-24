@@ -12,7 +12,7 @@ import { AuthenticationContext } from '../../providers/authentication-provider';
 import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
 import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
 import Rating from '../Common/rating';
-import Comment from './comment';
+import SectionCourses from '../Main/Home/SectionCourses/section-courses';
 
 const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
@@ -45,12 +45,6 @@ const CourseDetail = ({ route, navigation }) => {
             }
         }
     }, [authContext, course, setCourse])
-
-    const FlatListItemSeparator = () => {
-        return (
-          <View style={{ height: 1, width: '95%',backgroundColor: '#BDBDBD',alignSelf: 'center',margin: 5,borderRadius: 50,}} />
-        );
-    }
 
     const seeAuthorDetails = () => {
         navigation.push(navName.author, { author: course.details.instructor });
@@ -114,7 +108,7 @@ const CourseDetail = ({ route, navigation }) => {
                     
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={[styles.darkText, { marginRight: 10 }]}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours}h`}</Text>
-                        <Rating number={course.details.averagePoint} />
+                        <Rating number={course.details.averagePoint} modify={false} />
                     </View>
                     
                     <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold' }}>
@@ -134,14 +128,33 @@ const CourseDetail = ({ route, navigation }) => {
                             onPress={() => buyCourse()}
                         />
                     </View>
-                    {FlatListItemSeparator()}
-                    <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 5}}>
-                        <Text style={{fontSize: 15, color: '#616161', flex: 1}} 
-                            numberOfLines={showDesc ? undefined : 2}
-                        >
-                            {course.details.description}
+
+                    <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
+                        <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Learn what</Text>
+                        <Text style={{fontSize: 15, color: '#616161'}} >
+                            {course.details.learnWhat !== null ? course.details.learnWhat : 'Không có'}
                         </Text>
-                        <TouchableOpacity style={{backgroundColor: 'lightgray', borderRadius: '3',
+                    </View>
+                    <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
+                        <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Requirement</Text>
+                        <Text style={{fontSize: 15, color: '#616161'}} >
+                            {course.details.requirement !== null ? course.details.requirement : 'Không có'}
+                        </Text>
+                    </View>
+                    
+                    <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10,
+                            flexDirection: 'row'
+                    }}>
+                        <View style={{ flex: 1, marginRight: 10 }}>
+                            <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Description</Text>
+                            <Text style={{fontSize: 15, color: '#616161'}} 
+                                numberOfLines={showDesc ? undefined : 2}
+                            >
+                                {course.details.description}
+                            </Text>
+                        </View>
+                        
+                        <TouchableOpacity style={{backgroundColor: '#BDBDBD', borderRadius: '3',
                                     width: '10%', justifyContent: 'center', alignItems: 'center'}}
                             onPress={() => setShowDesc(!showDesc)}
                         >
@@ -152,22 +165,28 @@ const CourseDetail = ({ route, navigation }) => {
                             }
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity 
+
+                    <TouchableOpacity
                         style={styles.button}
-                        onPress={() => navigation.push(navName.relatedPathsCourses, { list: course.details.coursesLikeCategory })}
+                        onPress={() => navigation.push(navName.rating, { details: course.details })}
                     >
-                        <Image source={require('../../../assets/related_courses_detail.png')} style={{width: 25, height: 25}}/>
-                        <Text style={{color: 'white', fontSize: 15, marginLeft: 15}}>Related courses</Text>
+                        <Text style={{color: 'white', fontSize: 15}}>Rating</Text>
                     </TouchableOpacity>
-                    {FlatListItemSeparator()}
+                    <View style={{ marginTop: 20}}></View>
 
                     <Text style={styles.title}>Content</Text>
                     <Content sections={course.details.section} lessonClick={lessonClick} />
-
-                    <Text style={styles.title}>Comment</Text>
-                    <Comment details={course.details}/>
                     
                     <View style={{ marginTop: 20}}></View>
+
+                    <SectionCourses courses={course.details.coursesLikeCategory} 
+                        title="Related Courses" 
+                        type={1} 
+                        hideButton={false} eventButton='See all >'
+                        navigation={navigation}
+                    />
+
+                    <View style={{ marginBottom: 70}}></View>
                 </ScrollView>
             </View>
             : null}
@@ -189,10 +208,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     button: {
-        flexDirection: 'row',
         padding: 10,
         marginTop: 15,
-        marginBottom: 15,
+        marginBottom: 10,
         backgroundColor: '#EF5350',
         borderRadius: 4,
         justifyContent: 'center',

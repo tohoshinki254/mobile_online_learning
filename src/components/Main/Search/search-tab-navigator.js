@@ -6,7 +6,7 @@ import Search from './search';
 import CourseDetail from '../../CourseDetail/course-detail';
 import ListCourses from '../../ListCourses/list-courses';
 import AuthorDetails from '../AuthorDetails/author-details';
-import RelatedPathsCourses from '../Home/RelatedPathsCourses/related-paths-courses';
+import Rating from '../../CourseDetail/comment';
 
 const SearchTabNavigation = createStackNavigator();
 
@@ -27,8 +27,9 @@ const SearchTabNavigator = () => {
             <SearchTabNavigation.Screen name={navName.author}
                 component={AuthorDetails}
             />
-            <SearchTabNavigation.Screen name={navName.relatedPathsCourses}
-                component={RelatedPathsCourses}
+            <SearchTabNavigation.Screen name={navName.rating}
+                component={Rating}
+                options={{ headerShown: false }}
             />
         </SearchTabNavigation.Navigator>
     )

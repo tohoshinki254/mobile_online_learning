@@ -10,6 +10,7 @@
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.8.0",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-native-picker/picker": "^1.9.8",
     "@react-navigation/bottom-tabs": "^5.10.6",
     "@react-navigation/material-top-tabs": "^5.3.9",
     "@react-navigation/native": "^5.8.9",
@@ -31,7 +32,7 @@
     "react-native-tab-view": "^2.15.2",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12",
-    "react-native-webview": "^11.0.2",
+    "react-native-webview": "10.7.0",
     "react-native-youtube-iframe": "^1.4.0"
   },
   "devDependencies": {

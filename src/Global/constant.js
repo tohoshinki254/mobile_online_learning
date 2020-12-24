@@ -20,7 +20,8 @@ export const navName = {
     setting: 'Setting',
     pathsTopic: 'List Paths',
     recommend: 'Recommend',
-    updateProfile: 'Update Profile'
+    updateProfile: 'Update Profile',
+    rating: 'Rating'
 };
 
 // export const API_URL = "https://api.letstudy.org/";

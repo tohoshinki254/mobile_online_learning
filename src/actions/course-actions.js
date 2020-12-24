@@ -180,6 +180,7 @@ export const getCourseDetails = (id, setStatus) => {
 }
 
 export const postRatingCourse = (token, data, setStatus) => {
+    console.log('aaa');
     axios.post(API_URL + 'course/rating-course', data, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -189,10 +190,10 @@ export const postRatingCourse = (token, data, setStatus) => {
         if (response.status === 200) {
             setStatus({ successful: true, info: response.data.payload });
         } else {
-            setStatus({ successful: false, info: response.data.message });
+            setStatus({ successful: false, info: null });
         }
     })
-    .error((error) => {
+    .catch((error) => {
         setStatus({ successful: false, info: null });
     })
 }

@@ -11,19 +11,19 @@ const Star = ({ filled }) => {
     )
 }
 
-const Rating = ({ number }) => {
+const Rating = ({ number, modify, setStar }) => {
     const numStars = 5;
     let star = [];
     const [rating, setRating] = useState(number);
 
     for (let i = 1; i <= numStars; i++) {
-        star.push(
-            // <TouchableWithoutFeedback key={i} onPress={() => setRating(i)}>
-            //     <Animated.View>
+        star.push(modify ? 
+            <TouchableWithoutFeedback key={i} onPress={() => {setRating(i); setStar(i)}}>
+                <Animated.View>
                     <Star filled={ i <= rating ? true : false }/>
-            //     </Animated.View>    
-            // </TouchableWithoutFeedback>
-        )
+                </Animated.View>    
+            </TouchableWithoutFeedback>
+        : <Star filled={ i <= rating ? true : false }/>)
     }
 
     return (
