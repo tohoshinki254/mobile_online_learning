@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList } from 'react-native';
 
 const Content = ({ sections, lessonClick }) => {

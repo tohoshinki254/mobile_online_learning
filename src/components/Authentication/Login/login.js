@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFe
 import Button from '../../Common/button';
 import { navName } from '../../../Global/constant';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 function Login({ navigation }) {
     const [username, onChangeUsername] = useState();
     const [password, onChangePassword] = useState();
     const authContext = useContext(AuthenticationContext);
+    const { language, theme } = useContext(SettingCommonContext);
 
     useEffect(() => {
         if (authContext.state.isAuthenticated) {
@@ -25,7 +27,7 @@ function Login({ navigation }) {
                 <Text 
                     style={{alignSelf: 'center', fontSize: 25, marginBottom: 40, color: '#616161'}}
                 >
-                    Sign In
+                    {language ? "Sign In" : "Đăng nhập"}
                 </Text>
 
                 <Text style={styles.text}>Email</Text>
@@ -35,7 +37,7 @@ function Login({ navigation }) {
                     value={username}
                 />
 
-                <Text style={styles.text}>Password</Text>
+                <Text style={styles.text}>{language ? "Password" : "Mật khẩu"}</Text>
                 <TextInput 
                     style={styles.textInput}
                     onChangeText={password => onChangePassword(password)}
@@ -43,24 +45,23 @@ function Login({ navigation }) {
                     secureTextEntry={true}
                 />
 
-                <Button onPress={() => {authContext.login(username, password)}} text="Sign In"/>
+                <Button onPress={() => {authContext.login(username, password)}} text={language ? "Sign In" : "Đăng nhập"}/>
                 <View style={{marginBottom: 30}} />
 
-                <Button onPress={() => withoutLogin()} text="Explore without a subscription"/>
+                <Button onPress={() => withoutLogin()} text={language ? "Explore without a subscription" : "Không đăng nhập"}/>
 
                 <TouchableOpacity
                     style={styles.othersOption}
                     onPress={() => navigation.navigate(navName.forgetPassword)}
                 >
-                    <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>Forget Password</Text>
+                    <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>{language ? "Forget Password" : "Quên mật khẩu"}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.othersOption}
                     onPress={() => navigation.navigate(navName.register)}
                 >
-                    <Text style={{fontSize: 17, color: 'darkgrey'}}>New here?</Text>
-                    <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Create an account</Text>
+                    <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>{language ? "Create an account" : "Tạo tài khoản mới"}</Text>
                 </TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>

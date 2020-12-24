@@ -9,6 +9,7 @@ import YoutubeVideo from '../Common/youtube-video';
 import { navName, monthNames } from '../../Global/constant';
 import { getCourseDetails } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
+import { SettingCommonContext } from '../../providers/setting-common-provider';
 import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
 import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
 import Rating from '../Common/rating';
@@ -18,6 +19,7 @@ const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
     const [showDesc, setShowDesc] = useState(false);
     const authContext = useContext(AuthenticationContext);
+    const { language, theme } = useContext(SettingCommonContext);
     const [course, setCourse] = useState({ successful: false, details: null });
     const [like, setLike] = useState({ successful: false });
     const [statusLike, setStatusLike] = useState({ successful: false, status: false });
@@ -112,31 +114,31 @@ const CourseDetail = ({ route, navigation }) => {
                     </View>
                     
                     <Text style={{ color: 'red', fontSize: 15, marginBottom: 15, fontWeight: 'bold' }}>
-                        {course.details.price === 0 ? "FREE" : course.details.price + " VND"}
+                        {course.details.price === 0 ? (language ? "FREE" : "MIỄN PHÍ") : course.details.price + " VND"}
                     </Text>
                     
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
                         <IconButton success={statusLike.successful ? statusLike.status : false}
                             url='https://webstockreview.net/images/like-icon-png-4.png'
-                            text='Like'
+                            text={language ? "Like" : "Thích"}
                             onPress={() => likeCourseAction()}
                         />
                         <IconButton success={payment.successful ? payment.info : false}
                             url='https://www.shareicon.net/data/2015/08/16/85981_buy_512x512.png'
-                            text='Buy now'
+                            text={language ? "Buy now" : "Mua ngay"}
                             onPress={() => buyCourse()}
                         />
                     </View>
 
                     <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
-                        <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Learn what</Text>
+                        <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Learn what" : "Những gì bạn sẽ học"}</Text>
                         <Text style={{fontSize: 15, color: '#616161'}} >
                             {course.details.learnWhat !== null ? course.details.learnWhat : 'Không có'}
                         </Text>
                     </View>
                     <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
-                        <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Requirement</Text>
+                        <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Requirement" : "Yêu cầu"}</Text>
                         <Text style={{fontSize: 15, color: '#616161'}} >
                             {course.details.requirement !== null ? course.details.requirement : 'Không có'}
                         </Text>
@@ -146,7 +148,7 @@ const CourseDetail = ({ route, navigation }) => {
                             flexDirection: 'row'
                     }}>
                         <View style={{ flex: 1, marginRight: 10 }}>
-                            <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Description</Text>
+                            <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Description" : "Mô tả"}</Text>
                             <Text style={{fontSize: 15, color: '#616161'}} 
                                 numberOfLines={showDesc ? undefined : 2}
                             >
@@ -170,19 +172,19 @@ const CourseDetail = ({ route, navigation }) => {
                         style={styles.button}
                         onPress={() => navigation.push(navName.rating, { details: course.details })}
                     >
-                        <Text style={{color: 'white', fontSize: 15}}>Rating</Text>
+                        <Text style={{color: 'white', fontSize: 15}}>{language ? "Rating" : "Đánh giá từ học viên"}</Text>
                     </TouchableOpacity>
                     <View style={{ marginTop: 20}}></View>
 
-                    <Text style={styles.title}>Content</Text>
+                    <Text style={styles.title}>{language ? "Content" : "Nội dung khóa học"}</Text>
                     <Content sections={course.details.section} lessonClick={lessonClick} />
                     
                     <View style={{ marginTop: 20}}></View>
 
                     <SectionCourses courses={course.details.coursesLikeCategory} 
-                        title="Related Courses" 
+                        title={language ? "Courses Like Category" : "Các khóa học cùng chủ đề"} 
                         type={1} 
-                        hideButton={false} eventButton='See all >'
+                        hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                         navigation={navigation}
                     />
 

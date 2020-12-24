@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import Button from '../../Common/button';
 import { navName } from '../../../Global/constant';
 import { register } from '../../../actions/authentication-actions';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const Register = ({ navigation }) => {
+    const { language, theme } = useContext(SettingCommonContext);
     const [name, setName] = useState({ value: '', error: false });
     const [username, setUsername] = useState({ value: '', error: false });
     const [email, setEmail] = useState({ value: '', error: false });
@@ -18,7 +20,7 @@ const Register = ({ navigation }) => {
 
     useEffect(() => {
         if (status.successful) {
-            alert('Let activate email');
+            alert(language ? "Let active email" : "Kích hoạt tài khoản");
             navigation.navigate(navName.login);
         } else {
             if (status.message !== '') {
@@ -62,7 +64,7 @@ const Register = ({ navigation }) => {
                     <Text 
                         style={{alignSelf: 'center', fontSize: 25, marginBottom: 20, color: '#616161'}}
                     >
-                        Create an account
+                        {language ? "Create an account" : "Tạo tài khoản mới"}
                     </Text>
 
                     <Text style={styles.text}>Username</Text>
@@ -72,17 +74,17 @@ const Register = ({ navigation }) => {
                         value={username.value}
                     />
                     {username.error ? 
-                    <Text style={styles.error}>Only contain a-z, 0-9 and length from 6 to 16</Text>
+                    <Text style={styles.error}>{language ? "Only contain a-z, 0-9 and length from 6 to 16" : "Bao gồm a-z, 0-9 và độ dài từ 6 đến 16"}</Text>
                     : <View style={{ marginBottom: 20 }}/>}
 
-                    <Text style={styles.text}>Name</Text>
+                    <Text style={styles.text}>{language ? "Name" : "Tên"}</Text>
                     <TextInput 
                         style={styles.textInput}
                         onChangeText={handleNameChange}
                         value={name.value}
                     />
                     {name.error ? 
-                        <Text style={styles.error}>Your name is not empty</Text> : 
+                        <Text style={styles.error}>{language ? "Your name is not empty" : "Tên không được để trống"}</Text> : 
                         <View style={{marginBottom: 20}}/>
                     }
 
@@ -93,11 +95,11 @@ const Register = ({ navigation }) => {
                         value={email.value}
                     />
                     {email.error ? 
-                        <Text style={styles.error}>Email wrong format</Text> : 
+                        <Text style={styles.error}>{language ? "Email wrong format" : "Email không đúng định dạng"}</Text> : 
                         <View style={{marginBottom: 20}}/>
                     }
 
-                    <Text style={styles.text}>Phone</Text>
+                    <Text style={styles.text}>{language ? "Phone" : "Số điện thoại"}</Text>
                     <TextInput 
                         style={styles.textInput}
                         onChangeText={handlePhoneChange}
@@ -105,11 +107,11 @@ const Register = ({ navigation }) => {
                         keyboardType='numeric'
                     />
                     {phone.error ? 
-                        <Text style={styles.error}>Phone is not empty</Text> : 
+                        <Text style={styles.error}>{language ? "Phone is not empty" : "Số điện thoại không được để trống"}</Text> : 
                         <View style={{marginBottom: 20}}/>
                     }
 
-                    <Text style={styles.text}>Password</Text>
+                    <Text style={styles.text}>{language ? "Password" : "Mật khẩu"}</Text>
                     <TextInput 
                         style={styles.textInput}
                         onChangeText={handlePasswordChange}
@@ -117,7 +119,7 @@ const Register = ({ navigation }) => {
                         secureTextEntry={true}
                     />
                     {password.error ? 
-                        <Text style={styles.error}>Must contain a-z, A-Z & 0-9 and length greater than 8</Text> : 
+                        <Text style={styles.error}>{language ? "Must contain a-z, A-Z & 0-9 and length greater than 8" : "Bao gồm a-z, A-Z & 0-9 và độ dài lớn hơn 8"}</Text> : 
                         <View style={{marginBottom: 20}}/>
                     }
 
@@ -129,8 +131,8 @@ const Register = ({ navigation }) => {
                         style={styles.othersOption}
                         onPress={() => navigation.navigate(navName.login)}
                     >
-                        <Text style={{fontSize: 17, color: 'darkgrey'}}>Have an account?</Text>
-                        <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;Sign In</Text>
+                        <Text style={{fontSize: 17, color: 'darkgrey'}}>{language ? "Have an account?" : "Đã có tài khoản"}</Text>
+                        <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;{language ? "Sign In" : "Đăng nhập"}</Text>
                     </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>

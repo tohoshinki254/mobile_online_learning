@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import SectionCourses from '../Home/SectionCourses/section-courses';
 import Rating from '../../Common/rating';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const AuthorDetails = ({ route, navigation }) => {
     const { author } = route.params;
+    const { language, theme } = useContext(SettingCommonContext);
 
     const courses = author.courses;
     for (let i = 0; i < courses.length; i++) {
@@ -23,20 +25,20 @@ const AuthorDetails = ({ route, navigation }) => {
                     <Text style={styles.darkText}>{author.major}</Text>
                     <View style={{flexDirection: 'row'}}>
                         <Rating number={author.averagePoint} modify={false}/>
-                        <Text style={{ color: 'grey', marginLeft: 5 }}>({author.countRating} ratings)</Text>
+                        <Text style={{ color: 'grey', marginLeft: 5 }}>({author.countRating} {language ? "ratings" : "đánh giá"})</Text>
                     </View>
                 </View>
             </View>
 
             <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
-                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Intro</Text>
+                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Intro" : "Giới thiệu"}</Text>
                 <Text style={{fontSize: 15, color: '#616161'}} >
                     {author.intro !== null ? author.intro : 'Không có'}
                 </Text>
             </View>
 
             <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
-                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Skill</Text>
+                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Skills" : "Kỹ năng"}</Text>
                 {author.skills.length !== 0 ? author.skills.map(item => (
                     <Text style={{fontSize: 15, color: '#616161'}} >
                         {item}
@@ -46,13 +48,13 @@ const AuthorDetails = ({ route, navigation }) => {
             </View>
 
             <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10, marginBottom: 30}}>
-                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>Contact</Text>
+                <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Contact" : "Thông tin liên hệ"}</Text>
                 <Text style={{fontSize: 15, color: '#616161'}} >Email: {author.email}</Text>
                 <Text style={{fontSize: 15, color: '#616161'}} >Phone: {author.phone}</Text>
             </View>
 
             <SectionCourses courses={author.courses} 
-                title="Courses"
+                title={language ? "Courses" : "Các khóa học"}
                 type={1} 
                 hideButton={false} eventButton='See all >'
                 navigation={navigation}

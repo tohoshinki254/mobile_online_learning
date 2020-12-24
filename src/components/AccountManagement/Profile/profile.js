@@ -3,10 +3,12 @@ import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'rea
 import RadiusButton from '../../Common/radius-button';
 import { navName } from '../../../Global/constant';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 import { getCategoryDetails } from '../../../actions/category-actions';
 
 const Profile = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
+    const { language, theme } = useContext(SettingCommonContext);
     const userInfo = authContext.state.userInfo;
 
     // const categories = [];
@@ -38,43 +40,21 @@ const Profile = ({ navigation }) => {
             <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
                 // onPress={() => navigation.push(navName.download, { courses: courses })}
             >
-                <Text style={[styles.title, {marginRight: 20}]}>Downloads</Text>
+                <Text style={[styles.title, {marginRight: 20}]}>{language ? "Downloads" : "Khóa học đã tải"}</Text>
                 <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
             </TouchableOpacity>
             <View style={{margin: 10}}/>
 
-            <Text style={styles.title}>Interests</Text>
+            <Text style={styles.title}>{language ? "Interests" : "Lĩnh vực quan tâm"}</Text>
             <ScrollView horizontal={true} style={{marginTop: 13}} showsHorizontalScrollIndicator={false}>
                 {/* {renderListSkills(categories)} */}
             </ScrollView>
-            <View style={{margin: 10}}/>
-
-            <Text style={styles.title}>Activity Insights (last 30 days)</Text>
-            <View style={{margin: 10}}/>
-
-            <Text style={styles.darkText}>TOTAL ACTIVE DAYS</Text>
-            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                <Text style={styles.title}>0</Text>
-                <Text style={[styles.darkText, {marginLeft: 15}]}>0 day streak</Text>
-            </View>
-            <View style={{margin: 10}}/>
-
-            <Text style={styles.darkText}>MOST ACTIVE TIME OF DAY</Text>
-            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                <Text style={styles.title}>7:00 AM</Text>
-            </View>
-            <View style={{margin: 10}}/>
-
-            <Text style={styles.darkText}>MOST VIEWED SUBJECT</Text>
-            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                <Text style={styles.title}>N/A</Text>
-            </View>
             <View style={{margin: 10}}/>
             
             <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
                 onPress={() => navigation.push(navName.setting)}
             >
-                <Text style={[styles.title, {marginRight: 20}]}>Setting</Text>
+                <Text style={[styles.title, {marginRight: 20}]}>{language ? "Settings" : "Cài đặt"}</Text>
                 <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
             </TouchableOpacity>
             <View style={{margin: 10}}/>
@@ -82,7 +62,7 @@ const Profile = ({ navigation }) => {
             <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
                 onPress={() => navigation.push(navName.updateProfile, { info: userInfo })}
             >
-                <Text style={[styles.title, {marginRight: 20}]}>Update Profile</Text>
+                <Text style={[styles.title, {marginRight: 20}]}>{language ? "Update Profile" : "Cập nhật thông tin"}</Text>
                 <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
             </TouchableOpacity>
 
@@ -90,7 +70,7 @@ const Profile = ({ navigation }) => {
             <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
                 onPress={() => navigation.popToTop()}
             >
-                <Text style={[styles.title, {marginRight: 20}]}>Logout</Text>
+                <Text style={[styles.title, {marginRight: 20}]}>{language ? "Logout" : "Đăng xuất"}</Text>
                 <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
             </TouchableOpacity>
         </ScrollView>

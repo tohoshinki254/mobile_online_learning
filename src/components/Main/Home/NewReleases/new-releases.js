@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View } from 'react-native';
 import SectionCourses from '../SectionCourses/section-courses';
 import { getNewCourses } from '../../../../actions/course-actions';
+import { SettingCommonContext } from '../../../../providers/setting-common-provider';
 
 const NewReleases = ({ navigation }) => {
+    const { language, theme } = useContext(SettingCommonContext);
     const [status, setStatus] = useState({
         successful: false,
         courses: []
@@ -19,11 +21,9 @@ const NewReleases = ({ navigation }) => {
 
     return (
         <View style={{marginBottom: 100, marginLeft: 10, marginRight: 10, marginTop: 10}}>
-            <SectionCourses courses={status.courses} title={status.courses.length + " courses"} type={2} hideButton={true} navigation={navigation}/>
+            <SectionCourses courses={status.courses} title={status.courses.length + (language ? " courses" : " khóa học")} type={2} hideButton={true} navigation={navigation}/>
         </View>
     )
 }
-
-const styles = StyleSheet.create({});
 
 export default NewReleases;

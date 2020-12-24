@@ -3,10 +3,12 @@ import { StyleSheet, TextInput, View, Text, TouchableWithoutFeedback, Keyboard }
 import Button from '../../Common/button';
 import { updateProfile } from '../../../actions/user-actions';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const UpdateProfile = ({ route, navigation }) => {
     const { info } = route.params;
     const { token } = useContext(AuthenticationContext).state;
+    const { language, theme } = useContext(SettingCommonContext);
 
     const [name, setName] = useState(info.name);
     const [avatar, setAvatar] = useState(info.avatar);
@@ -22,7 +24,7 @@ const UpdateProfile = ({ route, navigation }) => {
         };
         updateProfile(token, data, setResult);
         if (result.successful) {
-            alert('Successful');
+            alert(language ? 'Successful' : 'Thành công');
             navigation.pop();
         }
     }
@@ -31,7 +33,7 @@ const UpdateProfile = ({ route, navigation }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.root}>
                 <View style={{ width: '80%'}}>
-                    <Text style={styles.text}>Name</Text>
+                    <Text style={styles.text}>{language ? "Name" : "Tên"}</Text>
                     <TextInput 
                         style={styles.textInput}
                         onChangeText={name => setName(name)}
@@ -41,7 +43,7 @@ const UpdateProfile = ({ route, navigation }) => {
                 </View>
                 
                 <View style={{ width: '80%'}}>
-                    <Text style={styles.text}>Avatar</Text>
+                    <Text style={styles.text}>{language ? "Avatar" : "Ảnh đại diện"}</Text>
                     <TextInput 
                         style={styles.textInput}
                         onChangeText={avatar => setAvatar(avatar)}
@@ -51,7 +53,7 @@ const UpdateProfile = ({ route, navigation }) => {
                 </View>
 
                 <View style={{ width: '80%'}}>
-                    <Text style={styles.text}>Phone</Text>
+                    <Text style={styles.text}>{language ? "Phone" : "Số điện thoại"}</Text>
                     <TextInput 
                         style={styles.textInput}
                         onChangeText={phone => setPhone(phone)}
@@ -61,11 +63,11 @@ const UpdateProfile = ({ route, navigation }) => {
                 </View>
 
                 <View style={{ width: '80%', marginBottom: 30}}>
-                    <Button onPress={() => updatePress()} text="Update"/>
+                    <Button onPress={() => updatePress()} text={language ? "Update" : "Cập nhật"}/>
                 </View>
 
                 <View style={{ width: '80%'}}>
-                    <Button onPress={() => navigation.pop()} text="Back"/>
+                    <Button onPress={() => navigation.pop()} text={language ? "Cancel" : "Quay lại"}/>
                 </View>
             </View>
         </TouchableWithoutFeedback>

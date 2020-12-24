@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import SectionCourses from '../SectionCourses/section-courses';
 import { AuthenticationContext } from '../../../../providers/authentication-provider';
 import { getRecommendCourses } from '../../../../actions/user-actions'
+import { SettingCommonContext } from '../../../../providers/setting-common-provider';
 
 const RecommendCourses = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
+    const { language, theme } = useContext(SettingCommonContext);
 
     const [status, setStatus] = useState({
         successful: false,
@@ -22,11 +24,9 @@ const RecommendCourses = ({ navigation }) => {
 
     return (
         <View style={{marginBottom: 90, marginLeft: 10, marginRight: 10, marginTop: 10}}>
-            <SectionCourses courses={status.courses} title={status.courses.length + " courses"} type={2} hideButton={true} navigation={navigation}/>
+            <SectionCourses courses={status.courses} title={status.courses.length + (language ? " courses" : " khóa học")} type={2} hideButton={true} navigation={navigation}/>
         </View>
     )
 }
-
-const styles = StyleSheet.create({});
 
 export default RecommendCourses;

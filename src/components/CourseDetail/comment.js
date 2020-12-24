@@ -5,6 +5,7 @@ import Rating from '../Common/rating';
 import { monthNames } from '../../Global/constant';
 import { postRatingCourse } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
+import { SettingCommonContext } from '../../providers/setting-common-provider';
 
 const renderComment = (item) => (
     <View style={{ marginBottom: 40 }}>
@@ -32,6 +33,7 @@ const percentBar = (percent) => (
 const Comment = ({ navigation, route }) => {
     const details = route.params.details;
     const authContext = useContext(AuthenticationContext);
+    const { language, theme } = useContext(SettingCommonContext);
     const [content, setContent] = useState('');
     const [star, setStar] = useState(0);
     const [newRating, setNewRating] = useState({ successful: false, info: null });
@@ -54,7 +56,7 @@ const Comment = ({ navigation, route }) => {
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
-                        <Text style={styles.title}>Rating</Text>
+                        <Text style={styles.title}>{language ? "Rating" : "Đánh giá"}</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <TouchableOpacity 
                                 style={{backgroundColor: '#FF5252', 
@@ -63,7 +65,7 @@ const Comment = ({ navigation, route }) => {
                                 }}
                                 onPress={() => navigation.pop()}
                             >
-                                <Text style={{color: 'white', fontSize: 13}}>Back</Text>
+                                <Text style={{color: 'white', fontSize: 13}}>{language ? "Back" : "Quay lại"}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -71,7 +73,7 @@ const Comment = ({ navigation, route }) => {
                     <View style={{ flexDirection: 'row', marginBottom: 20 }}>
                         <View style={{ width: '30%', alignItems: 'center', justifyContent: 'center'}}>
                             <Text style={styles.averagePoint}>{details.averagePoint}</Text>
-                            <Text>({details.ratings.ratingList.length} ratings)</Text>
+                            <Text>({details.ratings.ratingList.length} {language ? "ratings" : "đánh giá"})</Text>
                         </View>
                         <View>
                             <View style={styles.percent}>
@@ -122,7 +124,7 @@ const Comment = ({ navigation, route }) => {
                             }}
                             onPress={() => addRating()}
                         >
-                            <Text style={{color: 'white', fontSize: 13}}>Add</Text>
+                            <Text style={{color: 'white', fontSize: 13}}>{language ? "Add" : "Thêm"}</Text>
                         </TouchableOpacity>
                     </View>
                     

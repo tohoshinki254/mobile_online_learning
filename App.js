@@ -9,36 +9,39 @@ import ForgetPassword from './src/components/Authentication/ForgetPassword/forge
 import Main from './src/components/Main/main';
 import { navName } from './src/Global/constant';
 import { AuthenticationProvider } from './src/providers/authentication-provider';
+import { SettingCommonProvider } from './src/providers/setting-common-provider';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <AuthenticationProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={navName.login}>
-          <Stack.Screen name={navName.login} 
-            component={Login} 
-            options={{headerShown: false}}
-          />
+    <SettingCommonProvider>
+      <AuthenticationProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={navName.login}>
+            <Stack.Screen name={navName.login} 
+              component={Login} 
+              options={{headerShown: false}}
+            />
 
-          <Stack.Screen name={navName.register} 
-            component={Register} 
-            options={{headerShown: false}}
-          />
+            <Stack.Screen name={navName.register} 
+              component={Register} 
+              options={{headerShown: false}}
+            />
 
-          <Stack.Screen name={navName.forgetPassword}
-            component={ForgetPassword}
-            options={{headerShown: false}}
-          />
+            <Stack.Screen name={navName.forgetPassword}
+              component={ForgetPassword}
+              options={{headerShown: false}}
+            />
 
-          <Stack.Screen name={navName.main}
-            component={Main}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AuthenticationProvider>
+            <Stack.Screen name={navName.main}
+              component={Main}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthenticationProvider>
+    </SettingCommonProvider>
   );
 }
 

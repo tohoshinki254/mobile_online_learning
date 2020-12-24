@@ -6,9 +6,11 @@ import { AuthenticationContext } from '../../../providers/authentication-provide
 import { getProcessCourses, getFavoriteCourses } from '../../../actions/user-actions';
 import { getInstructors } from '../../../actions/instructor-actions';
 import { getNewCourses, getCourseFollowFavoriteCategories } from '../../../actions/course-actions';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const Home = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
+    const { language, theme } = useContext(SettingCommonContext);
 
     const [followCategories, setFollowCategories] = useState({ successful: false, courses: [] });
     useEffect(() => {
@@ -54,9 +56,9 @@ const Home = ({ navigation }) => {
         if (continueCourses.courses.length !== 0) {
             return <View>
                 <SectionCourses courses={continueCourses.courses} 
-                    title='Continue learning' 
+                    title={language ? "Continue learning" : "Đang học"}
                     type={1} 
-                    hideButton={false} eventButton='See all >'
+                    hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                     navigation={navigation}
                 />
                 <View style={{margin: 7}} />
@@ -70,9 +72,9 @@ const Home = ({ navigation }) => {
             
             {followCategories.courses.length !== 0 ?
                 <SectionCourses courses={followCategories.courses} 
-                    title='Favorite Categories' 
+                    title={language ? "Favorite Categories" : "Lĩnh vực yêu thích"} 
                     type={1} 
-                    hideButton={false} eventButton='See all >'
+                    hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                     navigation={navigation}
                 />
             : null}
@@ -80,16 +82,16 @@ const Home = ({ navigation }) => {
 
             {favoriteCourses.courses.length !== 0 ?
                 <SectionCourses courses={favoriteCourses.courses} 
-                    title='Like' 
+                    title={language ? "Like" : "Yêu thích"} 
                     type={1} 
-                    hideButton={false} eventButton='See all >'
+                    hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                     navigation={navigation}
                 />
             : null}
             <View style={{margin: 7}} />
 
             <Authors authors={authors.list}
-                title="Top Authors" 
+                title={language ? "Authors" : "Giảng viên"}
                 type={2} 
                 hideButton={true}
                 navigation={navigation}

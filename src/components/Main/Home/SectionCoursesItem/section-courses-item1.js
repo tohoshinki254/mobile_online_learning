@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { navName, monthNames } from '../../../../Global/constant';
 import Rating from '../../../Common/rating';
+import { SettingCommonContext } from '../../../../providers/setting-common-provider';
 
 const SectionCoursesItem1 = ({item, navigation}) => {
+    const { language, theme } = useContext(SettingCommonContext);
+
     const getDetails = () => {
         console.log(item);
         navigation.push(navName.courseDetails, { item: item })
@@ -21,7 +24,7 @@ const SectionCoursesItem1 = ({item, navigation}) => {
                 </Text>
                 {item.price !== undefined ?
                     <Text style={styles.price}>
-                        {item.price === 0 ? "FREE" : item.price + " VND"}
+                        {item.price === 0 ? (language ? "FREE" : "MIỄN PHÍ") : item.price + " VND"}
                     </Text>
                 : null}
                 <View style={{marginBottom: 3}}/>

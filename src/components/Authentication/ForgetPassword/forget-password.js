@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Button from '../../Common/button';
 import { forgetPassword } from '../../../actions/authentication-actions';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const ForgetPassword = ({ navigation }) => {
+    const { language, theme } = useContext(SettingCommonContext);
+
     const [email, setEmail] = useState();
 
     const [status, setStatus] = useState({
@@ -13,7 +16,7 @@ const ForgetPassword = ({ navigation }) => {
 
     useEffect(() => {
         if (status.successful) {
-            alert('Check email');
+            alert(language ? "Check email" : "Kiểm tra email");
             navigation.goBack();
         } else {
             if (status.message !== '') {
@@ -29,13 +32,14 @@ const ForgetPassword = ({ navigation }) => {
                     <Text 
                         style={{alignSelf: 'center', fontSize: 25, marginBottom: 40, color: '#616161'}}
                     >
-                        Forgot Password
+                        {language ? "Forgot Password" : "Quên mật khẩu"}
                     </Text>
 
                     <Text 
                         style={{alignSelf: 'center', fontSize: 20, marginBottom: 40, color: '#616161'}}
                     >
-                        Enter your email address and we'll send you a link to reset your password
+                        {language ? "Enter your email address and we'll send you a link to reset your password" : "Nhập địa chỉ email và chúng tôi sẽ gửi liên kết để tạo mới password"}
+                        
                     </Text>
 
                     <Text style={styles.text}>Email</Text>
@@ -46,10 +50,10 @@ const ForgetPassword = ({ navigation }) => {
                     />
                     
                     <View style={{marginBottom: 30}}>
-                        <Button onPress={() => forgetPassword(email, setStatus)} text="Send email"/>
+                        <Button onPress={() => forgetPassword(email, setStatus)} text={language ? "Send email" : "Gửi email"}/>
                     </View>
                     
-                    <Button onPress={() => navigation.goBack()} text="Cancel"/>
+                    <Button onPress={() => navigation.goBack()} text={language ? "Cancel" : "Quay lại"}/>
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

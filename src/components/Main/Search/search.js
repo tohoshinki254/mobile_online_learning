@@ -6,8 +6,9 @@ import SectionCourses from '../Home/SectionCourses/section-courses';
 import Authors from '../Home/Authors/authors';
 import { search, searchV2, searchHistory, deleteSearchHistory } from '../../../actions/course-actions';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
-const BeforeSearch = (history, clearAll) => {
+const BeforeSearch = (history, clearAll, language, theme) => {
     const renderFindText = (text) => (
         <View style={{flexDirection: 'row', margin: 10}}>
             <Icon name="search" size={20} color='#616161'/>
@@ -22,13 +23,12 @@ const BeforeSearch = (history, clearAll) => {
     return (
         <View style={{margin: 10}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18, flex: 1}}>Recent searches</Text>
+                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18, flex: 1}}>{language ? "Recent searches" : "Tìm kiếm gần đây"}</Text>
                 <TouchableOpacity onPress={() => clearAll()}>
-                    <Text style={{color: '#FF5252', fontSize: 15}}>Clear all</Text>
+                    <Text style={{color: '#FF5252', fontSize: 15}}>{language ? "Remove all" : "Xóa tất cả"}</Text>
                 </TouchableOpacity>
             </View>
             {history !== undefined ? history.data.map(item => renderFindText(item.content)) : null}
-            
         </View>
     )
 }
@@ -38,6 +38,7 @@ const Search = ({ navigation }) => {
     const [searchText, setSearchText] = useState('');
     const [submitted, setSubmitted] = useState({ successful: false, info: null });
     const authContext = useContext(AuthenticationContext);
+    const { language, theme } = useContext(SettingCommonContext);
 
     useEffect(() => {
         if (!history.successful) {
@@ -70,7 +71,8 @@ const Search = ({ navigation }) => {
                 inputContainerStyle={styles.inputContainer}
                 inputStyle={styles.inputStyle}
                 cancelButtonProps={{color: '#EF5350', buttonTextStyle: {fontSize: 16, paddingTop: 20}}}
-                placeholder="Search"
+                cancelButtonTitle={language ? "Cancel" : "Hủy bỏ"}
+                placeholder={language ? "Search" : "Tìm kiếm"}
                 platform="ios"
                 onChangeText={searchText => onChange(searchText)}
                 value={searchText}
@@ -81,9 +83,9 @@ const Search = ({ navigation }) => {
                     {submitted.info.courses.data.length !== 0 ? 
                     <View>
                         <SectionCourses courses={submitted.info.courses.data}
-                            title='Courses' 
+                            title={language ? "Courses" : "Các khóa học"} 
                             type={1} 
-                            hideButton={false} eventButton='See all >'
+                            hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                             navigation={navigation}
                         />
                         <View style={{margin: 7}} />
@@ -92,7 +94,7 @@ const Search = ({ navigation }) => {
 
                     {submitted.info.instructors.data.length !== 0 ?
                     <Authors authors={submitted.info.instructors.data}
-                        title="Authors" 
+                        title={language ? "Authors" : "Giảng viên"}
                         type={1} 
                         hideButton={true}
                         navigation={navigation}
@@ -100,7 +102,7 @@ const Search = ({ navigation }) => {
                     : null}
                 </ScrollView>
                 :
-                BeforeSearch(history, clearAll)
+                BeforeSearch(history, clearAll, language, theme)
             }
         </View>
     )
