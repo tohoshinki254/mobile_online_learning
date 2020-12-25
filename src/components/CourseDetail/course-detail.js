@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Video } from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -76,7 +76,6 @@ const CourseDetail = ({ route, navigation }) => {
     const displayVideo = () => {
         return video !== null ? video : course.details.promoVidUrl;
     }
-
 
     return (
         <View style={{ marginTop: 20, marginBottom: 200, height: '100%' }}>

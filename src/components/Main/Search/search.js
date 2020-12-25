@@ -4,7 +4,7 @@ import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SectionCourses from '../Home/SectionCourses/section-courses';
 import Authors from '../Home/Authors/authors';
-import { search, searchV2, searchHistory, deleteSearchHistory } from '../../../actions/course-actions';
+import { searchV2, searchHistory, deleteSearchHistory } from '../../../actions/course-actions';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
 

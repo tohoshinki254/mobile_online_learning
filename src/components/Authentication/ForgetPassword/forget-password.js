@@ -3,27 +3,12 @@ import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableWitho
 import Button from '../../Common/button';
 import { forgetPassword } from '../../../actions/authentication-actions';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
+import { SnackbarContext } from '../../../providers/snackbar-provider';
 
 const ForgetPassword = ({ navigation }) => {
     const { language, theme } = useContext(SettingCommonContext);
-
+    const snackContext = useContext(SnackbarContext);
     const [email, setEmail] = useState();
-
-    const [status, setStatus] = useState({
-        successful: false,
-        message: ''
-    });
-
-    useEffect(() => {
-        if (status.successful) {
-            alert(language ? "Check email" : "Kiểm tra email");
-            navigation.goBack();
-        } else {
-            if (status.message !== '') {
-                alert(status.message);
-            }
-        }
-    }, [status]);
 
     return (
         <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
@@ -50,7 +35,7 @@ const ForgetPassword = ({ navigation }) => {
                     />
                     
                     <View style={{marginBottom: 30}}>
-                        <Button onPress={() => forgetPassword(email, setStatus)} text={language ? "Send email" : "Gửi email"}/>
+                        <Button onPress={() => forgetPassword(email, snackContext.setSnackbar)} text={language ? "Send email" : "Gửi email"}/>
                     </View>
                     
                     <Button onPress={() => navigation.goBack()} text={language ? "Cancel" : "Quay lại"}/>

@@ -6,6 +6,7 @@ import { monthNames } from '../../Global/constant';
 import { postRatingCourse } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
 import { SettingCommonContext } from '../../providers/setting-common-provider';
+import { SnackbarContext } from '../../providers/snackbar-provider';
 
 const renderComment = (item) => (
     <View style={{ marginBottom: 40 }}>
@@ -34,9 +35,9 @@ const Comment = ({ navigation, route }) => {
     const details = route.params.details;
     const authContext = useContext(AuthenticationContext);
     const { language, theme } = useContext(SettingCommonContext);
+    const snackContext = useContext(SnackbarContext);
     const [content, setContent] = useState('');
     const [star, setStar] = useState(0);
-    const [newRating, setNewRating] = useState({ successful: false, info: null });
 
     const addRating = () => {
         const data = {
@@ -46,7 +47,7 @@ const Comment = ({ navigation, route }) => {
             presentationPoint: star,
             content: content
         };
-        postRatingCourse(authContext.state.token, data, setNewRating);
+        postRatingCourse(authContext.state.token, data, snackContext.setSnackbar);
     }
 
     return (

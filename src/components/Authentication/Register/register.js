@@ -4,30 +4,16 @@ import Button from '../../Common/button';
 import { navName } from '../../../Global/constant';
 import { register } from '../../../actions/authentication-actions';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
+import { SnackbarContext } from '../../../providers/snackbar-provider';
 
 const Register = ({ navigation }) => {
     const { language, theme } = useContext(SettingCommonContext);
+    const snackContext = useContext(SnackbarContext);
     const [name, setName] = useState({ value: '', error: false });
     const [username, setUsername] = useState({ value: '', error: false });
     const [email, setEmail] = useState({ value: '', error: false });
     const [password, setPassword] = useState({ value: '', error: false });
     const [phone, setPhone] = useState({ value: '', error: false });
-
-    const [status, setStatus] = useState({
-        successful: false,
-        message: ''
-    });
-
-    useEffect(() => {
-        if (status.successful) {
-            alert(language ? "Let active email" : "Kích hoạt tài khoản");
-            navigation.navigate(navName.login);
-        } else {
-            if (status.message !== '') {
-                alert(status.message);
-            }
-        }
-    }, [status]);
 
     const handleUsernameChange = (username) => {
         const pattern = new RegExp(/^[a-zA-Z0-9.\-_$@*!]{6,16}$/);
@@ -123,8 +109,8 @@ const Register = ({ navigation }) => {
                         <View style={{marginBottom: 20}}/>
                     }
 
-                    <Button onPress={() => register(username.value, email.value, phone.value, password.value, name.value, setStatus)} 
-                        text="Create an account"
+                    <Button onPress={() => register(username.value, email.value, phone.value, password.value, name.value, snackContext.setSnackbar)} 
+                        text={language ? "Create an account" : "Tạo tài khoản"}
                     />
 
                     <TouchableOpacity

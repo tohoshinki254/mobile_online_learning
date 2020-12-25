@@ -98,10 +98,8 @@ export const getCourseFollowFavoriteCategories = (data, setStatus) => {
     })
 }
 
-export const search = (keyword, setStatus) => {
-    axios.post(API_URL + 'course/search', {
-        keyword: keyword
-    })
+export const search = (data, setStatus) => {
+    axios.post(API_URL + 'course/search', data)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, info: response.data.payload });
@@ -188,12 +186,12 @@ export const postRatingCourse = (token, data, setStatus) => {
     })
     .then((response) => {
         if (response.status === 200) {
-            setStatus({ successful: true, info: response.data.payload });
+            setStatus({ open: true, status: 200, message: response.data.message });
         } else {
-            setStatus({ successful: false, info: null });
+            setStatus({ open: true, status: response.status, message: response.data.message });
         }
     })
     .catch((error) => {
-        setStatus({ successful: false, info: null });
+        setStatus({ open: true, status: 500, message: 'Error' });
     })
 }

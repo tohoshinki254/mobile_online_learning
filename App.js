@@ -11,6 +11,7 @@ import { navName } from './src/Global/constant';
 import { AuthenticationProvider } from './src/providers/authentication-provider';
 import { SettingCommonProvider } from './src/providers/setting-common-provider';
 import { SnackbarProvider } from './src/providers/snackbar-provider';
+import MySnackbar from './src/components/Common/my-snackbar';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,7 @@ export default function App() {
               />
             </Stack.Navigator>
           </NavigationContainer>
+          <MySnackbar />
         </AuthenticationProvider>
       </SettingCommonProvider>
     </SnackbarProvider>

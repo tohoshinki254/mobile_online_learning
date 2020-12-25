@@ -1,33 +1,28 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, TextInput, View, Text, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import Button from '../../Common/button';
-import { updateProfile } from '../../../actions/user-actions';
+import { updateProfile, changeAvatar } from '../../../actions/user-actions';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
+import { SnackbarContext } from '../../../providers/snackbar-provider';
 import * as ImagePicker from 'expo-image-picker';
-import { changeAvatar } from '../../../actions/user-actions';
 
 const UpdateProfile = ({ route, navigation }) => {
     const { info } = route.params;
     const { token } = useContext(AuthenticationContext).state;
     const { language, theme } = useContext(SettingCommonContext);
+    const snackContext = useContext(SnackbarContext);
 
     const [name, setName] = useState(info.name);
     const [phone, setPhone] = useState(info.phone);
     const [image, setImage] = useState(info.avatar);
-
-    const [result, setResult] = useState();
 
     const updatePress = () => {
         const data = {
             name: name,
             phone: phone
         };
-        updateProfile(token, data, setResult);
-        if (result.successful) {
-            alert(language ? 'Successful' : 'Thành công');
-            navigation.pop();
-        }
+        updateProfile(token, data, snackContext.setSnackbar);
     }
     
     const uploadAvatar = async () => {
@@ -42,7 +37,7 @@ const UpdateProfile = ({ route, navigation }) => {
         const formData = new FormData();
         formData.append('avatar', { uri: localUri, name: filename, type});
 
-        changeAvatar(token, formData);
+        changeAvatar(token, formData, snackContext.setSnackbar);
     }
 
     const pickImage = async () => {

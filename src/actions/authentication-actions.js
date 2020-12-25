@@ -31,13 +31,13 @@ export const register = (username, email, phone, password, name, setStatus) => {
     })
     .then((response) => {
         if (response.status === 200) {
-            setStatus({ successful: true, message: response.data.message });
+            setStatus({ open: true, status: 200, message: response.data.message });
         } else {
-            setStatus({ successful: false, message: response.data.message });
+            setStatus({ open: true, status: response.status, message: response.data.message });
         }
     })
     .catch((error) => {
-        setStatus({ successful: false, message: 'Error' });
+        setStatus({ open: true, status: 500, message: 'Error' });
     });
 }
 
@@ -47,12 +47,12 @@ export const forgetPassword = (email, setStatus) => {
     })
     .then((response) => {
         if (response.status === 200) {
-            setStatus({ successful: true, message: response.data.message });
+            setStatus({ open: true, status: 200, message: response.data.message });
         } else {
-            setStatus({ successful: false, message: response.data.message });
+            setStatus({ open: true, status: response.status, message: response.data.message });
         }
     })
     .catch((error) => {
-        setStatus({ successful: false, message: 'Error' });
+        setStatus({ open: true, status: 500, message: 'Error' });
     })
 }

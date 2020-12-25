@@ -5,7 +5,7 @@ import Authors from './Authors/authors';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { getProcessCourses, getFavoriteCourses } from '../../../actions/user-actions';
 import { getInstructors } from '../../../actions/instructor-actions';
-import { getNewCourses, getCourseFollowFavoriteCategories } from '../../../actions/course-actions';
+import { getCourseFollowFavoriteCategories } from '../../../actions/course-actions';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const Home = ({ navigation }) => {
@@ -28,15 +28,6 @@ const Home = ({ navigation }) => {
             getFavoriteCourses(authContext.state.token, setFavoriteCourses);
         }
     }, [favoriteCourses, setFavoriteCourses])
-
-    const [newReleases, setNewReleases] = useState({ successful: false, courses: [] });
-    useEffect(() => {
-        const limit = 20;
-        const page = 1;
-        if (!newReleases.successful) {
-            getNewCourses(limit, page, setNewReleases);
-        }
-    }, [newReleases, setNewReleases])
 
     const [authors, setAuthors] = useState({ successful: false, list: [] });
     useEffect(() => {

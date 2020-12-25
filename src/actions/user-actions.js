@@ -80,13 +80,13 @@ export const updateProfile = (token, data, setStatus) => {
     })
     .then((response) => {
         if (response.status === 200) {
-            setStatus({ successful: true, info: response.data.userInfo });
+            setStatus({ open: true, status: 200, message: response.data.message });
         } else {
-            setStatus({ successful: false, info: null });
+            setStatus({ open: true, status: response.status, message: response.data.message });
         }
     })
     .catch((error) => {
-        setStatus({ successful: false, info: null });
+        setStatus({ open: true, status: 500, message: 'Error' });
     })
 }
 
@@ -108,7 +108,7 @@ export const getCourseLikeStatus = (token, courseId, setStatus) => {
     })
 }
 
-export const changeAvatar = (token, formData) => {
+export const changeAvatar = (token, formData, setStatus) => {
     axios.post(API_URL + 'user/upload-avatar', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -117,12 +117,12 @@ export const changeAvatar = (token, formData) => {
     })
     .then((response) => {
         if (response.status === 200) {
-            console.log('200');
+            setStatus({ open: true, status: 200, message: response.data.message });
         } else {
-            console.log('400');
+            setStatus({ open: true, status: response.status, message: response.data.message });
         }
     })
     .catch((error) => {
-        console.log('500');
+        setStatus({ open: true, status: 500, message: 'Error' });
     })
 }

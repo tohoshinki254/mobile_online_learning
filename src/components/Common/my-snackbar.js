@@ -12,12 +12,12 @@ const MySnackbar = () => {
                 <Snackbar style={{ flex: 1, justifyContent: 'space-between' }}
                     visible={context.snackbar.open}
                     action={{
-                        label: context.snackbar.status,
+                        label: 'X',
                         onPress: () => context.setSnackbar({ open: false, status: null, message: null })
                     }}
                     onDismiss={() => context.setSnackbar({ open: false, status: null, message: null })}
                 >
-                    {context.snackbar.message}
+                    {context.snackbar.status}: {context.snackbar.message}
                 </Snackbar>
             )}
         </View>
