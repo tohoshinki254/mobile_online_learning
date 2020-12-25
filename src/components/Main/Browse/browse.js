@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import ImageButton from '../../Common/image-button';
 import RadiusButton from '../../Common/radius-button';
 import Authors from '../Home/Authors/authors';
@@ -14,41 +15,48 @@ const Browse = ({ navigation }) => {
     const { language, theme } = useContext(SettingCommonContext);
 
     const [topRate, setTopRate] = useState({ successful: false, courses: [] });
-    useEffect(() => {
-        const data = {
-            limit: 20,
-            page: 1
-        };
-        if (!topRate.successful) {
-            getTopRate(data, setTopRate);
-        }
-    }, [topRate, setTopRate]);
+    useFocusEffect(
+        React.useCallback(() => {
+            (async () => {
+                const data = {
+                    limit: 20,
+                    page: 1
+                };
+                await getTopRate(data, setTopRate);
+            })();
+        }, [setTopRate])
+    );
 
     const [topSell, setTopSell] = useState({ successful: false, courses: [] });
-    useEffect(() => {
-        const data = {
-            limit: 20,
-            page: 1
-        };
-        if (!topSell.successful) {
-            getTopSell(data, setTopSell);
-        }
-    }, [topSell, setTopSell]);
+    useFocusEffect(
+        React.useCallback(() => {
+            (async () => {
+                const data = {
+                    limit: 20,
+                    page: 1
+                };
+                await getTopSell(data, setTopSell);
+            })();
+        }, [setTopSell])
+    );
 
     const [category, setCategory] = useState({ successful: false, list: [] });
-    useEffect(() => {
-        if (!category.successful && category.list.length === 0) {
-            getAllCategory(setCategory);
-        }
-    }, [category, setCategory])
+    useFocusEffect(
+        React.useCallback(() => {
+            (async () => {
+                await getAllCategory(setCategory);
+            })();
+        }, [setCategory])
+    )
 
     const [authors, setAuthors] = useState({ successful: false, list: [] });
-    useEffect(() => {
-        if (!authors.successful && authors.list.length === 0) {
-            getInstructors(setAuthors);
-        }
-    }, [authors, setAuthors])
-
+    useFocusEffect(
+        React.useCallback(() => {
+            (async () => {
+                await getInstructors(setAuthors);
+            })();
+        }, [setAuthors])
+    )
 
     const navigateSkill = (item) => {
         navigation.navigate(navName.skill, { item: item });
@@ -90,7 +98,7 @@ const Browse = ({ navigation }) => {
                     hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                     navigation={navigation}
                 />
-            : null}
+            : <ActivityIndicator />}
 
             <View style={{margin: 17}} />
             {topRate.courses.length !== 0 ?
@@ -100,7 +108,7 @@ const Browse = ({ navigation }) => {
                     hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                     navigation={navigation}
                 />
-            : null}
+            : <ActivityIndicator />}
 
             <View style={{margin: 17}} />
             {authors.list.length !== 0 ? 
@@ -110,7 +118,7 @@ const Browse = ({ navigation }) => {
                     hideButton={true}
                     navigation={navigation}
                 />
-            : null}
+            : <ActivityIndicator />}
 
             <View style={{margin: 17}} />
         </ScrollView>

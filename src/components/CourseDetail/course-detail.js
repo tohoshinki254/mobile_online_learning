@@ -10,6 +10,7 @@ import { navName, monthNames } from '../../Global/constant';
 import { getCourseDetails } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
 import { SettingCommonContext } from '../../providers/setting-common-provider';
+import { SnackbarContext } from '../../providers/snackbar-provider';
 import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
 import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
 import Rating from '../Common/rating';
@@ -20,8 +21,8 @@ const CourseDetail = ({ route, navigation }) => {
     const [showDesc, setShowDesc] = useState(false);
     const authContext = useContext(AuthenticationContext);
     const { language, theme } = useContext(SettingCommonContext);
+    const snackContext = useContext(SnackbarContext);
     const [course, setCourse] = useState({ successful: false, details: null });
-    const [like, setLike] = useState({ successful: false });
     const [statusLike, setStatusLike] = useState({ successful: false, status: false });
     const [buy, setBuy] = useState({ successful: false, message: 'error' });
     const [payment, setPayment] = useState({ successful: false, info: null });
@@ -53,9 +54,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     const likeCourseAction = () => {
-        if (!like.successful) {
-            likeCourse(authContext.state.token, item.id, setLike, setStatusLike);
-        }
+        likeCourse(authContext.state.token, item.id, setStatusLike, snackContext.setSnackbar);
     }
     
     const buyCourse = () => {
@@ -155,14 +154,14 @@ const CourseDetail = ({ route, navigation }) => {
                             </Text>
                         </View>
                         
-                        <TouchableOpacity style={{backgroundColor: '#BDBDBD', borderRadius: '3',
+                        <TouchableOpacity style={{backgroundColor: '#BDBDBD', borderRadius: 3,
                                     width: '10%', justifyContent: 'center', alignItems: 'center'}}
                             onPress={() => setShowDesc(!showDesc)}
                         >
                             {showDesc ?
-                                <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_up_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                                <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_up_grey_192x192.png'}} style={{width: 30, height: 30}}/>
                                 :
-                                <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_down_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                                <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_down_grey_192x192.png'}} style={{width: 30, height: 30}}/>
                             }
                         </TouchableOpacity>
                     </View>

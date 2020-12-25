@@ -1,6 +1,24 @@
 import axios from 'axios';
 import { API_URL } from '../Global/constant';
 
+export const getUserInfo = (token, setStatus) => {
+    axios.get(API_URL + 'user/me', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus({ successful: true, info: response.data.payload });
+        } else {
+            setStatus({ successful: false, info: null });
+        }
+    })
+    .catch((error) => {
+        setStatus({ successful: false, info: null });
+    })
+}
+
 export const getProcessCourses = (token, setStatus) => {
     axios.get(API_URL + 'user/get-process-courses', {
         headers: {
@@ -19,7 +37,7 @@ export const getProcessCourses = (token, setStatus) => {
     })
 }
 
-export const likeCourse = (token, courseId, setStatus, setState) => {
+export const likeCourse = (token, courseId, setStatus, setSnackbar) => {
     axios.post(API_URL + 'user/like-course', {
         courseId: courseId
     } ,{
@@ -29,14 +47,13 @@ export const likeCourse = (token, courseId, setStatus, setState) => {
     })
     .then((response) => {
         if (response.status === 200) {
-            setStatus({ successful: true, message: response.data.message });
-            setState({ successful: true, status: true });
+            setStatus({ successful: true, status: response.data.likeStatus });
         } else {
-            setStatus({ successful: false });
+            setSnackbar({ open: true, status: response.status, message: response.data.message });
         }
     })
     .catch((error) => {
-        setStatus({ successful: false });
+        setSnackbar({ open: true, status: response.status, message: response.data.message });
     })
 }
 
@@ -100,11 +117,11 @@ export const getCourseLikeStatus = (token, courseId, setStatus) => {
         if (response.status === 200) {
             setStatus({ successful: true, status: response.data.likeStatus });
         } else {
-            setStatus({ successful: false, status: null });
+            setStatus({ successful: false, status: false });
         }
     })
     .catch((error) => {
-        setStatus({ successful: false, status: null });
+        setStatus({ successful: false, status: false });
     })
 }
 

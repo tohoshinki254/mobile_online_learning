@@ -13,7 +13,7 @@ const SectionCoursesItem2 = ({item, navigation}) => {
 
     return (
         <TouchableOpacity style={styles.item} onPress={() => getDetails()}>
-            <Image source={{url: item.imageUrl || item.courseImage}} style={styles.image}/>
+            <Image source={{uri: item.imageUrl || item.courseImage}} style={styles.image}/>
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14, marginBottom: 3}} numberOfLines={1}>{item.title || item.courseTitle}</Text>
                 <Text style={styles.darkText} numberOfLines={1}>{item["instructor.user.name"] || item.instructorName || item.name}</Text>

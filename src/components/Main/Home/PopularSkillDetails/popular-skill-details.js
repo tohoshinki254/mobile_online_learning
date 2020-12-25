@@ -12,17 +12,20 @@ const PopularSkillDetails = ({ navigation, route }) => {
     useEffect(() => {
         if (!courses.successful) {
             const data = {
-                
+                keyword: "",
+                opt: {
+                    category: [item.id]
+                }
             }
-            search(name, setCourses);
+            search(data, setCourses);
         }
-    }, [name, courses, setCourses]);
+    }, [item, courses, setCourses]);
 
     return (
         <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>
             {courses.successful ?
-            <SectionCourses courses={courses.info.courses.data} 
-                title={`${courses.info.courses.data.length} ${language ? "courses" : "khóa học"}`} 
+            <SectionCourses courses={courses.info} 
+                title={`${courses.info.length} ${language ? "courses" : "khóa học"}`} 
                 type={2} 
                 hideButton={true}
                 navigation={navigation}

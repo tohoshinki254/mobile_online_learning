@@ -20,7 +20,7 @@ const AuthorItem1 = ({ author, navigation}) => {
                 >
                     <Image 
                         style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
-                        source={{url: detail.info.avatar}}
+                        source={{uri: detail.info.avatar}}
                     />
                     <Text style={{color: '#424242', fontSize: 15, maxWidth: 100}}>{detail.info.name}</Text>
                 </TouchableOpacity>

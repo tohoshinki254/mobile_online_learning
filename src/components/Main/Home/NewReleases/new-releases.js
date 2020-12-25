@@ -15,7 +15,7 @@ const NewReleases = ({ navigation }) => {
         const limit = 20;
         const page = 1;
         if (!status.successful) {
-            getNewCourses(limit, page, setStatus);
+            getNewCourses(limit, page, setStatus, setLoading);
         }
     }, [status, setStatus])
 

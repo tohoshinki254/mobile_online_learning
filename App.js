@@ -11,42 +11,47 @@ import { navName } from './src/Global/constant';
 import { AuthenticationProvider } from './src/providers/authentication-provider';
 import { SettingCommonProvider } from './src/providers/setting-common-provider';
 import { SnackbarProvider } from './src/providers/snackbar-provider';
+import { LoadingProvider } from './src/providers/loading-provider';
 import MySnackbar from './src/components/Common/my-snackbar';
+import Loading from './src/components/Common/loading';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <SnackbarProvider>
-      <SettingCommonProvider>
-        <AuthenticationProvider>
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName={navName.login}>
-              <Stack.Screen name={navName.login} 
-                component={Login} 
-                options={{headerShown: false}}
-              />
+    <LoadingProvider>
+      <SnackbarProvider>
+        <SettingCommonProvider>
+          <AuthenticationProvider>
+            <NavigationContainer>
+              <Stack.Navigator initialRouteName={navName.login}>
+                <Stack.Screen name={navName.login} 
+                  component={Login} 
+                  options={{headerShown: false}}
+                />
 
-              <Stack.Screen name={navName.register} 
-                component={Register} 
-                options={{headerShown: false}}
-              />
+                <Stack.Screen name={navName.register} 
+                  component={Register} 
+                  options={{headerShown: false}}
+                />
 
-              <Stack.Screen name={navName.forgetPassword}
-                component={ForgetPassword}
-                options={{headerShown: false}}
-              />
+                <Stack.Screen name={navName.forgetPassword}
+                  component={ForgetPassword}
+                  options={{headerShown: false}}
+                />
 
-              <Stack.Screen name={navName.main}
-                component={Main}
-                options={{headerShown: false}}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-          <MySnackbar />
-        </AuthenticationProvider>
-      </SettingCommonProvider>
-    </SnackbarProvider>
+                <Stack.Screen name={navName.main}
+                  component={Main}
+                  options={{headerShown: false}}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+            <MySnackbar />
+            <Loading />
+          </AuthenticationProvider>
+        </SettingCommonProvider>
+      </SnackbarProvider>
+    </LoadingProvider>
   );
 }
 

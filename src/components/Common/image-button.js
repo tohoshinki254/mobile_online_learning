@@ -3,7 +3,7 @@ import { ImageBackground, StyleSheet, TouchableOpacity, Text } from 'react-nativ
 
 const ImageButton = ({title, onPress, URL, fontSize}) => {
     return (
-        <ImageBackground style={styles.button} source={{url: URL}}>
+        <ImageBackground style={styles.button} source={{uri: URL}}>
             <TouchableOpacity style={styles.touch} onPress={onPress}>
                 <Text style={[styles.text, {fontSize: fontSize}]}>{title}</Text>
             </TouchableOpacity>

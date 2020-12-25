@@ -20,7 +20,7 @@ const AuthorItem2 = ({ author, navigation }) => {
                 >
                     <Image 
                         style={{width: 65, height: 65, borderRadius: 65/2}}
-                        source={{url: detail.info.avatar}}
+                        source={{uri: detail.info.avatar}}
                     />
                     <View style={{marginLeft: 20}}>
                         <Text style={{color: '#424242', fontSize: 17}}>{detail.info.name}</Text>

@@ -14,7 +14,7 @@ const SectionCoursesItem1 = ({item, navigation}) => {
  
     return (
         <TouchableOpacity style={styles.item} onPress={() => getDetails()}>
-            <Image source={{url: item.imageUrl || item.courseImage}} style={styles.image}/>
+            <Image source={{uri: item.imageUrl || item.courseImage}} style={styles.image}/>
             <View style={{flex: 1, marginLeft: 15, paddingRight: 5}}>
                 <Text style={{color: '#424242', fontSize: 17, marginBottom: 3}} numberOfLines={2}>{item.title || item.courseTitle}</Text>
                 <Text style={styles.darkText}>{item["instructor.user.name"] || item.instructorName || item.name}</Text>
@@ -30,11 +30,6 @@ const SectionCoursesItem1 = ({item, navigation}) => {
                 <View style={{marginBottom: 3}}/>
                 <Rating number={item.ratedNumber} />
             </View>
-            <TouchableOpacity>
-                <Image source={{url: 'https://static.thenounproject.com/png/1380510-200.png'}}
-                    style={{width: 20, height: 20}}     
-                />
-            </TouchableOpacity>
         </TouchableOpacity>
     )
 }

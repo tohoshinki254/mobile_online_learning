@@ -18,7 +18,7 @@ const AuthorDetails = ({ route, navigation }) => {
             <View style={{alignItems: 'center', marginBottom: 5, flexDirection: 'row'}}>
                 <Image 
                     style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
-                    source={{url: author.avatar}}
+                    source={{uri: author.avatar}}
                 />
                 <View style={{ marginLeft: 10 }}>
                     <Text style={styles.title} numberOfLines={1}>{author.name}</Text>

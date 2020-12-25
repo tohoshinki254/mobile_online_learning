@@ -102,7 +102,7 @@ export const search = (data, setStatus) => {
     axios.post(API_URL + 'course/search', data)
     .then((response) => {
         if (response.status === 200) {
-            setStatus({ successful: true, info: response.data.payload });
+            setStatus({ successful: true, info: response.data.payload.rows });
         } else {
             setStatus({ successful: false, info: null });
         }

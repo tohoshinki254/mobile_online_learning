@@ -1,32 +1,31 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import RadiusButton from '../../Common/radius-button';
 import { navName } from '../../../Global/constant';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
 import { SnackbarContext } from '../../../providers/snackbar-provider';
+import { LoadingContext } from '../../../providers/loading-provider';
 import { getCategoryDetails } from '../../../actions/category-actions';
+import { getUserInfo } from '../../../actions/user-actions';
 import Setting from '../Setting/setting';
-
-const Separator = () => {
-    return(
-        <View
-            style={{
-                height: 1,
-                marginTop: 10,
-                marginRight: 10,
-                marginBottom: 10,
-                backgroundColor: '#9E9E9E',
-            }}
-        />
-    );
-}
+import Separator from '../../Common/separator';
 
 const Profile = ({ navigation }) => {
     const authContext = useContext(AuthenticationContext);
     const { language, theme } = useContext(SettingCommonContext);
     const snackContext = useContext(SnackbarContext);
-    const userInfo = authContext.state.userInfo;
+    const { setLoading } = useContext(LoadingContext);
+
+    const [userInfo, setUserInfo] = useState({ successful: false, info: null });
+    useFocusEffect(
+        React.useCallback(() => {
+            (async () => {
+                await getUserInfo(authContext.state.token, setUserInfo);
+            })();
+        }, [authContext, setUserInfo])
+    );
 
     // const categories = [];
     // const [detail, setDetail] = useState();
@@ -48,50 +47,54 @@ const Profile = ({ navigation }) => {
 
     return (
         <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
-            <View style={styles.basic}>
-                <Image source={{ uri: userInfo.avatar}} style={styles.image}/>
-                <View> 
-                    <Text style={styles.name}>{userInfo.name}</Text>
-                    <Text style={{ color: 'grey'}}>Email: {userInfo.email}</Text>
-                    <Text style={{ color: 'grey'}}>{language ? "Phone: " : "Điên thoại: "}{userInfo.phone}</Text>
+            {userInfo.info !== null ? 
+            <View>
+                <View style={styles.basic}>
+                    <Image source={{ uri: userInfo.info.avatar}} style={styles.image}/>
+                    <View> 
+                        <Text style={styles.name}>{userInfo.info.name}</Text>
+                        <Text style={{ color: 'grey'}}>Email: {userInfo.info.email}</Text>
+                        <Text style={{ color: 'grey'}}>{language ? "Phone: " : "Điên thoại: "}{userInfo.info.phone}</Text>
+                    </View>
                 </View>
+                <View style={{margin: 10}}/>
+
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
+                    //onPress={() => navigation.push(navName.download, { courses: courses })}
+                    onPress={() => setLoading(true)}
+                >
+                    <Text style={[styles.title, {marginRight: 20}]}>{language ? "Downloads" : "Khóa học đã tải"}</Text>
+                    <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                </TouchableOpacity>
+                <View style={{margin: 10}}/>
+
+                <Text style={styles.title}>{language ? "Interests" : "Lĩnh vực quan tâm"}</Text>
+                <ScrollView horizontal={true} style={{marginTop: 13}} showsHorizontalScrollIndicator={false}>
+                    {/* {renderListSkills(categories)} */}
+                </ScrollView>
+
+                <Separator />
+                
+                <Setting />
+
+                <Separator />
+
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
+                    onPress={() => navigation.push(navName.updateProfile, { info: userInfo.info })}
+                >
+                    <Text style={[styles.title, {marginRight: 20}]}>{language ? "Update Profile" : "Cập nhật thông tin"}</Text>
+                    <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                </TouchableOpacity>
+
+                <View style={{margin: 10}}/>
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
+                    onPress={() => navigation.popToTop()}
+                >
+                    <Text style={[styles.title, {marginRight: 20}]}>{language ? "Logout" : "Đăng xuất"}</Text>
+                    <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
+                </TouchableOpacity>
             </View>
-            <View style={{margin: 10}}/>
-
-            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
-                //onPress={() => navigation.push(navName.download, { courses: courses })}
-                onPress={() => snackContext.setSnackbar({ open: true, status: 100, message: 'aaa'})}
-            >
-                <Text style={[styles.title, {marginRight: 20}]}>{language ? "Downloads" : "Khóa học đã tải"}</Text>
-                <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
-            </TouchableOpacity>
-            <View style={{margin: 10}}/>
-
-            <Text style={styles.title}>{language ? "Interests" : "Lĩnh vực quan tâm"}</Text>
-            <ScrollView horizontal={true} style={{marginTop: 13}} showsHorizontalScrollIndicator={false}>
-                {/* {renderListSkills(categories)} */}
-            </ScrollView>
-
-            <Separator />
-            
-            <Setting />
-
-            <Separator />
-
-            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
-                onPress={() => navigation.push(navName.updateProfile, { info: userInfo })}
-            >
-                <Text style={[styles.title, {marginRight: 20}]}>{language ? "Update Profile" : "Cập nhật thông tin"}</Text>
-                <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
-            </TouchableOpacity>
-
-            <View style={{margin: 10}}/>
-            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
-                onPress={() => navigation.popToTop()}
-            >
-                <Text style={[styles.title, {marginRight: 20}]}>{language ? "Logout" : "Đăng xuất"}</Text>
-                <Image source={{url: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
-            </TouchableOpacity>
+            : <ActivityIndicator />}
         </ScrollView>
     )
 }

@@ -50,11 +50,13 @@ const Search = ({ navigation }) => {
         setSearchText(searchText);
         if (searchText === '') {
             setSubmitted({ successful: false, info: null });
-            setHistory({ successful: false, data: [] });
         }
     }
     const onSubmit = () => {
         searchV2(searchText, setSubmitted);
+        const temp = history.data;
+        temp.push({ content: searchText });
+        setHistory({ successful: true, data: temp})
     }
 
     const clearAll = () => {
@@ -79,28 +81,38 @@ const Search = ({ navigation }) => {
                 onSubmitEditing={() => onSubmit()}
             />
             {submitted.successful ? 
-                <ScrollView style={styles.list}>
-                    {submitted.info.courses.data.length !== 0 ? 
+                <View style={styles.list}>
+                    {submitted.info.courses.data.length !== 0 || submitted.info.instructors.data.length !== 0 ?
                     <View>
-                        <SectionCourses courses={submitted.info.courses.data}
-                            title={language ? "Courses" : "Các khóa học"} 
-                            type={1} 
-                            hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
-                            navigation={navigation}
-                        />
-                        <View style={{margin: 7}} />
+                        {submitted.info.courses.data.length !== 0 ? 
+                            <View>
+                                <SectionCourses courses={submitted.info.courses.data}
+                                    title={language ? "Courses" : "Các khóa học"} 
+                                    type={1} 
+                                    hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
+                                    navigation={navigation}
+                                />
+                                <View style={{margin: 7}} />
+                            </View>
+                            : null}
+        
+                            {submitted.info.instructors.data.length !== 0 ?
+                            <Authors authors={submitted.info.instructors.data}
+                                title={language ? "Authors" : "Giảng viên"}
+                                type={1} 
+                                hideButton={true}
+                                navigation={navigation}
+                            />
+                            : null}
                     </View>
-                    : null}
-
-                    {submitted.info.instructors.data.length !== 0 ?
-                    <Authors authors={submitted.info.instructors.data}
-                        title={language ? "Authors" : "Giảng viên"}
-                        type={1} 
-                        hideButton={true}
-                        navigation={navigation}
-                    />
-                    : null}
-                </ScrollView>
+                    : <View style={{ margin: 20 }}>
+                        <Text 
+                            style={{fontSize: 20, marginTop: 40, color: '#616161', textAlign: 'center'}}
+                        >
+                            {language ? `We couldn't find any matches for "${searchText}"`  : `Không tìm thấy kết quả phù hợp cho "${searchText}"`}
+                        </Text>
+                    </View>}
+                </View>
                 :
                 BeforeSearch(history, clearAll, language, theme)
             }
@@ -126,7 +138,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: 80
+        marginBottom: 80,
     },
 });
 
