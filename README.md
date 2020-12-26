@@ -1,4 +1,5 @@
 ------------------------------------------------
+
 Nguyễn Thanh Tiến
 1712813
 
@@ -12,6 +13,14 @@ Deadline 1: Mock-up UI/UX cho toàn bộ ứng dụng
 
 Deadline 2: Xây dựng ứng dụng offline cho toàn bộ ứng dụng
   - Branch: offline-app
-  - Commit ID: 3a387f3
+  - Last Commit ID: 3a387f3
   - Video demo: https://youtu.be/w0uDhbopQ94
+
+Deadline 3: Xây dựng đồ án cuối kì đầy đủ các luồng chạy online
+  - Branch: online-app
+  - Last Commit ID: 
+  - Video demo: 
+    + Link youtube: https://youtu.be/hxIInAmAp7Y
+    + Link Google Drive: https://drive.google.com/file/d/1UtPChRiF0fVFBuef0MKqHNVrvtm9Oib2/view?usp=sharing
+
 ------------------------------------------------
