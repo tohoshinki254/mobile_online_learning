@@ -28,7 +28,12 @@ const SectionCoursesItem1 = ({item, navigation}) => {
                     </Text>
                 : null}
                 <View style={{marginBottom: 3}}/>
-                <Rating number={item.ratedNumber} />
+                {item.contentPoint !== undefined || item.courseAveragePoint !== undefined ?
+                <View style={{ flexDirection: 'row' }}>
+                    <Rating number={(item.contentPoint + item.formalityPoint + item.presentationPoint) / 3 || item.courseAveragePoint} />
+                    {item.ratedNumber !== undefined ? <Text style={{ marginLeft: 5, color: 'grey' }}>({item.ratedNumber} ratings)</Text> : null}
+                </View>
+                : null}
             </View>
         </TouchableOpacity>
     )

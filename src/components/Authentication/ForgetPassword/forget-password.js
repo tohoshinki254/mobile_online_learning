@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },  
     textInput: {
         width: '100%',
-        height: 50,
+        height: 40,
         borderWidth: 1.5,
         borderRadius: 4,
         borderColor: 'gray',

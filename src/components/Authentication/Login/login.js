@@ -18,14 +18,14 @@ function Login({ navigation }) {
     }, [authContext])
 
     const withoutLogin = () => {
-        navigation.navigate(navName.main);
+        // navigation.navigate(navName.main);
     }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.root}>
                 <Text 
-                    style={{alignSelf: 'center', fontSize: 25, marginBottom: 40, color: '#616161'}}
+                    style={{alignSelf: 'center', fontSize: 25, marginBottom: 30, color: '#616161'}}
                 >
                     {language ? "Sign In" : "Đăng nhập"}
                 </Text>
@@ -45,10 +45,10 @@ function Login({ navigation }) {
                     secureTextEntry={true}
                 />
 
-                <Button onPress={() => {authContext.login(username, password)}} text={language ? "Sign In" : "Đăng nhập"}/>
+                <Button onPress={() => {authContext.login(username, password); onChangeUsername(''); onChangePassword('')}} text={language ? "Sign In" : "Đăng nhập"}/>
                 <View style={{marginBottom: 30}} />
 
-                <Button onPress={() => withoutLogin()} text={language ? "Explore without a subscription" : "Không đăng nhập"}/>
+                <Button onPress={() => withoutLogin()} text={language ? "Sign in with Google" : "Đăng nhập bằng tài khoản Google"}/>
 
                 <TouchableOpacity
                     style={styles.othersOption}
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     },  
     textInput: {
         width: '100%',
-        height: 50,
+        height: 40,
         borderWidth: 1.5,
         borderRadius: 4,
         borderColor: 'gray',

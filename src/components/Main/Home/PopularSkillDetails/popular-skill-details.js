@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import SectionCourses from '../SectionCourses/section-courses';
 import { search } from '../../../../actions/course-actions';
 import { SettingCommonContext } from '../../../../providers/setting-common-provider';
@@ -22,7 +22,7 @@ const PopularSkillDetails = ({ navigation, route }) => {
     }, [item, courses, setCourses]);
 
     return (
-        <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>
+        <View style={{margin: 10}}>
             {courses.successful ?
             <SectionCourses courses={courses.info} 
                 title={`${courses.info.length} ${language ? "courses" : "khóa học"}`} 
@@ -30,8 +30,8 @@ const PopularSkillDetails = ({ navigation, route }) => {
                 hideButton={true}
                 navigation={navigation}
             />
-            : null}
-        </ScrollView>
+            : <ActivityIndicator />}
+        </View>
     )
 }
 

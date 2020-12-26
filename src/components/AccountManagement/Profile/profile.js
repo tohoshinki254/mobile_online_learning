@@ -88,7 +88,7 @@ const Profile = ({ navigation }) => {
 
                 <View style={{margin: 10}}/>
                 <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
-                    onPress={() => navigation.popToTop()}
+                    onPress={() => navigation.navigate(navName.login)}
                 >
                     <Text style={[styles.title, {marginRight: 20}]}>{language ? "Logout" : "Đăng xuất"}</Text>
                     <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>

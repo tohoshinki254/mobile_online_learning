@@ -178,7 +178,6 @@ export const getCourseDetails = (id, setStatus) => {
 }
 
 export const postRatingCourse = (token, data, setStatus) => {
-    console.log('aaa');
     axios.post(API_URL + 'course/rating-course', data, {
         headers: {
             'Authorization': `Bearer ${token}`

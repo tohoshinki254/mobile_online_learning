@@ -21,7 +21,8 @@ export const navName = {
     pathsTopic: 'List Paths',
     recommend: 'Recommend',
     updateProfile: 'Update Profile',
-    rating: 'Rating'
+    rating: 'Rating',
+    splashscreen: 'Splashscreen'
 };
 
 // export const API_URL = "https://api.letstudy.org/";

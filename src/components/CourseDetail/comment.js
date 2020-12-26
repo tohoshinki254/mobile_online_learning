@@ -9,7 +9,7 @@ import { SettingCommonContext } from '../../providers/setting-common-provider';
 import { SnackbarContext } from '../../providers/snackbar-provider';
 
 const renderComment = (item) => (
-    <View style={{ marginBottom: 40 }}>
+    <View style={{ marginBottom: 20 }}>
         {item !== undefined ?
         <View>
             <Text style={{ color: '#616161', fontWeight: 'bold', fontSize: 17, marginBottom: 7}}>{item.user.name}</Text>
@@ -111,7 +111,10 @@ const Comment = ({ navigation, route }) => {
 
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flex: 1, marginRight: 15 }}>
-                            <Rating number={0} modify={true} setStar={setStar}/>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ color: '#616161', marginRight: 15 }}>{language ? "Add rating" : "Thêm đánh giá"}</Text>
+                                <Rating number={0} modify={true} setStar={setStar}/>
+                            </View>
                             <TextInput 
                                 style={styles.textInput}
                                 onChangeText={(text) => setContent(text)}
@@ -128,7 +131,6 @@ const Comment = ({ navigation, route }) => {
                             <Text style={{color: 'white', fontSize: 13}}>{language ? "Add" : "Thêm"}</Text>
                         </TouchableOpacity>
                     </View>
-                    
                 </ScrollView>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import SectionCourses from '../SectionCourses/section-courses';
 import { AuthenticationContext } from '../../../../providers/authentication-provider';
 import { getRecommendCourses } from '../../../../actions/user-actions'
@@ -24,7 +24,14 @@ const RecommendCourses = ({ navigation }) => {
 
     return (
         <View style={{marginBottom: 90, marginLeft: 10, marginRight: 10, marginTop: 10}}>
-            <SectionCourses courses={status.courses} title={status.courses.length + (language ? " courses" : " khóa học")} type={2} hideButton={true} navigation={navigation}/>
+            {status.successful ? 
+                <SectionCourses courses={status.courses} 
+                    title={status.courses.length + (language ? " courses" : " khóa học")} 
+                    type={2} 
+                    hideButton={true} 
+                    navigation={navigation}
+                />
+            : <ActivityIndicator />}
         </View>
     )
 }

@@ -26,7 +26,12 @@ const SectionCoursesItem2 = ({item, navigation}) => {
                         {item.price === 0 ? (language ? "FREE" : "MIỄN PHÍ") : item.price + " VND"}
                     </Text>
                 : null}
-                <Rating number={item.ratedNumber} />
+                {item.contentPoint !== undefined || item.courseAveragePoint !== undefined ?
+                <View style={{ flexDirection: 'row' }}>
+                    <Rating number={(item.contentPoint + item.formalityPoint + item.presentationPoint) / 3 || item.courseAveragePoint} />
+                    {item.ratedNumber !== undefined ? <Text style={{ marginLeft: 5, color: 'grey' }}>({item.ratedNumber} ratings)</Text> : null}
+                </View>
+                : null}
             </View>
         </TouchableOpacity>
     )
@@ -36,9 +41,8 @@ const styles = StyleSheet.create({
     item: {
         margin: 5,
         width: 250,
-        height: 210,
+        height: '100%',
         backgroundColor: 'lightgray',
-        borderRadius: 5,
     },
     image: {
         width: '100%',

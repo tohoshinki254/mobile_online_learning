@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import ImageButton from '../../Common/image-button';
@@ -15,48 +15,40 @@ const Browse = ({ navigation }) => {
     const { language, theme } = useContext(SettingCommonContext);
 
     const [topRate, setTopRate] = useState({ successful: false, courses: [] });
-    useFocusEffect(
-        React.useCallback(() => {
-            (async () => {
-                const data = {
-                    limit: 20,
-                    page: 1
-                };
-                await getTopRate(data, setTopRate);
-            })();
-        }, [setTopRate])
-    );
+    useEffect(() => {
+        const data = {
+            limit: 20,
+            page: 1
+        };
+        if (!topRate.successful) {
+            getTopRate(data, setTopRate);
+        }
+    }, [setTopRate]);
 
     const [topSell, setTopSell] = useState({ successful: false, courses: [] });
-    useFocusEffect(
-        React.useCallback(() => {
-            (async () => {
-                const data = {
-                    limit: 20,
-                    page: 1
-                };
-                await getTopSell(data, setTopSell);
-            })();
-        }, [setTopSell])
-    );
+    useEffect(() => {
+        const data = {
+            limit: 20,
+            page: 1
+        };
+        if (!topSell.successful) {
+            getTopSell(data, setTopSell);
+        }   
+    }, [setTopSell]);
 
     const [category, setCategory] = useState({ successful: false, list: [] });
-    useFocusEffect(
-        React.useCallback(() => {
-            (async () => {
-                await getAllCategory(setCategory);
-            })();
-        }, [setCategory])
-    )
+    useEffect(() => {
+        if (!category.successful) {
+            getAllCategory(setCategory);
+        }
+    }, [setCategory]);
 
     const [authors, setAuthors] = useState({ successful: false, list: [] });
-    useFocusEffect(
-        React.useCallback(() => {
-            (async () => {
-                await getInstructors(setAuthors);
-            })();
-        }, [setAuthors])
-    )
+    useEffect(() => {
+        if (!authors.successful) {
+            getInstructors(setAuthors);
+        }
+    }, [setAuthors]);
 
     const navigateSkill = (item) => {
         navigation.navigate(navName.skill, { item: item });
@@ -85,10 +77,14 @@ const Browse = ({ navigation }) => {
             />
 
             <View style={{margin: 17}} />
-            <Text style={styles.title}>{language ? "Categories" : "Các lĩnh vực"}</Text>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                {renderListSkills(category.list)}
-            </ScrollView>
+            {category.list.length !== 0 ? 
+            <View>
+                <Text style={styles.title}>{language ? "Categories" : "Các lĩnh vực"}</Text>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                    {renderListSkills(category.list)}
+                </ScrollView>
+            </View>
+            : <ActivityIndicator />}
             
             <View style={{margin: 17}} />
             {topSell.courses.length !== 0 ?

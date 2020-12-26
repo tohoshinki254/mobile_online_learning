@@ -14,6 +14,7 @@ import { SnackbarProvider } from './src/providers/snackbar-provider';
 import { LoadingProvider } from './src/providers/loading-provider';
 import MySnackbar from './src/components/Common/my-snackbar';
 import Loading from './src/components/Common/loading';
+import Splashscreen from './src/components/Others/Splashscreen/splashscreen';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,12 @@ export default function App() {
         <SettingCommonProvider>
           <AuthenticationProvider>
             <NavigationContainer>
-              <Stack.Navigator initialRouteName={navName.login}>
+            <Stack.Navigator initialRouteName={navName.splashscreen}>
+                <Stack.Screen name={navName.splashscreen}
+                  component={Splashscreen}
+                  options={{headerShown: false}}
+                />
+                
                 <Stack.Screen name={navName.login} 
                   component={Login} 
                   options={{headerShown: false}}

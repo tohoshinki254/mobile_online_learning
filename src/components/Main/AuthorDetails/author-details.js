@@ -56,7 +56,7 @@ const AuthorDetails = ({ route, navigation }) => {
             <SectionCourses courses={author.courses} 
                 title={language ? "Courses" : "Các khóa học"}
                 type={1} 
-                hideButton={false} eventButton='See all >'
+                hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                 navigation={navigation}
             />
             <View style={{margin: 10}}/>

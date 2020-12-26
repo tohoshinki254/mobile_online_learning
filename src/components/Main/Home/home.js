@@ -14,16 +14,14 @@ const Home = ({ navigation }) => {
     const { language, theme } = useContext(SettingCommonContext);
 
     const [followCategories, setFollowCategories] = useState({ successful: false, courses: [] });
-    useFocusEffect(
-        React.useCallback(() => {
-            (async () => {
-                const data = {
-                    userId: authContext.state.userInfo.id
-                };
-                await getCourseFollowFavoriteCategories(data, setFollowCategories);
-            })();
-        }, [setFollowCategories])
-    );
+    useEffect(() => {
+        if (!followCategories.successful) {
+            const data = {
+                userId: authContext.state.userInfo.id
+            };
+            getCourseFollowFavoriteCategories(data, setFollowCategories);
+        }
+    }, [setFollowCategories]);
 
     const [favoriteCourses, setFavoriteCourses] = useState({ successful: false, courses: [] });
     useFocusEffect(
@@ -36,14 +34,11 @@ const Home = ({ navigation }) => {
     );
 
     const [authors, setAuthors] = useState({ successful: false, list: [] });
-    useFocusEffect(
-        React.useCallback(() => {
-            (async () => {
-                await getInstructors(setAuthors);
-            })();
-            return undefined;
-        }, [setAuthors])
-    )
+    useEffect(() => {
+        if (!authors.successful) {
+            getInstructors(setAuthors);
+        }
+    }, [setAuthors]);
 
     const [continueCourses, setContinueCourses] = useState({ successful: false, courses: [] });
     useFocusEffect(
@@ -64,7 +59,7 @@ const Home = ({ navigation }) => {
                     hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                     navigation={navigation}
                 />
-            : <ActivityIndicator />}
+            : continueCourses.successful ? null : <ActivityIndicator />}
             <View style={{margin: 7}} />
             
             {followCategories.courses.length !== 0 ?
@@ -74,7 +69,7 @@ const Home = ({ navigation }) => {
                     hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                     navigation={navigation}
                 />
-            : <ActivityIndicator />}
+            : followCategories.successful ? null : <ActivityIndicator />}
             <View style={{margin: 7}} />
 
             {favoriteCourses.courses.length !== 0 ?
@@ -84,7 +79,7 @@ const Home = ({ navigation }) => {
                     hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
                     navigation={navigation}
                 />
-            : <ActivityIndicator />}
+            : favoriteCourses.successful ? null : <ActivityIndicator />}
             <View style={{margin: 7}} />
 
             {authors.list.length !== 0 ? 
@@ -94,7 +89,7 @@ const Home = ({ navigation }) => {
                     hideButton={true}
                     navigation={navigation}
                 />
-            : <ActivityIndicator />}
+            : authors.successful ? null : <ActivityIndicator />}
         </ScrollView>
     )
 }
