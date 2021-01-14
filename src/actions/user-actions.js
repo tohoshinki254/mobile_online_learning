@@ -1,12 +1,15 @@
-import axios from 'axios';
-import { API_URL } from '../Global/constant';
+import { apiGetUserInfo, 
+    apiGetProcessCourse, 
+    apiLikeCourse, 
+    apiGetFavoriteCourses, 
+    apiGetRecommendCourses, 
+    apiUpdateProfile, 
+    apiGetCourseLikeStatus, 
+    apiChangeAvatar 
+} from '../services/user-services';
 
 export const getUserInfo = (token, setStatus) => {
-    axios.get(API_URL + 'user/me', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiGetUserInfo(token)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, info: response.data.payload });
@@ -20,11 +23,7 @@ export const getUserInfo = (token, setStatus) => {
 }
 
 export const getProcessCourses = (token, setStatus) => {
-    axios.get(API_URL + 'user/get-process-courses', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiGetProcessCourse(token)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, courses: response.data.payload });
@@ -38,13 +37,7 @@ export const getProcessCourses = (token, setStatus) => {
 }
 
 export const likeCourse = (token, courseId, setStatus, setSnackbar) => {
-    axios.post(API_URL + 'user/like-course', {
-        courseId: courseId
-    } ,{
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiLikeCourse(token, courseId)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, status: response.data.likeStatus });
@@ -58,11 +51,7 @@ export const likeCourse = (token, courseId, setStatus, setSnackbar) => {
 }
 
 export const getFavoriteCourses = (token, setStatus) => {
-    axios.get(API_URL + 'user/get-favorite-courses', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiGetFavoriteCourses(token)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, courses: response.data.payload });
@@ -76,7 +65,7 @@ export const getFavoriteCourses = (token, setStatus) => {
 }
 
 export const getRecommendCourses = (userId, limit, offset, setStatus) => {
-    axios.get(API_URL + 'user/recommend-course/' + userId + '/' + limit + '/' + offset)
+    apiGetRecommendCourses(userId, limit, offset)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, courses: response.data.payload });
@@ -90,11 +79,7 @@ export const getRecommendCourses = (userId, limit, offset, setStatus) => {
 }
 
 export const updateProfile = (token, data, setStatus) => {
-    axios.put(API_URL + 'user/update-profile', data, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiUpdateProfile(token, data)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ open: true, status: 200, message: response.data.message });
@@ -108,11 +93,7 @@ export const updateProfile = (token, data, setStatus) => {
 }
 
 export const getCourseLikeStatus = (token, courseId, setStatus) => {
-    axios.get(API_URL + 'user/get-course-like-status/' + courseId, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiGetCourseLikeStatus(token, courseId)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, status: response.data.likeStatus });
@@ -126,12 +107,7 @@ export const getCourseLikeStatus = (token, courseId, setStatus) => {
 }
 
 export const changeAvatar = (token, formData, setStatus) => {
-    axios.post(API_URL + 'user/upload-avatar', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiChangeAvatar(token, formData)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ open: true, status: 200, message: response.data.message });

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import AuthorItem1 from './author-item1';
 import AuthorItem2 from './author-item2';
+import { SettingCommonContext } from '../../../../providers/setting-common-provider';
 
 const Authors = ({authors, title, type, hideButton, eventButton, navigation, route}) => {
+    const { theme } = useContext(SettingCommonContext);
+
     const FlatListItemSeparator = () => {
         return (
           <View
@@ -39,7 +42,7 @@ const Authors = ({authors, title, type, hideButton, eventButton, navigation, rou
     return (
         <View style={{ margin: route != undefined ? 10 : 0}}>
             <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', marginBottom: 10}}>
-                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{(route !== undefined ? route.params?.title : title)}</Text>
+                <Text style={{color: theme ? 'lightgray' : '#616161', fontWeight: 'bold', fontSize: 18}}>{(route !== undefined ? route.params?.title : title)}</Text>
                 {(route !== undefined ? route.params?.hideButton : hideButton) ? null : 
                     <TouchableOpacity 
                         style={{backgroundColor: '#FF5252', 
@@ -77,16 +80,20 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
     },
-    title: {
-        color: '#616161',
-        fontWeight: 'bold',
-        fontSize: 18,
-        marginBottom: 13,
+    title: (theme) => {
+        return {
+            color: theme ? 'lightgray' : '#616161',
+            fontWeight: 'bold',
+            fontSize: 18,
+            marginBottom: 13,
+        }
     },
-    darkText: {
-        color: 'gray',
-        fontSize: 15,
-        marginTop: 3,
+    darkText: (theme) => {
+        return {
+            color: theme ? 'lightgray' : 'gray',
+            fontSize: 15,
+            marginTop: 3,
+        }
     }
 });
 

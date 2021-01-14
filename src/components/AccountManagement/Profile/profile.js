@@ -45,16 +45,21 @@ const Profile = ({ navigation }) => {
         );
     }
 
+    const logout = () => {
+        authContext.state.isAuthenticated = false;
+        navigation.navigate(navName.login);
+    }
+
     return (
-        <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
+        <ScrollView style={styles.root(theme)} showsVerticalScrollIndicator={false}>
             {userInfo.info !== null ? 
             <View>
                 <View style={styles.basic}>
                     <Image source={{ uri: userInfo.info.avatar}} style={styles.image}/>
                     <View> 
-                        <Text style={styles.name}>{userInfo.info.name}</Text>
-                        <Text style={{ color: 'grey'}}>Email: {userInfo.info.email}</Text>
-                        <Text style={{ color: 'grey'}}>{language ? "Phone: " : "Điên thoại: "}{userInfo.info.phone}</Text>
+                        <Text style={styles.name(theme)}>{userInfo.info.name}</Text>
+                        <Text style={styles.darkText(theme)}>Email: {userInfo.info.email}</Text>
+                        <Text style={styles.darkText(theme)}>{language ? "Phone: " : "Điên thoại: "}{userInfo.info.phone}</Text>
                     </View>
                 </View>
                 <View style={{margin: 10}}/>
@@ -63,12 +68,12 @@ const Profile = ({ navigation }) => {
                     //onPress={() => navigation.push(navName.download, { courses: courses })}
                     onPress={() => setLoading(true)}
                 >
-                    <Text style={[styles.title, {marginRight: 20}]}>{language ? "Downloads" : "Khóa học đã tải"}</Text>
+                    <Text style={[styles.title(theme), {marginRight: 20}]}>{language ? "Downloads" : "Khóa học đã tải"}</Text>
                     <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
                 </TouchableOpacity>
                 <View style={{margin: 10}}/>
 
-                <Text style={styles.title}>{language ? "Interests" : "Lĩnh vực quan tâm"}</Text>
+                <Text style={styles.title(theme)}>{language ? "Interests" : "Lĩnh vực quan tâm"}</Text>
                 <ScrollView horizontal={true} style={{marginTop: 13}} showsHorizontalScrollIndicator={false}>
                     {/* {renderListSkills(categories)} */}
                 </ScrollView>
@@ -82,15 +87,15 @@ const Profile = ({ navigation }) => {
                 <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
                     onPress={() => navigation.push(navName.updateProfile, { info: userInfo.info })}
                 >
-                    <Text style={[styles.title, {marginRight: 20}]}>{language ? "Update Profile" : "Cập nhật thông tin"}</Text>
+                    <Text style={[styles.title(theme), {marginRight: 20}]}>{language ? "Update Profile" : "Cập nhật thông tin"}</Text>
                     <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
                 </TouchableOpacity>
 
                 <View style={{margin: 10}}/>
                 <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
-                    onPress={() => navigation.navigate(navName.login)}
+                    onPress={() => logout()}
                 >
-                    <Text style={[styles.title, {marginRight: 20}]}>{language ? "Logout" : "Đăng xuất"}</Text>
+                    <Text style={[styles.title(theme), {marginRight: 20}]}>{language ? "Logout" : "Đăng xuất"}</Text>
                     <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
                 </TouchableOpacity>
             </View>
@@ -100,11 +105,14 @@ const Profile = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    root: {
-        marginTop: 30,
-        marginLeft: 10,
-        marginRight: 10,
-        paddingTop: 6,
+    root: (theme) => {
+        return {
+            paddingTop: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+            marginTop: 22,
+            backgroundColor: theme ? '#212121' : '#fff'
+        }
     },
     basic: {
         flexDirection: 'row',
@@ -116,18 +124,24 @@ const styles = StyleSheet.create({
         marginRight: 20,
         borderRadius: 50
     },
-    name: {
-        color: '#616161',
-        fontWeight: 'bold',
-        fontSize: 23,
+    name: (theme) => {
+        return {
+            color: theme ? '#fff' : '#616161',
+            fontWeight: 'bold',
+            fontSize: 23,
+        }
     },
-    title: {
-        color: '#616161',
-        fontWeight: 'bold',
-        fontSize: 18,
+    title: (theme) => {
+        return {
+            color: theme ? '#fff' : '#616161',
+            fontWeight: 'bold',
+            fontSize: 18,
+        }
     },
-    darkText: {
-        color: 'gray',
+    darkText: (theme) => {
+        return {
+            color: theme ? 'lightgray' : 'gray',
+        }
     }
 });
 

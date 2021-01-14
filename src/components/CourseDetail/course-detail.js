@@ -79,7 +79,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     return (
-        <View style={{ marginTop: 20, marginBottom: 200, height: '100%' }}>
+        <View style={{ marginTop: 20, marginBottom: 200, height: '100%', backgroundColor: theme ? '#212121' : '#fff' }}>
             {course.successful ?
             <View >
                 <TouchableOpacity style={{ position: 'absolute', top: 20, left: 20, zIndex: 1}}
@@ -103,13 +103,13 @@ const CourseDetail = ({ route, navigation }) => {
                 
 
                 <ScrollView style={{margin: 10, marginBottom: 175}} showsVerticalScrollIndicator={false}>
-                <Text style={styles.title} numberOfLines={2}>{course.details.title}</Text>
+                <Text style={styles.title(theme)} numberOfLines={2}>{course.details.title}</Text>
                     <View style={{flexDirection: 'row', marginBottom: 15, justifyContent: 'space-between'}}>
                         <RadiusButton onPress={() => seeAuthorDetails()} text={course.details.instructor.name} />
                     </View>
                     
                     <View style={{ flexDirection: 'row' }}>
-                        <Text style={[styles.darkText, { marginRight: 10 }]} numberOfLines={1}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours.toString().slice(0, 4)}h`}</Text>
+                        <Text style={[styles.darkText(theme), { marginRight: 10 }]} numberOfLines={1}>{`${monthNames[parseInt(course.details.createdAt.slice(5, 7)) - 1]} ${course.details.createdAt.slice(8, 10)}, ${course.details.createdAt.slice(0, 4)}  .  ${course.details.totalHours.toString().slice(0, 4)}h`}</Text>
                     </View>
                     
                     <View style={{ flexDirection: 'row' }}>
@@ -117,7 +117,7 @@ const CourseDetail = ({ route, navigation }) => {
                             {course.details.price === 0 ? (language ? "FREE" : "MIỄN PHÍ") : course.details.price + " VND"}
                         </Text>
                         <Rating number={course.details.averagePoint} modify={false} />
-                        <Text style={{ marginLeft: 5, color: 'grey' }}>({course.details.ratedNumber} ratings)</Text>
+                        <Text style={{ marginLeft: 5, color: theme ? 'lightgray' : 'gray' }}>({course.details.ratedNumber} ratings)</Text>
                     </View>
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
@@ -137,32 +137,32 @@ const CourseDetail = ({ route, navigation }) => {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
-                        <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Learn what" : "Những gì bạn sẽ học"}</Text>
-                        <Text style={{fontSize: 15, color: '#616161'}} >
+                    <View style={{ backgroundColor: theme ? '#424242' : '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
+                        <Text style={[styles.textInfo(theme), { fontWeight: 'bold' }]}>{language ? "Learn what" : "Những gì bạn sẽ học"}</Text>
+                        <Text style={styles.textInfo(theme)} >
                             {course.details.learnWhat !== null ? course.details.learnWhat : 'Không có'}
                         </Text>
                     </View>
-                    <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
-                        <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Requirement" : "Yêu cầu"}</Text>
-                        <Text style={{fontSize: 15, color: '#616161'}} >
+                    <View style={{ backgroundColor: theme ? '#424242' : '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
+                        <Text style={[styles.textInfo(theme), { fontWeight: 'bold' }]}>{language ? "Requirement" : "Yêu cầu"}</Text>
+                        <Text style={styles.textInfo(theme)} >
                             {course.details.requirement !== null ? course.details.requirement : 'Không có'}
                         </Text>
                     </View>
                     
-                    <View style={{ backgroundColor: '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10,
+                    <View style={{ backgroundColor: theme ? '#424242' : '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10,
                             flexDirection: 'row'
                     }}>
                         <View style={{ flex: 1, marginRight: 10 }}>
-                            <Text style={{fontSize: 15, color: '#616161', fontWeight: 'bold'}}>{language ? "Description" : "Mô tả"}</Text>
-                            <Text style={{fontSize: 15, color: '#616161'}} 
+                            <Text style={[styles.textInfo(theme), { fontWeight: 'bold' }]}>{language ? "Description" : "Mô tả"}</Text>
+                            <Text style={styles.textInfo(theme)} 
                                 numberOfLines={showDesc ? undefined : 2}
                             >
                                 {course.details.description}
                             </Text>
                         </View>
                         
-                        <TouchableOpacity style={{backgroundColor: '#BDBDBD', borderRadius: 3,
+                        <TouchableOpacity style={{backgroundColor: theme ? '#616161' : '#BDBDBD', borderRadius: 3,
                                     width: '10%', justifyContent: 'center', alignItems: 'center'}}
                             onPress={() => setShowDesc(!showDesc)}
                         >
@@ -182,7 +182,7 @@ const CourseDetail = ({ route, navigation }) => {
                     </TouchableOpacity>
                     <View style={{ marginTop: 20}}></View>
 
-                    <Text style={styles.title}>{language ? "Content" : "Nội dung khóa học"}</Text>
+                    <Text style={styles.title(theme)}>{language ? "Content" : "Nội dung khóa học"}</Text>
                     <Content sections={course.details.section} lessonClick={lessonClick} />
                     
                     {course.details.coursesLikeCategory.length !== 0 ? 
@@ -206,16 +206,20 @@ const CourseDetail = ({ route, navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    title: {
-        color: '#616161', 
-        fontWeight: 'bold', 
-        fontSize: 20, 
-        marginBottom: 15, 
-        maxHeight: 70
+    title: (theme) => {
+        return {
+            color: theme ? 'lightgray' : '#616161', 
+            fontWeight: 'bold', 
+            fontSize: 20, 
+            marginBottom: 15, 
+            maxHeight: 70
+        }
     },
-    darkText: {
-        color: 'grey',
-        marginBottom: 15,
+    darkText: (theme) => {
+        return {
+            color: theme ? 'lightgray' : 'grey',
+            marginBottom: 15,
+        }
     },
     button: {
         padding: 10,
@@ -226,7 +230,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    btnCustom: (x) => {
+    btnCustom: (x) => { 
         return {
             width: 150,
             height: 35,
@@ -245,6 +249,12 @@ const styles = StyleSheet.create({
             marginRight: 10,
         };
     },
+    textInfo: (theme) => {
+        return {
+            fontSize: 15, 
+            color: theme ? 'lightgray' : '#616161',
+        }
+    }
 });
 
 export default CourseDetail;

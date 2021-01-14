@@ -20,7 +20,7 @@ const NewReleases = ({ navigation }) => {
     }, [status, setStatus])
 
     return (
-        <View style={{marginBottom: 100, marginLeft: 10, marginRight: 10, marginTop: 10}}>
+        <View style={{paddingBottom: 100, paddingLeft: 10, paddingRight: 10, paddingTop: 10, backgroundColor: theme ? '#212121' : '#fff', height: '100%'}}>
             {status.successful ?
                 <SectionCourses courses={status.courses} 
                     title={status.courses.length + (language ? " courses" : " khóa học")} 

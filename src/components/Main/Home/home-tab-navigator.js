@@ -22,9 +22,25 @@ const HomeTabNavigator = () => {
             />
             <HomeTabNavigationStack.Screen name={navName.listCourses}
                 component={ListCourses}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <HomeTabNavigationStack.Screen name={navName.author}
                 component={AuthorDetails}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <HomeTabNavigationStack.Screen name={navName.rating}
                 component={Rating}

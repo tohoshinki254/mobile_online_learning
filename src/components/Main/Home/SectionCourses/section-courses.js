@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import SectionCoursesItem1 from '../SectionCoursesItem/section-courses-item1';
 import SectionCoursesItem2 from '../SectionCoursesItem/section-courses-item2';
 import { navName } from '../../../../Global/constant';
-
+import { SettingCommonContext } from '../../../../providers/setting-common-provider';
 const SectionCourses = ({courses, title, type, hideButton, eventButton, navigation}) => {
+    const { theme } = useContext(SettingCommonContext);
+
     const renderListItems = (courses) => {
         return courses.map(item => 
             <SectionCoursesItem2 item={item} navigation={navigation}/>
@@ -39,7 +41,7 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton, navigati
     return (
         <View>
             <View style={{flexDirection: 'row', alignItems:'flex-start',justifyContent: 'space-between', marginBottom: 10}}>
-                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
+                <Text style={{color: theme ? 'lightgray' : '#616161', fontWeight: 'bold', fontSize: 18}}>{title}</Text>
                 {hideButton ? null : 
                     <TouchableOpacity 
                         style={{backgroundColor: '#FF5252', 
@@ -73,11 +75,13 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton, navigati
 }
 
 const styles = StyleSheet.create({
-    title: {
-        color: '#616161',
-        fontWeight: 'bold',
-        fontSize: 18,
-        margin: 10,
+    title: (theme) => {
+        return {
+            color: theme ? 'lightgray' : '#616161',
+            fontWeight: 'bold',
+            fontSize: 18,
+            margin: 10,
+        }
     }
 });
 

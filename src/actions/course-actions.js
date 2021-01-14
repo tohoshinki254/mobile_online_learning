@@ -1,11 +1,19 @@
-import axios from 'axios';
-import { API_URL } from '../Global/constant';
+import { apiGetTopNew, 
+    apiGetTopSell, 
+    apiGetTopRate, 
+    apiGetDetailWithLesson, 
+    apiGetCourseInfo, 
+    apiGetCourseFollowFavoriteCategories, 
+    apiSearch, 
+    apiSearchV2, 
+    apiSearchHistory, 
+    apiDeleteSearchHistory, 
+    apiGetCourseDetails, 
+    apiPostRatingCourse 
+} from '../services/course-services';
 
 export const getNewCourses = (limit, page, setStatus) => {
-    axios.post(API_URL + 'course/top-new', {
-        limit: limit,
-        page: page
-    })
+    apiGetTopNew(limit, page)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, courses: response.data.payload });
@@ -19,11 +27,7 @@ export const getNewCourses = (limit, page, setStatus) => {
 }
 
 export const getDetailWithLesson = (token, courseId, setStatus) => {
-    axios.get(API_URL + 'course/detail-with-lesson/' + courseId, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiGetDetailWithLesson(token, courseId)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, details: response.data.payload });
@@ -39,11 +43,7 @@ export const getDetailWithLesson = (token, courseId, setStatus) => {
 }
 
 export const getCourseInfo = (token, id, setStatus) => {
-    axios.get(API_URL + 'course/get-course-info?id=' + id, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiGetCourseInfo(token, id)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, details: response.data.payload });
@@ -57,7 +57,7 @@ export const getCourseInfo = (token, id, setStatus) => {
 }
 
 export const getTopSell = (data, setStatus) => {
-    axios.post(API_URL + 'course/top-sell', data)
+    apiGetTopSell(data)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, courses: response.data.payload });
@@ -71,7 +71,7 @@ export const getTopSell = (data, setStatus) => {
 }
 
 export const getTopRate = (data, setStatus) => {
-    axios.post(API_URL + 'course/top-rate', data)
+    apiGetTopRate(data)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, courses: response.data.payload });
@@ -85,7 +85,7 @@ export const getTopRate = (data, setStatus) => {
 }
 
 export const getCourseFollowFavoriteCategories = (data, setStatus) => {
-    axios.post(API_URL + 'course/courses-user-favorite-categories', data)
+    apiGetCourseFollowFavoriteCategories(data)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, courses: response.data.payload });
@@ -99,7 +99,7 @@ export const getCourseFollowFavoriteCategories = (data, setStatus) => {
 }
 
 export const search = (data, setStatus) => {
-    axios.post(API_URL + 'course/search', data)
+    apiSearch(data)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, info: response.data.payload.rows });
@@ -113,11 +113,7 @@ export const search = (data, setStatus) => {
 }
 
 export const searchV2 = (keyword, setStatus) => {
-    axios.post(API_URL + 'course/searchV2', {
-        keyword: keyword,
-        limit: 20,
-        page: 1
-    })
+    apiSearchV2(keyword)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, info: response.data.payload });
@@ -131,11 +127,7 @@ export const searchV2 = (keyword, setStatus) => {
 }
 
 export const searchHistory = (token, setStatus) => {
-    axios.get(API_URL + 'course/search-history', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiSearchHistory(token)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, data: response.data.payload.data });
@@ -149,11 +141,7 @@ export const searchHistory = (token, setStatus) => {
 }
 
 export const deleteSearchHistory = (token, id) => {
-    axios.delete(API_URL + 'course/delete-search-history/' + id, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiDeleteSearchHistory(token, id)
     .then((response) => {
         // console.log(response.data.message);
     })
@@ -164,7 +152,7 @@ export const deleteSearchHistory = (token, id) => {
 
 // userId random
 export const getCourseDetails = (id, setStatus) => {
-    axios.get(API_URL + 'course/get-course-detail/' + id + '/7')
+    apiGetCourseDetails(id)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, details: response.data.payload });
@@ -178,11 +166,7 @@ export const getCourseDetails = (id, setStatus) => {
 }
 
 export const postRatingCourse = (token, data, setStatus) => {
-    axios.post(API_URL + 'course/rating-course', data, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiPostRatingCourse(token, data)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ open: true, status: 200, message: response.data.message });

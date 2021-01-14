@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native'
 import { navName } from '../../../../Global/constant';
 import { getDetailInstructor } from '../../../../actions/instructor-actions';
+import { SettingCommonContext } from '../../../../providers/setting-common-provider';
 
 const AuthorItem1 = ({ author, navigation}) => {
+    const { theme } = useContext(SettingCommonContext);
     const [detail, setDetail] = useState({ successful: false, info: null });
 
     useEffect(() => {
@@ -22,7 +24,7 @@ const AuthorItem1 = ({ author, navigation}) => {
                         style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}
                         source={{uri: detail.info.avatar}}
                     />
-                    <Text style={{color: '#424242', fontSize: 15, maxWidth: 100}}>{detail.info.name}</Text>
+                    <Text style={{color: theme ? 'lightgray' : '#424242', fontSize: 15, maxWidth: 100}}>{detail.info.name}</Text>
                 </TouchableOpacity>
             : null}
         </View>

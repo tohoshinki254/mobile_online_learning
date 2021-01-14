@@ -1,8 +1,7 @@
-import axios from 'axios';
-import { API_URL } from '../Global/constant';
+import { apiGetAllCategory, apiGetCategoryDetails } from '../services/category-services';
 
 export const getAllCategory = (setStatus) => {
-    axios.get(API_URL + 'category/all')
+    apiGetAllCategory()
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, list: response.data.payload });
@@ -16,7 +15,7 @@ export const getAllCategory = (setStatus) => {
 }
 
 export const getCategoryDetails = (id, setStatus) => {
-    axios.get(API_URL + 'category/' + id)
+    apiGetCategoryDetails(id)
     .then((response) => {
         if (response.status === 200) {
             setStatus(response.data.payload);

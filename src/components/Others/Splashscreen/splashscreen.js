@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { navName } from '../../../Global/constant';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const Splashscreen = ({ navigation }) => {
     const [loading, setLoading] = useState(0);
+    const { theme } = useContext(SettingCommonContext);
 
     useEffect(() => {
         this.timer = setInterval(() => {
@@ -21,18 +23,21 @@ const Splashscreen = ({ navigation }) => {
     }, [loading])
 
     return(
-        <View style={styles.splashscreen}>
+        <View style={styles.splashscreen(theme)}>
             <ActivityIndicator size="large" color="#FF5252"/>
-            <Text style={{ marginTop: 10, color: '#616161' }}>{`Loading ... ${loading}%`}</Text>
+            <Text style={{ marginTop: 10, color: theme ? 'lightgray' : '#616161' }}>{`Loading ... ${loading}%`}</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    splashscreen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    splashscreen: (theme) => {
+        return {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: theme ? '#212121' : '#fff'
+        }
     }
 })
 

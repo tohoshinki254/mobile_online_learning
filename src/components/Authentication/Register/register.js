@@ -46,16 +46,16 @@ const Register = ({ navigation }) => {
     return (
         <KeyboardAvoidingView behavior="height" style={{flex: 1}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.root}>
+                <View style={styles.root(theme)}>
                     <Text 
-                        style={{alignSelf: 'center', fontSize: 25, marginBottom: 20, color: '#616161'}}
+                        style={{alignSelf: 'center', fontSize: 25, marginBottom: 20, color: theme ? 'lightgray' : '#616161'}}
                     >
                         {language ? "Create an account" : "Tạo tài khoản mới"}
                     </Text>
 
-                    <Text style={styles.text}>Username</Text>
+                    <Text style={styles.text(theme)}>Username</Text>
                     <TextInput 
-                        style={styles.textInput}
+                        style={styles.textInput(theme)}
                         onChangeText={(text) => handleUsernameChange(text)}
                         value={username.value}
                     />
@@ -63,9 +63,9 @@ const Register = ({ navigation }) => {
                     <Text style={styles.error}>{language ? "Only contain a-z, 0-9 and length from 6 to 16" : "Bao gồm a-z, 0-9 và độ dài từ 6 đến 16"}</Text>
                     : <View style={{ marginBottom: 20 }}/>}
 
-                    <Text style={styles.text}>{language ? "Name" : "Tên"}</Text>
+                    <Text style={styles.text(theme)}>{language ? "Name" : "Tên"}</Text>
                     <TextInput 
-                        style={styles.textInput}
+                        style={styles.textInput(theme)}
                         onChangeText={handleNameChange}
                         value={name.value}
                     />
@@ -74,9 +74,9 @@ const Register = ({ navigation }) => {
                         <View style={{marginBottom: 20}}/>
                     }
 
-                    <Text style={styles.text}>Email</Text>
+                    <Text style={styles.text(theme)}>Email</Text>
                     <TextInput 
-                        style={styles.textInput}
+                        style={styles.textInput(theme)}
                         onChangeText={handleEmailChange}
                         value={email.value}
                     />
@@ -85,9 +85,9 @@ const Register = ({ navigation }) => {
                         <View style={{marginBottom: 20}}/>
                     }
 
-                    <Text style={styles.text}>{language ? "Phone" : "Số điện thoại"}</Text>
+                    <Text style={styles.text(theme)}>{language ? "Phone" : "Số điện thoại"}</Text>
                     <TextInput 
-                        style={styles.textInput}
+                        style={styles.textInput(theme)}
                         onChangeText={handlePhoneChange}
                         value={phone.value}
                         keyboardType='numeric'
@@ -97,9 +97,9 @@ const Register = ({ navigation }) => {
                         <View style={{marginBottom: 20}}/>
                     }
 
-                    <Text style={styles.text}>{language ? "Password" : "Mật khẩu"}</Text>
+                    <Text style={styles.text(theme)}>{language ? "Password" : "Mật khẩu"}</Text>
                     <TextInput 
-                        style={styles.textInput}
+                        style={styles.textInput(theme)}
                         onChangeText={handlePasswordChange}
                         value={password.value}
                         secureTextEntry={true}
@@ -117,8 +117,8 @@ const Register = ({ navigation }) => {
                         style={styles.othersOption}
                         onPress={() => navigation.navigate(navName.login)}
                     >
-                        <Text style={{fontSize: 17, color: 'darkgrey'}}>{language ? "Have an account?" : "Đã có tài khoản"}</Text>
-                        <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>&nbsp;{language ? "Sign In" : "Đăng nhập"}</Text>
+                        <Text style={{fontSize: 17, color: theme ? 'lightgray' : 'darkgrey'}}>{language ? "Have an account?" : "Đã có tài khoản"}</Text>
+                        <Text style={{fontSize: 17, color: theme ? 'lightgray' : 'gray', fontWeight: '500'}}>&nbsp;{language ? "Sign In" : "Đăng nhập"}</Text>
                     </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
@@ -127,24 +127,34 @@ const Register = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    root: {
-        width: '100%',
-        padding: 10,
-        marginTop: 24,
+    root: (theme) => {
+        return {
+            width: '100%',
+            padding: 10,
+            marginTop: 22,
+            backgroundColor: theme ? '#212121' : '#fff',
+            height: '100%',
+            justifyContent: 'center'
+        }
     },
-    text: {
-        fontSize: 13,
-        fontWeight: 'bold',
-        marginBottom: 3,
-        color: 'grey'
+    text: (theme) => {
+        return {
+            fontSize: 13,
+            fontWeight: 'bold',
+            marginBottom: 3,
+            color: theme ? 'lightgray' : 'gray'
+        }
     },  
-    textInput: {
-        width: '100%',
-        height: 40,
-        borderWidth: 1.5,
-        borderRadius: 4,
-        borderColor: 'gray',
-        padding: 5,
+    textInput: (theme) => {
+        return {
+            width: '100%',
+            height: 40,
+            borderWidth: 1.5,
+            borderRadius: 4,
+            borderColor: theme ? 'lightgray' : 'gray',
+            padding: 5,
+            color: theme ? 'lightgray' : 'gray'
+        }
     },
     othersOption: {
         flexDirection: 'row',

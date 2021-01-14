@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import ImageButton from '../../Common/image-button';
 import RadiusButton from '../../Common/radius-button';
 import Authors from '../Home/Authors/authors';
@@ -61,7 +60,7 @@ const Browse = ({ navigation }) => {
     }
 
     return (
-        <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
+        <ScrollView style={styles.root(theme)} showsVerticalScrollIndicator={false}>
             <ImageButton 
                 title={language ? "NEW RELEASE" : "MỚI CẬP NHẬT"} 
                 onPress={() => navigation.navigate(navName.newRelease)}
@@ -79,7 +78,7 @@ const Browse = ({ navigation }) => {
             <View style={{margin: 17}} />
             {category.list.length !== 0 ? 
             <View>
-                <Text style={styles.title}>{language ? "Categories" : "Các lĩnh vực"}</Text>
+                <Text style={styles.title(theme)}>{language ? "Categories" : "Các lĩnh vực"}</Text>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     {renderListSkills(category.list)}
                 </ScrollView>
@@ -122,17 +121,22 @@ const Browse = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    root: {
-        marginTop: 24,
-        marginLeft: 10,
-        marginRight: 10,
-        paddingTop: 6
+    root: (theme) => {
+        return {
+            marginTop: 22,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 6,
+            backgroundColor: theme ? '#212121' : '#fff'
+        }
     },
-    title: {
-        color: '#616161',
-        fontWeight: 'bold',
-        fontSize: 18,
-        marginBottom: 13,
+    title: (theme) => {
+        return {
+            color: theme ? 'lightgray' : '#616161',
+            fontWeight: 'bold',
+            fontSize: 18,
+            marginBottom: 13,
+        }
     }
 });
 

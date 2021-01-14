@@ -55,7 +55,7 @@ const UpdateProfile = ({ route, navigation }) => {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.root}>
+            <View style={styles.root(theme)}>
                 <View style={{ flexDirection: 'row', marginBottom: 20}}>
                     <Image source={{ uri: image }} style={styles.image}/>
                     <View style={{ justifyContent: 'center'}}>
@@ -66,9 +66,9 @@ const UpdateProfile = ({ route, navigation }) => {
                 </View>
 
                 <View style={{ width: '100%'}}>
-                    <Text style={styles.text}>{language ? "Name" : "Tên"}</Text>
+                    <Text style={styles.text(theme)}>{language ? "Name" : "Tên"}</Text>
                     <TextInput 
-                        style={styles.textInput}
+                        style={styles.textInput(theme)}
                         onChangeText={name => setName(name)}
                         value={name}
                         defaultValue={name}
@@ -76,9 +76,9 @@ const UpdateProfile = ({ route, navigation }) => {
                 </View>
 
                 <View style={{ width: '100%'}}>
-                    <Text style={styles.text}>{language ? "Phone" : "Số điện thoại"}</Text>
+                    <Text style={styles.text(theme)}>{language ? "Phone" : "Số điện thoại"}</Text>
                     <TextInput 
-                        style={styles.textInput}
+                        style={styles.textInput(theme)}
                         onChangeText={phone => setPhone(phone)}
                         value={phone}
                         defaultValue={phone}
@@ -94,26 +94,34 @@ const UpdateProfile = ({ route, navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    root: {
-        marginTop: 30,
-        marginLeft: 10,
-        marginRight: 10,
-        paddingTop: 6,
+    root: (theme) => {
+        return {
+            paddingTop: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+            backgroundColor: theme ? '#212121' : '#fff',
+            height: '100%'
+        }
     },
-    textInput: {
-        width: '100%',
-        height: 50,
-        borderWidth: 1.5,
-        borderRadius: 4,
-        borderColor: 'gray',
-        padding: 5,
-        marginBottom: 30,
+    textInput: (theme) => {
+        return {
+            width: '100%',
+            height: 50,
+            borderWidth: 1.5,
+            borderRadius: 4,
+            borderColor: theme ? 'lightgray': 'gray',
+            padding: 5,
+            marginBottom: 30,
+            color: theme ? 'lightgray' : 'gray',
+        }
     },
-    text: {
-        fontSize: 13,
-        fontWeight: 'bold',
-        marginBottom: 3,
-        color: 'grey',
+    text: (theme) => {
+        return {
+            fontSize: 13,
+            fontWeight: 'bold',
+            marginBottom: 3,
+            color: theme ? 'lightgray' : 'gray',
+        }
     }, 
     image: {
         width: 100,

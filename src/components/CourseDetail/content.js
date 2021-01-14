@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList } from 'react-native';
+import { SettingCommonContext } from '../../providers/setting-common-provider';
 
 const Content = ({ sections, lessonClick }) => {
+    const { theme } = useContext(SettingCommonContext);
+
     const renderContent = (item) => (
         <View style={{marginTop: 10}}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 17}}>
-                <View style={styles.index}> 
-                    <Text style={{fontWeight: 'bold', color: '#616161'}}>{item.numberOrder}</Text>
+                <View style={styles.index(theme)}> 
+                    <Text style={{fontWeight: 'bold', color: theme ? 'lightgray' : '#616161'}}>{item.numberOrder}</Text>
                 </View>
                 <View style={{flex: 1, marginLeft: 15}}> 
-                    <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
-                    <Text style={{color: 'grey', fontSize: 15}}>{item.sumHours}h</Text>
+                    <Text style={styles.title(theme)} numberOfLines={2}>{item.name}</Text>
+                    <Text style={{color: theme ? 'lightgray' : 'gray', fontSize: 15}}>{item.sumHours}h</Text>
                 </View>
             </View>
             {item.lesson.map(content => (
@@ -20,7 +23,7 @@ const Content = ({ sections, lessonClick }) => {
                 <Image source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Location_dot_grey.svg/1200px-Location_dot_grey.svg.png'}}
                     style={{width: 13, height: 13, marginRight: 24}}
                 />
-                <Text style={styles.content}>{content.name}</Text>
+                <Text style={styles.content(theme)}>{content.name}</Text>
             </TouchableOpacity>
             ))}
         </View> 
@@ -55,25 +58,32 @@ const Content = ({ sections, lessonClick }) => {
 }
 
 const styles = StyleSheet.create({
-    index: {
-        borderColor: 'gray', 
-        borderRadius: 40/2, 
-        borderWidth: 2, 
-        width: 30, 
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
+    index: (theme) => {
+        return {
+            borderColor: theme ? 'lightgray' : 'gray', 
+            borderRadius: 40/2, 
+            borderWidth: 2, 
+            width: 30, 
+            height: 30,
+            justifyContent: 'center',
+            alignItems: 'center'
+        }
     },
-    title: {
-        color: '#616161',
-        fontWeight: 'bold',
-        fontSize: 17,
-        maxWidth: 250,
-        marginBottom: 5
+    title: (theme) => {
+        return {
+            color: theme ? 'lightgray' : '#616161',
+            fontWeight: 'bold',
+            fontSize: 17,
+            maxWidth: 250,
+            marginBottom: 5
+        }
+        
     },
-    content: {
-        color: '#616161',
-        fontSize: 15,
+    content: (theme) => {
+        return {
+            color: theme ? 'lightgray' : '#616161',
+            fontSize: 15,
+        }
     }
 });
 

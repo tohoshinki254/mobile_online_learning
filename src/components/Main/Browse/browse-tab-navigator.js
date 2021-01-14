@@ -21,9 +21,25 @@ const BrowseTabNavigator = () => {
             />
             <BrowseTabNavigation.Screen name={navName.newRelease}
                 component={NewReleases}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <BrowseTabNavigation.Screen name={navName.skill}
                 component={PopularSkillDetails}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <BrowseTabNavigation.Screen name={navName.courseDetails}
                 component={CourseDetail}
@@ -31,12 +47,36 @@ const BrowseTabNavigator = () => {
             />
             <BrowseTabNavigation.Screen name={navName.author}
                 component={AuthorDetails}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <BrowseTabNavigation.Screen name={navName.listCourses}
                 component={ListCourses}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <BrowseTabNavigation.Screen name={navName.recommend}
                 component={RecommendCourses}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <BrowseTabNavigation.Screen name={navName.rating}
                 component={Rating}

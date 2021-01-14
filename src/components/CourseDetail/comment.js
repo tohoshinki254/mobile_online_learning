@@ -8,25 +8,25 @@ import { AuthenticationContext } from '../../providers/authentication-provider';
 import { SettingCommonContext } from '../../providers/setting-common-provider';
 import { SnackbarContext } from '../../providers/snackbar-provider';
 
-const renderComment = (item) => (
+const renderComment = (item, theme) => (
     <View style={{ marginBottom: 20 }}>
         {item !== undefined ?
         <View>
-            <Text style={{ color: '#616161', fontWeight: 'bold', fontSize: 17, marginBottom: 7}}>{item.user.name}</Text>
+            <Text style={{ color: theme ? 'lightgray' : '#616161', fontWeight: 'bold', fontSize: 17, marginBottom: 7}}>{item.user.name}</Text>
             <View style={{ flexDirection: 'row', marginBottom: 7 }}>
                 <Rating number={item.averagePoint} modify={false} />
-                <Text style={{ marginLeft: 10, color: '#616161'}}>
+                <Text style={{ marginLeft: 10, color: theme ? 'lightgray' : '#616161'}}>
                     {`${monthNames[parseInt(item.createdAt.slice(5, 7)) - 1]} ${item.createdAt.slice(8, 10)}, ${item.createdAt.slice(0, 4)}`}
                 </Text>
             </View>
-            <Text style={{ fontSize: 17, color: '#616161' }}>{item.content}</Text>
+            <Text style={{ fontSize: 17, color: theme ? 'lightgray' : '#616161' }}>{item.content}</Text>
         </View>
         : null}
     </View>
 )
 
-const percentBar = (percent) => (
-    <View style={{ borderRadius: 50, backgroundColor: '#616161', width: '70%', marginLeft: 10, height: 10}}>
+const percentBar = (percent, theme) => (
+    <View style={{ borderRadius: 50, backgroundColor: theme ? 'lightgray' : '#616161', width: '70%', marginLeft: 10, height: 10}}>
         <Animated.View style={[StyleSheet.absoluteFill, { borderRadius: 50, backgroundColor: '#fbc02d', width: `${percent}%` }]}/>
     </View>
 )
@@ -53,11 +53,11 @@ const Comment = ({ navigation, route }) => {
     return (
         <KeyboardAvoidingView behavior="position">
             <TouchableWithoutFeedback>
-                <ScrollView style={{ marginLeft: 10, marginRight: 10, marginBottom: 10, marginTop: 30 }}
+                <ScrollView style={styles.root(theme)}
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
-                        <Text style={styles.title}>{language ? "Rating" : "Đánh giá"}</Text>
+                        <Text style={styles.title(theme)}>{language ? "Rating" : "Đánh giá"}</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <TouchableOpacity 
                                 style={{backgroundColor: '#FF5252', 
@@ -73,50 +73,50 @@ const Comment = ({ navigation, route }) => {
 
                     <View style={{ flexDirection: 'row', marginBottom: 20 }}>
                         <View style={{ width: '30%', alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={styles.averagePoint}>{details.averagePoint}</Text>
-                            <Text>({details.ratings.ratingList.length} {language ? "ratings" : "đánh giá"})</Text>
+                            <Text style={styles.averagePoint(theme)}>{details.averagePoint}</Text>
+                            <Text style={styles.darkText(theme)}>({details.ratings.ratingList.length} {language ? "ratings" : "đánh giá"})</Text>
                         </View>
                         <View>
                             <View style={styles.percent}>
-                                <Text style={{ color: 'grey' }}>5&nbsp;</Text>
+                                <Text style={styles.darkText(theme)}>5&nbsp;</Text>
                                 <FontAwesome name="star" color="#fbc02d" size={15} />
-                                {percentBar(details.ratings.stars[4])}
+                                {percentBar(details.ratings.stars[4], theme)}
                             </View>
                             <View style={styles.percent}>
-                                <Text style={{ color: 'grey' }}>4&nbsp;</Text>
+                                <Text style={styles.darkText(theme)}>4&nbsp;</Text>
                                 <FontAwesome name="star" color="#fbc02d" size={15} />
-                                {percentBar(details.ratings.stars[3])}
+                                {percentBar(details.ratings.stars[3], theme)}
                             </View>
                             <View style={styles.percent}>
-                                <Text style={{ color: 'grey' }}>3&nbsp;</Text>
+                                <Text style={styles.darkText(theme)}>3&nbsp;</Text>
                                 <FontAwesome name="star" color="#fbc02d" size={15} />
-                                {percentBar(details.ratings.stars[2])}
+                                {percentBar(details.ratings.stars[2], theme)}
                             </View>
                             <View style={styles.percent}>
-                                <Text style={{ color: 'grey' }}>2&nbsp;</Text>
+                                <Text style={styles.darkText(theme)}>2&nbsp;</Text>
                                 <FontAwesome name="star" color="#fbc02d" size={15} />
-                                {percentBar(details.ratings.stars[1])}
+                                {percentBar(details.ratings.stars[1], theme)}
                             </View>
                             <View style={styles.percent}>
-                                <Text style={{ color: 'grey' }}>1&nbsp;</Text>
+                                <Text style={styles.darkText(theme)}>1&nbsp;</Text>
                                 <FontAwesome name="star" color="#fbc02d" size={15} />
-                                {percentBar(details.ratings.stars[0])}
+                                {percentBar(details.ratings.stars[0], theme)}
                             </View>
                         </View>
                     </View>
 
                     {details.ratings.ratingList.map((item) => {
-                        return renderComment(item)
+                        return renderComment(item, theme)
                     })}
 
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', marginBottom: 30 }}>
                         <View style={{ flex: 1, marginRight: 15 }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ color: '#616161', marginRight: 15 }}>{language ? "Add rating" : "Thêm đánh giá"}</Text>
+                                <Text style={{ color: theme ? 'lightgray' : '#616161', marginRight: 15 }}>{language ? "Add rating" : "Thêm đánh giá"}</Text>
                                 <Rating number={0} modify={true} setStar={setStar}/>
                             </View>
                             <TextInput 
-                                style={styles.textInput}
+                                style={styles.textInput(theme)}
                                 onChangeText={(text) => setContent(text)}
                                 value={content}
                             />
@@ -140,30 +140,52 @@ const Comment = ({ navigation, route }) => {
 export default Comment;
 
 const styles = StyleSheet.create({
-    title: {
-        color: '#616161', 
-        fontWeight: 'bold', 
-        fontSize: 20, 
-        marginBottom: 15, 
-        maxHeight: 70
+    root: (theme) => {
+        return {
+            paddingLeft: 10, 
+            paddingRight: 10, 
+            paddingBottom: 10, 
+            paddingTop: 10,
+            marginTop: 22,
+            backgroundColor: theme ? '#212121' : '#fff'
+        }
+    },
+    title: (theme) => {
+        return {
+            color: theme ? 'lightgray' : '#616161', 
+            fontWeight: 'bold', 
+            fontSize: 20, 
+            marginBottom: 15, 
+            maxHeight: 70
+        }
     },
     percent: {
         flexDirection: 'row',
         margin: 5,
         alignItems: 'center'
     },
-    averagePoint: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        color: '#616161'
+    averagePoint: (theme) => {
+        return {
+            fontSize: 35,
+            fontWeight: 'bold',
+            color: theme ? 'lightgray' : '#616161', 
+        }
     },
-    textInput: {
-        width: '100%',
-        height: 40,
-        borderWidth: 1.5,
-        borderRadius: 4,
-        borderColor: 'gray',
-        padding: 5,
-        marginTop: 5
+    textInput: (theme) => {
+        return {
+            width: '100%',
+            height: 40,
+            borderWidth: 1.5,
+            borderRadius: 4,
+            borderColor: theme ? 'lightgray' : 'gray',
+            padding: 5,
+            marginTop: 5,
+            color: theme ? 'lightgray' : '#616161', 
+        }
     },
+    darkText: (theme) => {
+        return {
+            color: theme ? 'lightgray' : 'gray'
+        } 
+    }
 });

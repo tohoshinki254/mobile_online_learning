@@ -8,7 +8,7 @@ const ListCourses = ({ navigation, route }) => {
     const courses = route.params?.courses;
     const title = `${courses.length} ${language ? "courses" : "khóa học"}`;
     return (
-        <View style={styles.root}>
+        <View style={styles.root(theme)}>
             <SectionCourses courses={courses} 
                 title={title} 
                 type={2} 
@@ -20,11 +20,14 @@ const ListCourses = ({ navigation, route }) => {
 }
 
 const styles = StyleSheet.create({
-    root: {
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 100
+    root: (theme) => {
+        return {
+            paddingTop: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingBottom: 100,
+            backgroundColor: theme ? '#212121' : '#fff'
+        }
     },
 });
 

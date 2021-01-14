@@ -6,14 +6,20 @@ import BrowseTabNavigator from '../Main/Browse/browse-tab-navigator';
 import ProfileTabNavigator from '../AccountManagement/Profile/profile-tab-navigator';
 import SearchTabNavigator from '../Main/Search/search-tab-navigator';
 import { navName } from '../../Global/constant';
+import { SettingCommonContext } from '../../providers/setting-common-provider';
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
+    const { theme } = React.useContext(SettingCommonContext);
+
     return (
         <Tab.Navigator initialRouteName={navName.browse}
             tabBarOptions={{
                 activeTintColor: '#FF5252',
+                style: {
+                    backgroundColor: theme ? '#212121' : '#fff'
+                }
             }}
         >
             <Tab.Screen name={navName.home} 

@@ -23,9 +23,25 @@ const SearchTabNavigator = () => {
             />
             <SearchTabNavigation.Screen name={navName.listCourses}
                 component={ListCourses}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <SearchTabNavigation.Screen name={navName.author}
                 component={AuthorDetails}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <SearchTabNavigation.Screen name={navName.rating}
                 component={Rating}

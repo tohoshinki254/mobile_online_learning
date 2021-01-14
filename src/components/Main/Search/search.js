@@ -10,9 +10,9 @@ import { SettingCommonContext } from '../../../providers/setting-common-provider
 
 const BeforeSearch = (history, clearAll, language, theme) => {
     const renderFindText = (text) => (
-        <View style={{flexDirection: 'row', margin: 10}}>
+        <View style={{flexDirection: 'row', margin: 10 }}>
             <Icon name="search" size={20} color='#616161'/>
-            <Text style={{color: '#616161', fontSize: 16, flex: 1, marginLeft: 10, marginRight: 10}}
+            <Text style={{color: theme ? 'lightgray' : '#616161', fontSize: 16, flex: 1, marginLeft: 10, marginRight: 10}}
                 numberOfLines={1}
             >
                 {text}
@@ -21,9 +21,9 @@ const BeforeSearch = (history, clearAll, language, theme) => {
     )
 
     return (
-        <View style={{margin: 10}}>
+        <View style={{padding: 10, backgroundColor: theme ? '#212121' : '#fff', height: '100%'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{color: '#616161', fontWeight: 'bold', fontSize: 18, flex: 1}}>{language ? "Recent searches" : "Tìm kiếm gần đây"}</Text>
+                <Text style={{color: theme ? 'lightgray' : '#616161', fontWeight: 'bold', fontSize: 18, flex: 1}}>{language ? "Recent searches" : "Tìm kiếm gần đây"}</Text>
                 <TouchableOpacity onPress={() => clearAll()}>
                     <Text style={{color: '#FF5252', fontSize: 15}}>{language ? "Remove all" : "Xóa tất cả"}</Text>
                 </TouchableOpacity>
@@ -69,7 +69,7 @@ const Search = ({ navigation }) => {
     return (
         <View>
             <SearchBar 
-                containerStyle={styles.containerStyle}
+                containerStyle={styles.containerStyle(theme)}
                 inputContainerStyle={styles.inputContainer}
                 inputStyle={styles.inputStyle}
                 cancelButtonProps={{color: '#EF5350', buttonTextStyle: {fontSize: 16, paddingTop: 20}}}
@@ -81,7 +81,7 @@ const Search = ({ navigation }) => {
                 onSubmitEditing={() => onSubmit()}
             />
             {submitted.successful ? 
-                <View style={styles.list}>
+                <View style={styles.list(theme)}>
                     {submitted.info.courses.data.length !== 0 || submitted.info.instructors.data.length !== 0 ?
                     <View>
                         {submitted.info.courses.data.length !== 0 ? 
@@ -107,7 +107,7 @@ const Search = ({ navigation }) => {
                     </View>
                     : <View style={{ margin: 20 }}>
                         <Text 
-                            style={{fontSize: 20, marginTop: 40, color: '#616161', textAlign: 'center'}}
+                            style={{fontSize: 20, marginTop: 40, color: theme ? 'lightgray' : '#616161', textAlign: 'center'}}
                         >
                             {language ? `We couldn't find any matches for "${searchText}"`  : `Không tìm thấy kết quả phù hợp cho "${searchText}"`}
                         </Text>
@@ -121,11 +121,14 @@ const Search = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    containerStyle: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 27,
-        backgroundColor: '#f3f3f3'
+    containerStyle: (theme) => {
+        return {
+            paddingLeft: 10,
+            paddingRight: 10,
+            marginTop: 22,
+            paddingTop: 15,
+            backgroundColor: theme ? '#212121' : '#fff'
+        }
     },
     inputContainer: {
         height: 35,
@@ -134,11 +137,15 @@ const styles = StyleSheet.create({
     inputStyle: {
         fontSize: 16,
     },
-    list: {
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 80,
+    list: (theme) => {
+        return {
+            paddingTop: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingBottom: 80,
+            backgroundColor: theme ? '#212121' : '#fff',
+            height: '100%'
+        }
     },
 });
 

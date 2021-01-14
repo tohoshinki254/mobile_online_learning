@@ -1,8 +1,7 @@
-import axios from 'axios';
-import { API_URL } from '../Global/constant';
+import { apiGetDetailInstructor, apiGetInstructors } from '../services/instructor-services';
 
 export const getInstructors = (setStatus) => {
-    axios.get(API_URL + 'instructor')
+    apiGetInstructors()
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, list: response.data.payload });
@@ -16,7 +15,7 @@ export const getInstructors = (setStatus) => {
 }
 
 export const getDetailInstructor = (id, setStatus) => {
-    axios.get(API_URL + 'instructor/detail/' + id)
+    apiGetDetailInstructor(id)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, info: response.data.payload });

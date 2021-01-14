@@ -1,12 +1,7 @@
-import axios from 'axios';
-import { API_URL } from '../Global/constant';
+import { apiBuyFreeCourse, apiGetPaymentInfo } from '../services/payment-services';
 
 export const buyFreeCourse = (token, data, setState, setSnackbar) => {
-    axios.post(API_URL + 'payment/get-free-courses', data, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiBuyFreeCourse(token, data)
     .then((response) => {
         if (response.status === 200) {
             setState({ successful: true, info: true });
@@ -20,11 +15,7 @@ export const buyFreeCourse = (token, data, setState, setSnackbar) => {
 }
 
 export const getPaymentInfo = (token, courseId, setStatus) => {
-    axios.get(API_URL + 'payment/get-course-info/' + courseId, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    apiGetPaymentInfo(token, courseId)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, info: response.data.didUserBuyCourse });

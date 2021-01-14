@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import { navName } from '../../../../Global/constant';
 import { getDetailInstructor } from '../../../../actions/instructor-actions';
+import { SettingCommonContext } from '../../../../providers/setting-common-provider';
 
 const AuthorItem2 = ({ author, navigation }) => {
+    const { theme } = useContext(SettingCommonContext);
     const [detail, setDetail] = useState({ successful: false, info: null });
 
     useEffect(() => {
@@ -23,8 +25,8 @@ const AuthorItem2 = ({ author, navigation }) => {
                         source={{uri: detail.info.avatar}}
                     />
                     <View style={{marginLeft: 20}}>
-                        <Text style={{color: '#424242', fontSize: 17}}>{detail.info.name}</Text>
-                        <Text style={styles.darkText}>{detail.info.courses.length} courses</Text>
+                        <Text style={{color: theme ? 'lightgray' : '#424242', fontSize: 17}}>{detail.info.name}</Text>
+                        <Text style={styles.darkText(theme)}>{detail.info.courses.length} courses</Text>
                     </View>
                 </TouchableOpacity>
             : null}
@@ -33,10 +35,12 @@ const AuthorItem2 = ({ author, navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    darkText: {
-        color: 'gray',
-        fontSize: 15,
-        marginTop: 3,
+    darkText: (theme) => {
+        return {
+            color: theme ? 'lightgray' : 'gray',
+            fontSize: 15,
+            marginTop: 3,
+        }
     }
 });
 

@@ -23,23 +23,23 @@ function Login({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.root}>
+            <View style={styles.root(theme)}>
                 <Text 
-                    style={{alignSelf: 'center', fontSize: 25, marginBottom: 30, color: '#616161'}}
+                    style={{alignSelf: 'center', fontSize: 25, marginBottom: 30, color: theme ? 'lightgray' : '#616161'}}
                 >
                     {language ? "Sign In" : "Đăng nhập"}
                 </Text>
 
-                <Text style={styles.text}>Email</Text>
+                <Text style={styles.text(theme)}>Email</Text>
                 <TextInput 
-                    style={styles.textInput}
+                    style={styles.textInput(theme)}
                     onChangeText={username => onChangeUsername(username)}
                     value={username}
                 />
 
-                <Text style={styles.text}>{language ? "Password" : "Mật khẩu"}</Text>
+                <Text style={styles.text(theme)}>{language ? "Password" : "Mật khẩu"}</Text>
                 <TextInput 
-                    style={styles.textInput}
+                    style={styles.textInput(theme)}
                     onChangeText={password => onChangePassword(password)}
                     value={password}
                     secureTextEntry={true}
@@ -54,14 +54,14 @@ function Login({ navigation }) {
                     style={styles.othersOption}
                     onPress={() => navigation.navigate(navName.forgetPassword)}
                 >
-                    <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>{language ? "Forget Password" : "Quên mật khẩu"}</Text>
+                    <Text style={{fontSize: 17, color: theme ? 'lightgray' : 'gray', fontWeight: '500'}}>{language ? "Forget Password" : "Quên mật khẩu"}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.othersOption}
                     onPress={() => navigation.navigate(navName.register)}
                 >
-                    <Text style={{fontSize: 17, color: 'grey', fontWeight: '500'}}>{language ? "Create an account" : "Tạo tài khoản mới"}</Text>
+                    <Text style={{fontSize: 17, color: theme ? 'lightgray' : 'gray', fontWeight: '500'}}>{language ? "Create an account" : "Tạo tài khoản mới"}</Text>
                 </TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
@@ -69,28 +69,37 @@ function Login({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    root: {
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: 10,
+    root: (theme) => {
+        return {
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            padding: 10,
+            backgroundColor: theme ? '#212121' : '#fff',
+            marginTop: 22
+        }
     },
-    text: {
-        fontSize: 13,
-        fontWeight: 'bold',
-        marginBottom: 3,
-        color: 'grey'
+    text: (theme) => {
+        return {
+            fontSize: 13,
+            fontWeight: 'bold',
+            marginBottom: 3,
+            color: theme ? 'lightgray' : 'gray'
+        }
     },  
-    textInput: {
-        width: '100%',
-        height: 40,
-        borderWidth: 1.5,
-        borderRadius: 4,
-        borderColor: 'gray',
-        padding: 5,
-        marginBottom: 30,
+    textInput: (theme) => {
+        return {
+            width: '100%',
+            height: 40,
+            borderWidth: 1.5,
+            borderRadius: 4,
+            borderColor: theme ? 'lightgray' : 'gray',
+            padding: 5,
+            marginBottom: 30,
+            color: theme ? 'lightgray' : 'gray'
+        }
     },
     othersOption: {
         flexDirection: 'row',

@@ -22,6 +22,14 @@ const ProfileTabNavigator = () => {
             />
             <ProfileTabNavigation.Screen name={navName.skill}
                 component={PopularSkillDetails}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <ProfileTabNavigation.Screen name={navName.courseDetails}
                 component={CourseDetail}
@@ -29,18 +37,58 @@ const ProfileTabNavigator = () => {
             />
             <ProfileTabNavigation.Screen name={navName.listCourses}
                 component={ListCourses}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <ProfileTabNavigation.Screen name={navName.author}
                 component={AuthorDetails}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <ProfileTabNavigation.Screen name={navName.download}
                 component={Download}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <ProfileTabNavigation.Screen name={navName.setting}
                 component={Setting}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <ProfileTabNavigation.Screen name={navName.updateProfile}
                 component={UpdateProfile}
+                options={{ 
+                    headerStyle: {
+                        backgroundColor: '#212121',
+                    },
+                    headerTitleStyle: {
+                        color: 'lightgray'
+                    }
+                }}
             />
             <ProfileTabNavigation.Screen name={navName.rating}
                 component={Rating}

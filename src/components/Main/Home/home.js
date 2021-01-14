@@ -51,7 +51,7 @@ const Home = ({ navigation }) => {
     );
 
     return (
-        <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
+        <ScrollView style={styles.root(theme)} showsVerticalScrollIndicator={false}>
             {continueCourses.courses.length !== 0 ? 
                 <SectionCourses courses={continueCourses.courses} 
                     title={language ? "Continue learning" : "Đang học"}
@@ -95,21 +95,26 @@ const Home = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    root: {
-        marginTop: 24,
-        marginLeft: 10,
-        marginRight: 10,
-        paddingTop: 6
+    root: (theme) => {
+        return {
+            marginTop: 22,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 6,
+            backgroundColor: theme ? '#212121' : '#fff'          
+        }
     },
     image: {
         width: 50,
         height: 50,
         alignSelf: 'center'
     },
-    darkText: {
-        color: 'gray',
-        fontSize: 15,
-        marginTop: 10,
+    darkText: (theme) => {
+        return {
+            color: theme ? 'lightgray' : 'gray',
+            fontSize: 15,
+            marginTop: 10,
+        }
     },
 });
 

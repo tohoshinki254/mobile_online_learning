@@ -22,7 +22,7 @@ const PopularSkillDetails = ({ navigation, route }) => {
     }, [item, courses, setCourses]);
 
     return (
-        <View style={{marginBottom: 100, marginLeft: 10, marginRight: 10, marginTop: 10}}>
+        <View style={{paddingBottom: 100, paddingLeft: 10, paddingRight: 10, paddingTop: 10, backgroundColor: theme ? '#212121' : '#fff', height: '100%'}}>
             {courses.successful ?
             <SectionCourses courses={courses.info} 
                 title={`${courses.info.length} ${language ? "courses" : "khóa học"}`} 
