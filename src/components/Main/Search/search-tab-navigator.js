@@ -7,6 +7,7 @@ import CourseDetail from '../../CourseDetail/course-detail';
 import ListCourses from '../../ListCourses/list-courses';
 import AuthorDetails from '../AuthorDetails/author-details';
 import Rating from '../../CourseDetail/comment';
+import Exercise from '../../CourseDetail/exercise';
 
 const SearchTabNavigation = createStackNavigator();
 
@@ -45,6 +46,10 @@ const SearchTabNavigator = () => {
             />
             <SearchTabNavigation.Screen name={navName.rating}
                 component={Rating}
+                options={{ headerShown: false }}
+            />
+            <SearchTabNavigation.Screen name={navName.exercises}
+                component={Exercise}
                 options={{ headerShown: false }}
             />
         </SearchTabNavigation.Navigator>

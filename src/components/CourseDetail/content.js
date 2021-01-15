@@ -1,9 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList } from 'react-native';
 import { SettingCommonContext } from '../../providers/setting-common-provider';
+import { AuthenticationContext } from '../../providers/authentication-provider';
+import { getListExerciseLesson } from '../../actions/exercise-actions';
 
-const Content = ({ sections, lessonClick }) => {
+const Content = ({ sections, lessonClick, exercises, setExercises }) => {
     const { theme } = useContext(SettingCommonContext);
+    const { token } = useContext(AuthenticationContext).state;
+    const [exercise, setExercise] = useState([]);
+
+    useEffect(() => {
+        sections.map(item => {
+            item.lesson.map(ls => {
+                getListExerciseLesson(token, ls.id, setExercise);
+                setExercises(exercises.concat(exercise));
+            })
+        })
+    }, [setExercises])
 
     const renderContent = (item) => (
         <View style={{marginTop: 10}}>
@@ -45,7 +58,7 @@ const Content = ({ sections, lessonClick }) => {
     }
 
     return (
-        <View style={{ marginBottom: 20 }}>
+        <View style={{ marginBottom: 5 }}>
             <View>
                 <FlatList 
                     data={sections}

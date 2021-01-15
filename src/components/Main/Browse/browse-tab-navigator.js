@@ -9,6 +9,7 @@ import AuthorDetails from '../AuthorDetails/author-details';
 import ListCourses from '../../ListCourses/list-courses';
 import RecommendCourses from '../Home/RecommendCourses/recommend-courses';
 import Rating from '../../CourseDetail/comment';
+import Exercise from '../../CourseDetail/exercise';
 
 const BrowseTabNavigation = createStackNavigator();
 
@@ -80,6 +81,10 @@ const BrowseTabNavigator = () => {
             />
             <BrowseTabNavigation.Screen name={navName.rating}
                 component={Rating}
+                options={{ headerShown: false }}
+            />
+            <BrowseTabNavigation.Screen name={navName.exercises}
+                component={Exercise}
                 options={{ headerShown: false }}
             />
         </BrowseTabNavigation.Navigator>

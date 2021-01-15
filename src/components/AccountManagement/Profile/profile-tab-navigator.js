@@ -10,6 +10,7 @@ import Download from '../../Main/Download/download';
 import Setting from '../Setting/setting';
 import UpdateProfile from './update-profile';
 import Rating from '../../CourseDetail/comment';
+import Exercise from '../../CourseDetail/exercise';
 
 const ProfileTabNavigation = createStackNavigator();
 
@@ -92,6 +93,10 @@ const ProfileTabNavigator = () => {
             />
             <ProfileTabNavigation.Screen name={navName.rating}
                 component={Rating}
+                options={{ headerShown: false }}
+            />
+            <ProfileTabNavigation.Screen name={navName.exercises}
+                component={Exercise}
                 options={{ headerShown: false }}
             />
         </ProfileTabNavigation.Navigator>

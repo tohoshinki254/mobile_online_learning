@@ -5,6 +5,7 @@ import CourseDetail from '../../CourseDetail/course-detail';
 import ListCourses from '../../ListCourses/list-courses';
 import AuthorDetails from '../AuthorDetails/author-details';
 import Rating from '../../CourseDetail/comment';
+import Exercise from '../../CourseDetail/exercise';
 import { navName } from '../../../Global/constant';
 
 const HomeTabNavigationStack = createStackNavigator();
@@ -44,6 +45,10 @@ const HomeTabNavigator = () => {
             />
             <HomeTabNavigationStack.Screen name={navName.rating}
                 component={Rating}
+                options={{ headerShown: false }}
+            />
+            <HomeTabNavigationStack.Screen name={navName.exercises}
+                component={Exercise}
                 options={{ headerShown: false }}
             />
         </HomeTabNavigationStack.Navigator>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share, Linking } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Video } from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,6 +15,8 @@ import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
 import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
 import Rating from '../Common/rating';
 import SectionCourses from '../Main/Home/SectionCourses/section-courses';
+import { API_URL } from '../../Global/constant';
+import * as FileSystem from 'expo-file-system';
 
 const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
@@ -26,6 +28,8 @@ const CourseDetail = ({ route, navigation }) => {
     const [statusLike, setStatusLike] = useState({ successful: false, status: false });
     const [payment, setPayment] = useState({ successful: false, info: false });
     const [video, setVideo] = useState(null);
+    const [exercises, setExercises] = useState([]);
+    const [downloadProgress, setDownloadProgress] = useState("");
 
     useEffect(() => {
         if (!statusLike.successful) {
@@ -65,6 +69,15 @@ const CourseDetail = ({ route, navigation }) => {
                 courseId: item.id
             };
             buyFreeCourse(authContext.state.token, data, setPayment, snackContext.setSnackbar);
+        } else {
+            const url = `${API_URL}/payment/${item.id}`;
+            Linking.canOpenURL(url).then(supported => {
+                if (supported) {
+                    Linking.openURL(url);
+                } else {
+                    console.log("Don't know how to open URI: " + url);
+                }
+            })
         }
     }
 
@@ -76,6 +89,48 @@ const CourseDetail = ({ route, navigation }) => {
     }
     const displayVideo = () => {
         return video !== null ? video : course.details.promoVidUrl;
+    }
+
+    const handleShare = async () => {
+        try {
+            const result = await Share.share({
+                message: `http://dev.letstudy.org/course-detail/${item.id}`,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    const updateProgress = (progress) => {
+        const progressPer = Math.round(progress.totalBytesWritten * 100 / progress.totalBytesExpectedToWrite);
+        setDownloadProgress(`${progressPer}%`);
+    }
+    const handleDownloadCourse = async () => {
+        if (payment.info && !checkTypeVideo(video) && video !== null) {
+            const downloadResumable = FileSystem.createDownloadResumable(
+                video,
+                FileSystem.documentDirectory + `${new Date().toISOString()}.mp4`,
+                {},
+                updateProgress
+            );
+
+            try {
+                const { uri } = await downloadResumable.downloadAsync();
+                console.log('Finished downloading to ', uri);
+                setDownloadProgress("");
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
     }
 
     return (
@@ -137,6 +192,23 @@ const CourseDetail = ({ route, navigation }) => {
                         </TouchableOpacity>
                     </View>
 
+                    <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>
+                        <TouchableOpacity
+                            style={styles.btnCustom(2)}
+                            onPress={() => handleShare()}
+                        >
+                            <Text style={styles.textLayout(2)}>{language ? 'Share' : 'Chia sẻ'}</Text>
+                            <Icon name="share" size={24} color="#2196F3" />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.btnCustom(1)}
+                            onPress={() => handleDownloadCourse()}
+                        >
+                            <Text style={styles.textLayout(1)}>{downloadProgress !== "" ? downloadProgress : language ? 'Download' : 'Tải'}</Text>
+                            <Icon name="download" size={24} color="#FF5252" />
+                        </TouchableOpacity>
+                    </View>
+
                     <View style={{ backgroundColor: theme ? '#424242' : '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10}}>
                         <Text style={[styles.textInfo(theme), { fontWeight: 'bold' }]}>{language ? "Learn what" : "Những gì bạn sẽ học"}</Text>
                         <Text style={styles.textInfo(theme)} >
@@ -149,7 +221,6 @@ const CourseDetail = ({ route, navigation }) => {
                             {course.details.requirement !== null ? course.details.requirement : 'Không có'}
                         </Text>
                     </View>
-                    
                     <View style={{ backgroundColor: theme ? '#424242' : '#E0E0E0', borderRadius: 5, padding: 10,marginBottom: 10,
                             flexDirection: 'row'
                     }}>
@@ -183,7 +254,18 @@ const CourseDetail = ({ route, navigation }) => {
                     <View style={{ marginTop: 20}}></View>
 
                     <Text style={styles.title(theme)}>{language ? "Content" : "Nội dung khóa học"}</Text>
-                    <Content sections={course.details.section} lessonClick={lessonClick} />
+                    <Content sections={course.details.section} 
+                        lessonClick={lessonClick}
+                        exercises={exercises}
+                        setExercises={setExercises}
+                    />
+
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => navigation.push(navName.exercises)}
+                    >
+                        <Text style={{color: 'white', fontSize: 15}}>{language ? "Exercises" : "Danh sách bài tập"}</Text>
+                    </TouchableOpacity>
                     
                     {course.details.coursesLikeCategory.length !== 0 ? 
                         <View style={{ marginTop: 20}}>

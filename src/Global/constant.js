@@ -22,7 +22,8 @@ export const navName = {
     recommend: 'Recommend',
     updateProfile: 'Update Profile',
     rating: 'Rating',
-    splashscreen: 'Splashscreen'
+    splashscreen: 'Splashscreen',
+    exercises: 'Exercises'
 };
 
 // export const API_URL = "https://api.letstudy.org/";
