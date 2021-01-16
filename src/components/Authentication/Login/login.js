@@ -4,6 +4,7 @@ import Button from '../../Common/button';
 import { navName } from '../../../Global/constant';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
+import * as Google from 'expo-google-app-auth';
 
 function Login({ navigation }) {
     const [username, onChangeUsername] = useState();
@@ -17,8 +18,26 @@ function Login({ navigation }) {
         }
     }, [authContext])
 
-    const withoutLogin = () => {
-        // navigation.navigate(navName.main);
+    const signInWithGoogle = async () => {
+        try {
+            const result = await Google.logInAsync({
+                androidClientId: "86971470491-gp31arsi9al1p3mqje31tqpamu969umb.apps.googleusercontent.com",
+                iosClientId: "86971470491-rh35t9hj5gu4dblk3672e29ouqq33o5l.apps.googleusercontent.com",
+                scopes: ['profile', 'email'],
+            });
+
+            if (result.type === 'success') {
+                const data = {
+                    user: {
+                        email: result.user.email,
+                        id: result.accessToken
+                    }
+                }
+                authContext.signInWithGoogle(data)
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return (
@@ -48,7 +67,7 @@ function Login({ navigation }) {
                 <Button onPress={() => {authContext.login(username, password); onChangeUsername(''); onChangePassword('')}} text={language ? "Sign In" : "Đăng nhập"}/>
                 <View style={{marginBottom: 30}} />
 
-                <Button onPress={() => withoutLogin()} text={language ? "Sign in with Google" : "Đăng nhập bằng tài khoản Google"}/>
+                <Button onPress={() => signInWithGoogle()} text={language ? "Sign in with Google" : "Đăng nhập bằng tài khoản Google"}/>
 
                 <TouchableOpacity
                     style={styles.othersOption}

@@ -13,10 +13,11 @@ import { SettingCommonContext } from '../../providers/setting-common-provider';
 import { SnackbarContext } from '../../providers/snackbar-provider';
 import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
 import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
+import { getVideoLatestLesson, updateStatusLesson } from '../../actions/lesson-actions';
 import Rating from '../Common/rating';
 import SectionCourses from '../Main/Home/SectionCourses/section-courses';
-import { API_URL } from '../../Global/constant';
 import * as FileSystem from 'expo-file-system';
+import ModalBuyCourse from './ModalBuyCourse/modal-buy-course';
 
 const CourseDetail = ({ route, navigation }) => {
     const { item } = route.params;
@@ -30,6 +31,7 @@ const CourseDetail = ({ route, navigation }) => {
     const [video, setVideo] = useState(null);
     const [exercises, setExercises] = useState([]);
     const [downloadProgress, setDownloadProgress] = useState("");
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         if (!statusLike.successful) {
@@ -68,16 +70,7 @@ const CourseDetail = ({ route, navigation }) => {
             const data = {
                 courseId: item.id
             };
-            buyFreeCourse(authContext.state.token, data, setPayment, snackContext.setSnackbar);
-        } else {
-            const url = `${API_URL}/payment/${item.id}`;
-            Linking.canOpenURL(url).then(supported => {
-                if (supported) {
-                    Linking.openURL(url);
-                } else {
-                    console.log("Don't know how to open URI: " + url);
-                }
-            })
+            buyFreeCourse(authContext.state.token, data, setPayment, snackContext.setSnackbar, setModalVisible);
         }
     }
 
@@ -133,8 +126,22 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }
 
+    const handleToggleModal = () => {
+        buyCourse();
+    }
+
+    const handleCancel = () => {
+        setModalVisible(false);
+    }
+
     return (
         <View style={{ marginTop: 20, marginBottom: 200, height: '100%', backgroundColor: theme ? '#212121' : '#fff' }}>
+            <ModalBuyCourse
+                info={course.details}
+                visible={modalVisible}
+                onCloseModal={handleToggleModal}
+                onCancel={handleCancel}
+            />
             {course.successful ?
             <View >
                 <TouchableOpacity style={{ position: 'absolute', top: 20, left: 20, zIndex: 1}}
@@ -185,7 +192,7 @@ const CourseDetail = ({ route, navigation }) => {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.btnCustom(2)}
-                            onPress={() => buyCourse()}
+                            onPress={() => setModalVisible(!payment.info)}
                         >
                             <Text style={styles.textLayout(2)}>{payment.info ? (language ? 'Enjoyed' : 'Đã tham gia') : language ? 'Enjoy' : 'Tham gia'}</Text>
                             <Icon name="thumb-tack" size={24} color="#2196F3" />
@@ -251,6 +258,13 @@ const CourseDetail = ({ route, navigation }) => {
                     >
                         <Text style={{color: 'white', fontSize: 15}}>{language ? "Rating" : "Đánh giá từ học viên"}</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {}}
+                    >
+                        <Text style={{color: 'white', fontSize: 15}}>{language ? "Take a learning check" : "Cập nhật trạng thái học của bài học"}</Text>
+                    </TouchableOpacity>
                     <View style={{ marginTop: 20}}></View>
 
                     <Text style={styles.title(theme)}>{language ? "Content" : "Nội dung khóa học"}</Text>
@@ -305,7 +319,7 @@ const styles = StyleSheet.create({
     },
     button: {
         padding: 10,
-        marginTop: 15,
+        marginTop: 5,
         marginBottom: 10,
         backgroundColor: '#EF5350',
         borderRadius: 4,

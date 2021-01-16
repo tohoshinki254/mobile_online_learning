@@ -23,3 +23,7 @@ export const apiForgetPassword = (email) => {
         email: email
     });
 };
+
+export const apiSignInWithGoogle = (data) => {
+    return axios.post(API_URL + 'user/login-google-mobile', data);
+}

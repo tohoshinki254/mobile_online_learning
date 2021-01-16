@@ -1,10 +1,11 @@
 import { apiBuyFreeCourse, apiGetPaymentInfo } from '../services/payment-services';
 
-export const buyFreeCourse = (token, data, setState, setSnackbar) => {
+export const buyFreeCourse = (token, data, setState, setSnackbar, setModal) => {
     apiBuyFreeCourse(token, data)
     .then((response) => {
         if (response.status === 200) {
             setState({ successful: true, info: true });
+            setModal(false);
         } else {
             setSnackbar({ open: true, status: response.status, message: response.data.message });
         }
