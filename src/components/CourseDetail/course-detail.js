@@ -135,7 +135,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     return (
-        <View style={{ marginTop: 20, marginBottom: 200, height: '100%', backgroundColor: theme ? '#212121' : '#fff' }}>
+        <View style={{ marginTop: 20, marginBottom: 200, height: '100%', backgroundColor: theme ? '#212121' : '#f3f3f3' }}>
             <ModalBuyCourse
                 info={course.details}
                 visible={modalVisible}

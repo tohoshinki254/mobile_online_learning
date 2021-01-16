@@ -29,7 +29,7 @@ const Setting = () => {
                 </View>
                 <View style={{margin: 10}}/>
                 <View style={styles.button}>
-                    <Text style={styles.text(theme)}>{theme ? 'Change theme' : 'Đổi theme'}</Text>
+                    <Text style={styles.text(theme)}>{language ? 'Change theme' : 'Đổi theme'}</Text>
                     <Switch 
                         trackColor={{ false: "#E0E0E0", true: "#FF5252" }}
                         thumbColor={ theme ? "#fff" : "#fff"}

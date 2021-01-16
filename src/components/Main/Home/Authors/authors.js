@@ -4,7 +4,7 @@ import AuthorItem1 from './author-item1';
 import AuthorItem2 from './author-item2';
 import { SettingCommonContext } from '../../../../providers/setting-common-provider';
 
-const Authors = ({authors, title, type, hideButton, eventButton, navigation, route}) => {
+const Authors = ({authors = [], title = "", type, hideButton, eventButton, navigation, route}) => {
     const { theme } = useContext(SettingCommonContext);
 
     const FlatListItemSeparator = () => {
@@ -61,6 +61,7 @@ const Authors = ({authors, title, type, hideButton, eventButton, navigation, rou
                         data={route !== undefined ? route.params?.authors : authors}
                         renderItem={({item}) => renderListAuthorsType2(item)}
                         ItemSeparatorComponent={FlatListItemSeparator}
+                        showsVerticalScrollIndicator={false}
                     />
                 </View>
                 :

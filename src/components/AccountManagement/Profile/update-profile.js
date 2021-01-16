@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
             paddingTop: 10,
             paddingLeft: 10,
             paddingRight: 10,
-            backgroundColor: theme ? '#212121' : '#fff',
+            backgroundColor: theme ? '#212121' : '#f3f3f3',
             height: '100%'
         }
     },

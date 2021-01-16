@@ -1,13 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import RadiusButton from '../../Common/radius-button';
 import { navName } from '../../../Global/constant';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
 import { SnackbarContext } from '../../../providers/snackbar-provider';
 import { LoadingContext } from '../../../providers/loading-provider';
-import { getCategoryDetails } from '../../../actions/category-actions';
 import { getUserInfo } from '../../../actions/user-actions';
 import Setting from '../Setting/setting';
 import Separator from '../../Common/separator';
@@ -26,24 +24,6 @@ const Profile = ({ navigation }) => {
             })();
         }, [authContext, setUserInfo])
     );
-
-    // const categories = [];
-    // const [detail, setDetail] = useState();
-    // for (let i = 0; i < userInfo.favoriteCategories.length; i++) {
-    //     getCategoryDetails(userInfo.favoriteCategories[i], setDetail);
-    //     categories.push(detail);
-    //     if (categories.length === 2) {
-    //         break;
-    //     }
-    // }
-
-    // console.log(categories);
-
-    const renderListSkills = (categories) => {
-        return categories.slice(0,2).map(item => 
-            <RadiusButton /*onPress={() => navigation.push(navName.skill)}*/ text={item.name} />
-        );
-    }
 
     const logout = () => {
         authContext.state.isAuthenticated = false;
@@ -71,12 +51,6 @@ const Profile = ({ navigation }) => {
                     <Text style={[styles.title(theme), {marginRight: 20}]}>{language ? "Downloads" : "Khóa học đã tải"}</Text>
                     <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>
                 </TouchableOpacity>
-                <View style={{margin: 10}}/>
-
-                <Text style={styles.title(theme)}>{language ? "Interests" : "Lĩnh vực quan tâm"}</Text>
-                <ScrollView horizontal={true} style={{marginTop: 13}} showsHorizontalScrollIndicator={false}>
-                    {/* {renderListSkills(categories)} */}
-                </ScrollView>
 
                 <Separator />
                 
@@ -111,7 +85,7 @@ const styles = StyleSheet.create({
             paddingLeft: 10,
             paddingRight: 10,
             marginTop: 22,
-            backgroundColor: theme ? '#212121' : '#fff'
+            backgroundColor: theme ? '#212121' : '#f3f3f3'
         }
     },
     basic: {

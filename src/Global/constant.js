@@ -14,7 +14,7 @@ export const navName = {
     path: 'Path',
     author: 'Author',
     listPaths: 'Paths',
-    listCourses: 'Courses',
+    listCourses: 'List Courses',
     courseDetails: 'Course Details',
     relatedPathsCourses: 'Related courses',
     setting: 'Setting',
@@ -23,7 +23,10 @@ export const navName = {
     updateProfile: 'Update Profile',
     rating: 'Rating',
     splashscreen: 'Splashscreen',
-    exercises: 'Exercises'
+    exercises: 'Exercises',
+    searchAll: 'All',
+    searchCourses: 'Courses',
+    searchAuthors: 'Authors'
 };
 
 // export const API_URL = "https://api.letstudy.org/";

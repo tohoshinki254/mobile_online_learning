@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
             flexDirection: 'column',
             justifyContent: 'center',
             padding: 10,
-            backgroundColor: theme ? '#212121' : '#fff',
+            backgroundColor: theme ? '#212121' : '#f3f3f3',
             marginTop: 22
         }
     },

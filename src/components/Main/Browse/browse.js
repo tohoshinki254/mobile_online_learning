@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
             paddingLeft: 10,
             paddingRight: 10,
             paddingTop: 6,
-            backgroundColor: theme ? '#212121' : '#fff'
+            backgroundColor: theme ? '#212121' : '#f3f3f3'
         }
     },
     title: (theme) => {

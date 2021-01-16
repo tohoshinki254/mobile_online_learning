@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
             paddingBottom: 10, 
             paddingTop: 10,
             marginTop: 22,
-            backgroundColor: theme ? '#212121' : '#fff'
+            backgroundColor: theme ? '#212121' : '#f3f3f3'
         }
     },
     title: (theme) => {

@@ -23,7 +23,7 @@ const ModalBuyCourse = ({ info, visible, onCloseModal, onCancel }) => {
             presentationStyle="formSheet"
         >
             {info !== null ? 
-            <ScrollView style={{ height: '100%', backgroundColor: theme ? '#212121' : '#fff' }}>
+            <ScrollView style={{ height: '100%', backgroundColor: theme ? '#212121' : '#f3f3f3' }}>
                 <View style={styles.modalStyle}>
                     <Text style={styles.textHead(theme)}>{language ? 'Buy Course' : 'Mua khóa học'}</Text>
                     <View style={styles.box}> 

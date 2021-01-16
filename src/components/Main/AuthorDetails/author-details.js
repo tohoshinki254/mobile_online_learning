@@ -14,7 +14,7 @@ const AuthorDetails = ({ route, navigation }) => {
     }
 
     return (
-        <ScrollView style={{padding: 10, backgroundColor: theme ? '#212121' : '#fff'}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{padding: 10, backgroundColor: theme ? '#212121' : '#f3f3f3'}} showsVerticalScrollIndicator={false}>
             <View style={{alignItems: 'center', marginBottom: 5, flexDirection: 'row'}}>
                 <Image 
                     style={{width: 100, height: 100, borderRadius: 100/2, marginBottom: 7}}

@@ -4,9 +4,11 @@ import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SectionCourses from '../Home/SectionCourses/section-courses';
 import Authors from '../Home/Authors/authors';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { searchV2, searchHistory, deleteSearchHistory } from '../../../actions/course-actions';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
+import SearchTabResults from './SearchTabResults/search-tab-results';
 
 const BeforeSearch = (history, clearAll, language, theme) => {
     const renderFindText = (text) => (
@@ -21,7 +23,7 @@ const BeforeSearch = (history, clearAll, language, theme) => {
     )
 
     return (
-        <View style={{padding: 10, backgroundColor: theme ? '#212121' : '#fff', height: '100%'}}>
+        <View style={{padding: 10, backgroundColor: theme ? '#212121' : '#f3f3f3', height: '100%'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={{color: theme ? 'lightgray' : '#616161', fontWeight: 'bold', fontSize: 18, flex: 1}}>{language ? "Recent searches" : "Tìm kiếm gần đây"}</Text>
                 <TouchableOpacity onPress={() => clearAll()}>
@@ -66,11 +68,13 @@ const Search = ({ navigation }) => {
         setHistory({ successful: false, data: [] });
     }
 
+    const Tab = createMaterialTopTabNavigator();
+
     return (
-        <View>
+        <ScrollView scrollEnabled={false} style={{ backgroundColor: theme ? '#212121' : '#f3f3f3', marginTop: 22 }}>
             <SearchBar 
                 containerStyle={styles.containerStyle(theme)}
-                inputContainerStyle={styles.inputContainer}
+                inputContainerStyle={styles.inputContainer(theme)}
                 inputStyle={styles.inputStyle}
                 cancelButtonProps={{color: '#EF5350', buttonTextStyle: {fontSize: 16, paddingTop: 20}}}
                 cancelButtonTitle={language ? "Cancel" : "Hủy bỏ"}
@@ -80,43 +84,13 @@ const Search = ({ navigation }) => {
                 value={searchText}
                 onSubmitEditing={() => onSubmit()}
             />
+            
             {submitted.successful ? 
-                <View style={styles.list(theme)}>
-                    {submitted.info.courses.data.length !== 0 || submitted.info.instructors.data.length !== 0 ?
-                    <View>
-                        {submitted.info.courses.data.length !== 0 ? 
-                            <View>
-                                <SectionCourses courses={submitted.info.courses.data}
-                                    title={language ? "Courses" : "Các khóa học"} 
-                                    type={1} 
-                                    hideButton={false} eventButton={language ? "See all" : "Xem tất cả"}
-                                    navigation={navigation}
-                                />
-                                <View style={{margin: 7}} />
-                            </View>
-                            : null}
-        
-                            {submitted.info.instructors.data.length !== 0 ?
-                            <Authors authors={submitted.info.instructors.data}
-                                title={language ? "Authors" : "Giảng viên"}
-                                type={1} 
-                                hideButton={true}
-                                navigation={navigation}
-                            />
-                            : null}
-                    </View>
-                    : <View style={{ margin: 20 }}>
-                        <Text 
-                            style={{fontSize: 20, marginTop: 40, color: theme ? 'lightgray' : '#616161', textAlign: 'center'}}
-                        >
-                            {language ? `We couldn't find any matches for "${searchText}"`  : `Không tìm thấy kết quả phù hợp cho "${searchText}"`}
-                        </Text>
-                    </View>}
-                </View>
+                <SearchTabResults results={submitted.info}/>
                 :
                 BeforeSearch(history, clearAll, language, theme)
             }
-        </View>
+        </ScrollView>
     )
 }
 
@@ -125,14 +99,15 @@ const styles = StyleSheet.create({
         return {
             paddingLeft: 10,
             paddingRight: 10,
-            marginTop: 22,
             paddingTop: 15,
-            backgroundColor: theme ? '#212121' : '#fff'
+            backgroundColor: theme ? '#212121' : '#f3f3f3'
         }
     },
-    inputContainer: {
-        height: 35,
-        backgroundColor: 'white',
+    inputContainer: (theme) => {
+        return {
+            height: 35,
+            backgroundColor: theme ? 'white' : '#BDBDBD',
+        }
     },
     inputStyle: {
         fontSize: 16,
@@ -143,7 +118,7 @@ const styles = StyleSheet.create({
             paddingLeft: 10,
             paddingRight: 10,
             paddingBottom: 80,
-            backgroundColor: theme ? '#212121' : '#fff',
+            backgroundColor: theme ? '#212121' : '#f3f3f3',
             height: '100%'
         }
     },
