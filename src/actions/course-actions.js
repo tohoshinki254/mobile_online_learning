@@ -112,8 +112,8 @@ export const search = (data, setStatus) => {
     })
 }
 
-export const searchV2 = (keyword, setStatus) => {
-    apiSearchV2(keyword)
+export const searchV2 = (keyword, token, setStatus) => {
+    apiSearchV2(keyword, token)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, info: response.data.payload });

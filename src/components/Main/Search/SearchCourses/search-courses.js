@@ -22,7 +22,7 @@ const SearchCourses = ({ navigation, route }) => {
                 <Text 
                     style={{fontSize: 20, marginTop: 40, color: theme ? 'lightgray' : '#616161', textAlign: 'center'}}
                 >
-                    {language ? `No matching results were found`  : `Không tìm thấy kết quả phù hợp"`}
+                    {language ? `No matching results were found`  : `Không tìm thấy kết quả phù hợp`}
                 </Text>
             </View>
             }

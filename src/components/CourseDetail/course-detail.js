@@ -119,7 +119,6 @@ const CourseDetail = ({ route, navigation }) => {
             try {
                 const { uri } = await downloadResumable.downloadAsync();
                 console.log('Finished downloading to ', uri);
-                setDownloadProgress("");
             } catch (e) {
                 console.log(e.message);
             }
@@ -135,7 +134,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     return (
-        <View style={{ marginTop: 20, marginBottom: 200, height: '100%', backgroundColor: theme ? '#212121' : '#f3f3f3' }}>
+        <View style={{ paddingTop: 20, marginBottom: 200, height: '100%', backgroundColor: theme ? '#212121' : '#f3f3f3' }}>
             <ModalBuyCourse
                 info={course.details}
                 visible={modalVisible}

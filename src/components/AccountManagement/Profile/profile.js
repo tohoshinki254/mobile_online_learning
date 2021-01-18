@@ -81,10 +81,9 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
     root: (theme) => {
         return {
-            paddingTop: 10,
+            paddingTop: 30,
             paddingLeft: 10,
             paddingRight: 10,
-            marginTop: 22,
             backgroundColor: theme ? '#212121' : '#f3f3f3'
         }
     },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { navName } from '../../../Global/constant';
 import Profile from './profile';
@@ -11,10 +11,13 @@ import Setting from '../Setting/setting';
 import UpdateProfile from './update-profile';
 import Rating from '../../CourseDetail/comment';
 import Exercise from '../../CourseDetail/exercise';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const ProfileTabNavigation = createStackNavigator();
 
 const ProfileTabNavigator = () => {
+    const { theme } = useContext(SettingCommonContext);
+
     return (
         <ProfileTabNavigation.Navigator initialRouteName={navName.profile}>
             <ProfileTabNavigation.Screen name={navName.profile}
@@ -25,10 +28,10 @@ const ProfileTabNavigator = () => {
                 component={PopularSkillDetails}
                 options={{ 
                     headerStyle: {
-                        backgroundColor: '#212121',
+                        backgroundColor: theme ? '#212121' : '#f3f3f3',
                     },
                     headerTitleStyle: {
-                        color: 'lightgray'
+                        color: theme ? 'lightgray' : '#000'
                     }
                 }}
             />
@@ -40,10 +43,10 @@ const ProfileTabNavigator = () => {
                 component={ListCourses}
                 options={{ 
                     headerStyle: {
-                        backgroundColor: '#212121',
+                        backgroundColor: theme ? '#212121' : '#f3f3f3',
                     },
                     headerTitleStyle: {
-                        color: 'lightgray'
+                        color: theme ? 'lightgray' : '#000'
                     }
                 }}
             />
@@ -51,10 +54,10 @@ const ProfileTabNavigator = () => {
                 component={AuthorDetails}
                 options={{ 
                     headerStyle: {
-                        backgroundColor: '#212121',
+                        backgroundColor: theme ? '#212121' : '#f3f3f3',
                     },
                     headerTitleStyle: {
-                        color: 'lightgray'
+                        color: theme ? 'lightgray' : '#000'
                     }
                 }}
             />
@@ -62,10 +65,10 @@ const ProfileTabNavigator = () => {
                 component={Download}
                 options={{ 
                     headerStyle: {
-                        backgroundColor: '#212121',
+                        backgroundColor: theme ? '#212121' : '#f3f3f3',
                     },
                     headerTitleStyle: {
-                        color: 'lightgray'
+                        color: theme ? 'lightgray' : '#000'
                     }
                 }}
             />
@@ -73,10 +76,10 @@ const ProfileTabNavigator = () => {
                 component={Setting}
                 options={{ 
                     headerStyle: {
-                        backgroundColor: '#212121',
+                        backgroundColor: theme ? '#212121' : '#f3f3f3',
                     },
                     headerTitleStyle: {
-                        color: 'lightgray'
+                        color: theme ? 'lightgray' : '#000'
                     }
                 }}
             />
@@ -84,10 +87,10 @@ const ProfileTabNavigator = () => {
                 component={UpdateProfile}
                 options={{ 
                     headerStyle: {
-                        backgroundColor: '#212121',
+                        backgroundColor: theme ? '#212121' : '#f3f3f3',
                     },
                     headerTitleStyle: {
-                        color: 'lightgray'
+                        color: theme ? 'lightgray' : '#000'
                     }
                 }}
             />

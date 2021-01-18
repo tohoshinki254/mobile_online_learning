@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
             paddingLeft: 10,
             paddingRight: 10,
             backgroundColor: theme ? '#212121' : '#f3f3f3',
-            marginTop: 22
         }
     },
     text: (theme) => {

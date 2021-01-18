@@ -90,6 +90,7 @@ const Home = ({ navigation }) => {
                     navigation={navigation}
                 />
             : authors.successful ? null : <ActivityIndicator />}
+            <View style={{margin: 10}} />
         </ScrollView>
     )
 }
@@ -97,10 +98,9 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     root: (theme) => {
         return {
-            marginTop: 22,
             paddingLeft: 10,
             paddingRight: 10,
-            paddingTop: 6,
+            paddingTop: 30,
             backgroundColor: theme ? '#212121' : '#f3f3f3'          
         }
     },

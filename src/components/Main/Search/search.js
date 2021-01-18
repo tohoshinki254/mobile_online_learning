@@ -30,7 +30,9 @@ const BeforeSearch = (history, clearAll, language, theme) => {
                     <Text style={{color: '#FF5252', fontSize: 15}}>{language ? "Remove all" : "Xóa tất cả"}</Text>
                 </TouchableOpacity>
             </View>
-            {history !== undefined ? history.data.map(item => renderFindText(item.content)) : null}
+            <ScrollView>
+                {history !== undefined ? history.map(item => renderFindText(item.content)) : null}
+            </ScrollView>
         </View>
     )
 }
@@ -55,23 +57,24 @@ const Search = ({ navigation }) => {
         }
     }
     const onSubmit = () => {
-        searchV2(searchText, setSubmitted);
+        searchV2(searchText, authContext.state.token, setSubmitted);
         const temp = history.data;
-        temp.push({ content: searchText });
+        if (temp.length === 0) temp.push({ content: searchText });
+        else temp.unshift({ content: searchText });
         setHistory({ successful: true, data: temp})
     }
 
     const clearAll = () => {
+        setHistory({ successful: false, data: [] });
         for (let i = 0; i < history.data.length; i++) {
             deleteSearchHistory(authContext.state.token, history.data[i].id);
         }
-        setHistory({ successful: false, data: [] });
     }
 
     const Tab = createMaterialTopTabNavigator();
 
     return (
-        <ScrollView scrollEnabled={false} style={{ backgroundColor: theme ? '#212121' : '#f3f3f3', marginTop: 22 }}>
+        <ScrollView scrollEnabled={false} style={{ backgroundColor: theme ? '#212121' : '#f3f3f3', paddingTop: 22 }}>
             <SearchBar 
                 containerStyle={styles.containerStyle(theme)}
                 inputContainerStyle={styles.inputContainer(theme)}
@@ -86,9 +89,17 @@ const Search = ({ navigation }) => {
             />
             
             {submitted.successful ? 
-                <SearchTabResults results={submitted.info}/>
+                submitted.info.courses.data.length !== 0 || submitted.info.instructors.data.length !== 0
+                ? <SearchTabResults results={submitted.info}/>
+                : <View style={{ margin: 20 }}>
+                    <Text 
+                        style={{fontSize: 20, marginTop: 40, color: theme ? 'lightgray' : '#616161', textAlign: 'center'}}
+                    >
+                        {language ? `No matching results were found`  : `Không tìm thấy kết quả phù hợp`}
+                    </Text>
+                </View>
                 :
-                BeforeSearch(history, clearAll, language, theme)
+                BeforeSearch(history.data, clearAll, language, theme)
             }
         </ScrollView>
     )

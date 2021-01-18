@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
         return {
             width: '100%',
             padding: 10,
-            marginTop: 22,
             backgroundColor: theme ? '#212121' : '#f3f3f3',
             height: '100%',
             justifyContent: 'center'

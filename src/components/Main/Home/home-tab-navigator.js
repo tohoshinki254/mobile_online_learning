@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './home';
 import CourseDetail from '../../CourseDetail/course-detail';
@@ -7,10 +7,13 @@ import AuthorDetails from '../AuthorDetails/author-details';
 import Rating from '../../CourseDetail/comment';
 import Exercise from '../../CourseDetail/exercise';
 import { navName } from '../../../Global/constant';
+import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const HomeTabNavigationStack = createStackNavigator();
 
 const HomeTabNavigator = () => {
+    const { theme } = useContext(SettingCommonContext);
+
     return (
         <HomeTabNavigationStack.Navigator initialRouteName={navName.home}>
             <HomeTabNavigationStack.Screen name={navName.home}
@@ -25,10 +28,10 @@ const HomeTabNavigator = () => {
                 component={ListCourses}
                 options={{ 
                     headerStyle: {
-                        backgroundColor: '#212121',
+                        backgroundColor: theme ? '#212121' : '#f3f3f3',
                     },
                     headerTitleStyle: {
-                        color: 'lightgray'
+                        color: theme ? 'lightgray' : '#000'
                     }
                 }}
             />
@@ -36,10 +39,10 @@ const HomeTabNavigator = () => {
                 component={AuthorDetails}
                 options={{ 
                     headerStyle: {
-                        backgroundColor: '#212121',
+                        backgroundColor: theme ? '#212121' : '#f3f3f3',
                     },
                     headerTitleStyle: {
-                        color: 'lightgray'
+                        color: theme ? 'lightgray' : '#000'
                     }
                 }}
             />

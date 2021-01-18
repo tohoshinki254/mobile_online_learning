@@ -40,8 +40,9 @@ export const apiSearch = (data) => {
     return axios.post(API_URL + 'course/search', data);
 };
 
-export const apiSearchV2 = (keyword) => {
+export const apiSearchV2 = (keyword, token) => {
     return axios.post(API_URL + 'course/searchV2', {
+        token: token,
         keyword: keyword,
         limit: 20,
         page: 1
