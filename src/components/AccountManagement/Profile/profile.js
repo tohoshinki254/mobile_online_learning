@@ -45,8 +45,7 @@ const Profile = ({ navigation }) => {
                 <View style={{margin: 10}}/>
 
                 <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}
-                    //onPress={() => navigation.push(navName.download, { courses: courses })}
-                    onPress={() => setLoading(true)}
+                    onPress={() => navigation.push(navName.download)}
                 >
                     <Text style={[styles.title(theme), {marginRight: 20}]}>{language ? "Downloads" : "Khóa học đã tải"}</Text>
                     <Image source={{uri: 'https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_grey_192x192.png'}} style={{width: 30, height: 30}}/>

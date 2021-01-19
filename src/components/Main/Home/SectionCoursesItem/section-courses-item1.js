@@ -40,7 +40,7 @@ const SectionCoursesItem1 = ({item, navigation}) => {
                 {item.process !== undefined ?
                     <View style={styles.process(theme)}>
                         <Animated.View style={[StyleSheet.absoluteFill, { borderRadius: 50, backgroundColor: '#fbc02d', width: `${item.process}%` }]}/>
-                        <Text style={{ fontSize: 12, color: 'gray', fontWeight: 'bold' }}>{`${item.process} %`}</Text>
+                        <Text style={{ fontSize: 12, color: 'gray', fontWeight: 'bold' }}>{`${item.process}% completed`}</Text>
                     </View>
                 : null}
             </View>

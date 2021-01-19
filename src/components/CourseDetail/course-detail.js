@@ -28,7 +28,7 @@ const CourseDetail = ({ route, navigation }) => {
     const [course, setCourse] = useState({ successful: false, details: null });
     const [statusLike, setStatusLike] = useState({ successful: false, status: false });
     const [payment, setPayment] = useState({ successful: false, info: false });
-    const [video, setVideo] = useState(null);
+    const [video, setVideo] = useState({ name: "", link: "" });
     const [exercises, setExercises] = useState([]);
     const [downloadProgress, setDownloadProgress] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
@@ -48,11 +48,8 @@ const CourseDetail = ({ route, navigation }) => {
     useFocusEffect(
         React.useCallback(() => {
             (async () => {
-                await getCourseDetails(item.id, setCourse);
+                await getCourseDetails(item.id, setCourse, setVideo);
             })();
-            if (course.successful) {
-                setVideo(course.details.promoVidUrl);
-            }
             return undefined;
         }, [authContext, setCourse])
     )
@@ -77,11 +74,18 @@ const CourseDetail = ({ route, navigation }) => {
     const checkTypeVideo = (link) => {
         return link !== null ? link.search("youtu") != -1 : false;
     }
-    const lessonClick = (link) => {
-        setVideo(link);
+
+    let downloadedList = [];
+    const lessonClick = (content) => {
+        getVideoLatestLesson(authContext.state.token, item.id, content, setVideo, snackContext.setSnackbar);
+        if (downloadedList.includes(content.name)) {
+            setDownloadProgress(language ? 'Downloaded' : 'Đã tải')
+        } else {
+            setDownloadProgress("");
+        }
     }
     const displayVideo = () => {
-        return video !== null ? video : course.details.promoVidUrl;
+        return video.link !== "" ? video.link : course.details.promoVidUrl;
     }
 
     const handleShare = async () => {
@@ -108,20 +112,32 @@ const CourseDetail = ({ route, navigation }) => {
         setDownloadProgress(`${progressPer}%`);
     }
     const handleDownloadCourse = async () => {
-        if (payment.info && !checkTypeVideo(video) && video !== null) {
+        if (payment.info && video.link !== "" && !checkTypeVideo(video.link) && downloadProgress === "") {
+            let directory = course.details.title;
+            directory = directory.split(" ").join("%20");
+            try {
+                await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + "Courses");
+                await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + directory);
+            } catch (e) {
+                directory = "Courses";
+            }
+
             const downloadResumable = FileSystem.createDownloadResumable(
-                video,
-                FileSystem.documentDirectory + `${new Date().toISOString()}.mp4`,
+                video.link,
+                FileSystem.documentDirectory + `${directory}/` + `${video.name.split(" ").join("%20")}.mp4`,
                 {},
                 updateProgress
             );
 
             try {
                 const { uri } = await downloadResumable.downloadAsync();
-                console.log('Finished downloading to ', uri);
+                downloadedList.push(video.name);
+                setDownloadProgress(language ? "Downloaded" : "Đã tải");
             } catch (e) {
                 console.log(e.message);
             }
+        } else {
+            snackContext.setSnackbar({ open: true, status: language ? "Error" : "Lỗi", message: language ? "Can't download this video" : "Không thể tải video này" })
         }
     }
 
@@ -160,6 +176,7 @@ const CourseDetail = ({ route, navigation }) => {
                     useNativeControls={true}
                     isLooping
                     isMuted={false}
+                    positionMillis={0}
                 />}
                 
 

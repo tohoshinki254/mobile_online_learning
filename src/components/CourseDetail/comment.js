@@ -146,7 +146,8 @@ const styles = StyleSheet.create({
             paddingRight: 10, 
             paddingBottom: 10, 
             paddingTop: 32,
-            backgroundColor: theme ? '#212121' : '#f3f3f3'
+            backgroundColor: theme ? '#212121' : '#f3f3f3',
+            minHeight: '100%'
         }
     },
     title: (theme) => {

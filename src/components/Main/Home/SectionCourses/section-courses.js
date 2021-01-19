@@ -34,7 +34,7 @@ const SectionCourses = ({courses, title, type, hideButton, eventButton, navigati
         }
 
         if (eventButton === "Remove all") {
-
+            
         }
     }
 

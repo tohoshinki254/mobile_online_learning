@@ -151,11 +151,12 @@ export const deleteSearchHistory = (token, id) => {
 }
 
 // userId random
-export const getCourseDetails = (id, setStatus) => {
+export const getCourseDetails = (id, setStatus, setVideo) => {
     apiGetCourseDetails(id)
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, details: response.data.payload });
+            setVideo({ name: "Promo Video", link: response.data.payload.promoVidUrl });
         } else {
             setStatus({ successful: false, details: null });
         }
