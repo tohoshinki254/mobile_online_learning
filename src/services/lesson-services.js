@@ -18,3 +18,14 @@ export const apiGetVideoLatest = (token, courseId, lessonId) => {
         }
     });
 }
+
+export const apiUpdateCurrentTimeLearnVideo = (token, lessonId, currentTime) => {
+    return axios.put(API_URL + 'lesson/update-current-time-learn-video', {
+        lessonId: lessonId,
+        currentTime: currentTime
+    }, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+}

@@ -8,7 +8,7 @@ const convertToMinutes = (hours) => {
     let temp = hours * 60;
     const minutes = Math.floor(temp);
     const second = Math.ceil((temp - minutes) * 60);
-    return `${minutes}:${second !== 0 ? second : "00"}`;
+    return `${minutes >= 10 ? minutes : "0" + minutes}:${second >= 10 ? second : "0" + second}`;
 }
 
 const Content = ({ sections, lessonClick, exercises, setExercises }) => {

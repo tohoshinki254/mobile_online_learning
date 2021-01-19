@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share, Linking } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Video } from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Content from './content';
+import YoutubePlayer from 'react-native-youtube-iframe';
 import RadiusButton from '../Common/radius-button';
-import YoutubeVideo from '../Common/youtube-video';
 import { navName, monthNames } from '../../Global/constant';
-import { getCourseDetails } from '../../actions/course-actions';
+import { getCourseDetails, getLastWatchedLesson } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
 import { SettingCommonContext } from '../../providers/setting-common-provider';
 import { SnackbarContext } from '../../providers/snackbar-provider';
 import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
 import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
-import { getVideoLatestLesson, updateStatusLesson } from '../../actions/lesson-actions';
+import { getVideoLatestLesson, updateStatusLesson, updateCurrentTimeLearnVideo } from '../../actions/lesson-actions';
 import Rating from '../Common/rating';
 import SectionCourses from '../Main/Home/SectionCourses/section-courses';
 import * as FileSystem from 'expo-file-system';
@@ -28,10 +28,13 @@ const CourseDetail = ({ route, navigation }) => {
     const [course, setCourse] = useState({ successful: false, details: null });
     const [statusLike, setStatusLike] = useState({ successful: false, status: false });
     const [payment, setPayment] = useState({ successful: false, info: false });
-    const [video, setVideo] = useState({ name: "", link: "" });
+    const [video, setVideo] = useState({ name: "", link: "", currentTime: 0 });
     const [exercises, setExercises] = useState([]);
     const [downloadProgress, setDownloadProgress] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
+    const [lastLesson, setLastLesson] = useState(null);
+    const [playing, setPlaying] = useState(false);
+    const playerRef = useRef();
 
     useEffect(() => {
         if (!statusLike.successful) {
@@ -53,6 +56,10 @@ const CourseDetail = ({ route, navigation }) => {
             return undefined;
         }, [authContext, setCourse])
     )
+
+    useEffect(() => {
+        getLastWatchedLesson(authContext.state.token, item.id, setLastLesson);
+    }, [setLastLesson])
 
     const seeAuthorDetails = () => {
         navigation.push(navName.author, { author: course.details.instructor });
@@ -76,7 +83,9 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     let downloadedList = [];
+    let lessonId = null;
     const lessonClick = (content) => {
+        lessonId = content.id;
         getVideoLatestLesson(authContext.state.token, item.id, content, setVideo, snackContext.setSnackbar);
         if (downloadedList.includes(content.name)) {
             setDownloadProgress(language ? 'Downloaded' : 'Đã tải')
@@ -85,6 +94,10 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }
     const displayVideo = () => {
+        if (lastLesson !== null && lastLesson.currentTime !== 0 && video.link === course.details.promoVidUrl) {
+            lessonId = lastLesson.lessonId;
+            return lastLesson.videoUrl;
+        }
         return video.link !== "" ? video.link : course.details.promoVidUrl;
     }
 
@@ -149,6 +162,24 @@ const CourseDetail = ({ route, navigation }) => {
         setModalVisible(false);
     }
 
+    const onStateChange = useCallback((state) => {
+        if (state === "ended") {
+            setPlaying(false);
+        }
+    }, []);
+
+    const takeLearningCheck = () => {
+        if ((video.link !== course.details.promoVidUrl && checkTypeVideo(video.link)) || (video.link === course.details.promoVidUrl && checkTypeVideo(lastLesson.videoUrl))) {
+            playerRef.current.getCurrentTime().then(current => {
+                if (current !== 0) {
+                    updateCurrentTimeLearnVideo(authContext.state.token, lessonId, current * 1000, snackContext.setSnackbar);
+                }
+            });
+        } else {
+            snackContext.setSnackbar({ open: true, status: 500, message: "Error"})
+        }
+    }
+
     return (
         <View style={{ paddingTop: 20, marginBottom: 200, height: '100%', backgroundColor: theme ? '#212121' : '#f3f3f3' }}>
             <ModalBuyCourse
@@ -157,7 +188,7 @@ const CourseDetail = ({ route, navigation }) => {
                 onCloseModal={handleToggleModal}
                 onCancel={handleCancel}
             />
-            {course.successful ?
+            {course.successful && lastLesson !== null ?
             <View >
                 <TouchableOpacity style={{ position: 'absolute', top: 20, left: 20, zIndex: 1}}
                     onPress={() => navigation.goBack()}
@@ -166,17 +197,23 @@ const CourseDetail = ({ route, navigation }) => {
                 </TouchableOpacity>
 
                 {checkTypeVideo(displayVideo()) ? 
-                <YoutubeVideo id={displayVideo().slice(displayVideo().length - 11, displayVideo().length)}/>
+                <YoutubePlayer
+                    ref={playerRef}
+                    height={215}
+                    width="100%"
+                    play={playing}
+                    videoId={displayVideo().slice(displayVideo().length - 11, displayVideo().length)}
+                    onChangeState={onStateChange} 
+                />
                 : <Video
                     source={{ uri: displayVideo() || 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                     rate={1.0}
-                    volume={1.0}
+                    volume={10}
                     resizeMode="stretch"
                     style={{ width: '100%', height: 215 }}
                     useNativeControls={true}
                     isLooping
                     isMuted={false}
-                    positionMillis={0}
                 />}
                 
 
@@ -277,7 +314,7 @@ const CourseDetail = ({ route, navigation }) => {
 
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => {}}
+                        onPress={() => takeLearningCheck()}
                     >
                         <Text style={{color: 'white', fontSize: 15}}>{language ? "Take a learning check" : "Cập nhật trạng thái học của bài học"}</Text>
                     </TouchableOpacity>

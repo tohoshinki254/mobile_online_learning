@@ -1,12 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, ScrollView, Modal, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Checkbox } from 'react-native-paper';
 import { AuthenticationContext } from '../../../providers/authentication-provider';
 import { SettingCommonContext } from '../../../providers/setting-common-provider';
 
 const ModalBuyCourse = ({ info, visible, onCloseModal, onCancel }) => {
     const authContext = useContext(AuthenticationContext);
     const { theme, language } = useContext(SettingCommonContext);
+
+    const [momoCheck, setMomoCheck] = useState(true);
+    const [cardCheck, setCardCheck] = useState(false);
 
     const onHandleCloseModal = () => {
         onCloseModal();
@@ -23,7 +27,9 @@ const ModalBuyCourse = ({ info, visible, onCloseModal, onCancel }) => {
             presentationStyle="formSheet"
         >
             {info !== null ? 
-            <ScrollView style={{ height: '100%', backgroundColor: theme ? '#212121' : '#f3f3f3' }}>
+            <ScrollView style={{ height: '100%', backgroundColor: theme ? '#212121' : '#f3f3f3' }}
+                showsVerticalScrollIndicator={false}
+            >
                 <View style={styles.modalStyle}>
                     <Text style={styles.textHead(theme)}>{language ? 'Buy Course' : 'Mua khóa học'}</Text>
                     <View style={styles.box}> 
@@ -60,6 +66,39 @@ const ModalBuyCourse = ({ info, visible, onCloseModal, onCancel }) => {
                             <Text style={{ color: theme ? 'lightgray' : '#616161', }}>  {authContext.state.userInfo.phone}</Text>
                         </View>
                     </View>
+                    
+                    {info.price > 0 ?
+                    <View style={styles.box}>
+                        <Text style={styles.textTitle(theme)}>{language ? 'Payment Methods' : 'Phương thức thanh toán'}</Text>
+                        <View style={{...styles.infoItem, alignItems: "center"}}>
+                            <Checkbox 
+                                status={momoCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                    setMomoCheck(!momoCheck);
+                                    setCardCheck(!cardCheck);
+                                }}
+                                color="#FF5252"
+                                uncheckedColor="#212121"
+                            />
+                            <Image source={require('../../../../assets/momo.png')} style={{width: 30, height: 30}}/>
+                            <Text style={{ color: theme ? 'lightgray' : '#616161', fontWeight: '500', marginLeft: 5 }}>{language ? "MoMo e-wallet" : "Ví điện tử MoMo"}</Text>
+                        </View>
+                        <View style={{...styles.infoItem, alignItems: 'center'}}>
+                            <Checkbox
+                                status={cardCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                    setCardCheck(!cardCheck);
+                                    setMomoCheck(!momoCheck);
+                                }}
+                                color="#FF5252"
+                                uncheckedColor="#000"
+                            />
+                            <Image source={require('../../../../assets/atm.png')} style={{width: 30, height: 30}}/>
+                            <Image source={require('../../../../assets/visa.png')} style={{width: 30, height: 30}}/>
+                            <Text style={{ color: theme ? 'lightgray' : '#616161', fontWeight: '500', marginLeft: 5 }} numberOfLines={1}>{language ? "ATM card or Visa, Master Card" : "Thẻ ATM, thẻ Visa, Master Card"}</Text>
+                        </View>
+                    </View>
+                    : null}
 
                     <View style={styles.btnBox}>
                         <TouchableOpacity
@@ -161,7 +200,6 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 30,
     }
 });
 

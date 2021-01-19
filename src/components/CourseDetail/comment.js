@@ -38,6 +38,9 @@ const Comment = ({ navigation, route }) => {
     const snackContext = useContext(SnackbarContext);
     const [content, setContent] = useState('');
     const [star, setStar] = useState(0);
+    const [ratingList, setRatingList] = useState(details.ratings.ratingList);
+
+    console.log(ratingList);
 
     const addRating = () => {
         const data = {
@@ -47,7 +50,24 @@ const Comment = ({ navigation, route }) => {
             presentationPoint: star,
             content: content
         };
+
+        const user = {
+            name: authContext.state.userInfo.name
+        }
+
+        const newRating = {
+            user: user,
+            createdAt: new Date().toISOString(),
+            averagePoint: star,
+            content: content
+        }
+        const temp = ratingList;
+        temp.push(newRating);
+        setRatingList(temp);
+
         postRatingCourse(authContext.state.token, data, snackContext.setSnackbar);
+        setContent("");
+        setStar(0);
     }
 
     return (
@@ -105,11 +125,11 @@ const Comment = ({ navigation, route }) => {
                         </View>
                     </View>
 
-                    {details.ratings.ratingList.map((item) => {
+                    {ratingList.map((item) => {
                         return renderComment(item, theme)
                     })}
 
-                    <View style={{ flexDirection: 'row', marginBottom: 30 }}>
+                    <View style={{ flexDirection: 'row', marginBottom: 50 }}>
                         <View style={{ flex: 1, marginRight: 15 }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={{ color: theme ? 'lightgray' : '#616161', marginRight: 15 }}>{language ? "Add rating" : "Thêm đánh giá"}</Text>

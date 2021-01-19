@@ -9,7 +9,8 @@ import { apiGetTopNew,
     apiSearchHistory, 
     apiDeleteSearchHistory, 
     apiGetCourseDetails, 
-    apiPostRatingCourse 
+    apiPostRatingCourse,
+    apiLastWatchedLesson
 } from '../services/course-services';
 
 export const getNewCourses = (limit, page, setStatus) => {
@@ -156,7 +157,7 @@ export const getCourseDetails = (id, setStatus, setVideo) => {
     .then((response) => {
         if (response.status === 200) {
             setStatus({ successful: true, details: response.data.payload });
-            setVideo({ name: "Promo Video", link: response.data.payload.promoVidUrl });
+            setVideo({ name: "Promo Video", link: response.data.payload.promoVidUrl, currentTime: 0 });
         } else {
             setStatus({ successful: false, details: null });
         }
@@ -177,5 +178,19 @@ export const postRatingCourse = (token, data, setStatus) => {
     })
     .catch((error) => {
         setStatus({ open: true, status: 500, message: 'Error' });
+    })
+}
+
+export const getLastWatchedLesson = (token, courseId, setStatus) => {
+    apiLastWatchedLesson(token, courseId)
+    .then((response) => {
+        if (response.status === 200) {
+            setStatus(response.data.payload);
+        } else {
+            setStatus(null);
+        }
+    })
+    .catch((error) => {
+        setStatus(null);
     })
 }

@@ -76,3 +76,11 @@ export const apiPostRatingCourse = (token, data) => {
         }
     });
 };
+
+export const apiLastWatchedLesson = (token, courseId) => {
+    return axios.get(API_URL + 'course/last-watched-lesson/' + courseId, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+}
