@@ -14,6 +14,7 @@ const Register = ({ navigation }) => {
     const [email, setEmail] = useState({ value: '', error: false });
     const [password, setPassword] = useState({ value: '', error: false });
     const [phone, setPhone] = useState({ value: '', error: false });
+    const [successful, setSuccessful] = useState(false);
 
     const handleUsernameChange = (username) => {
         const pattern = new RegExp(/^[a-zA-Z0-9.\-_$@*!]{6,16}$/);
@@ -33,14 +34,21 @@ const Register = ({ navigation }) => {
     }
 
     const handlePasswordChange = (password) => {
-        const pattern = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/);
-        const newPassword = { value: password, error: !pattern.test() };
+        const newPassword = { value: password, error: password === '' };
         setPassword(newPassword);
     }
 
     const handlePhoneChange = (phone) => {
         const newPhone = { value: phone, error: phone === '' };
         setPhone(newPhone);
+    }
+
+    const registerAccount = () => {
+        register(username.value, email.value, phone.value, password.value, name.value, setSuccessful, snackContext.setSnackbar);
+        if (successful) {
+            alert('Successful');
+            navigation.navigate(navName.login);
+        }
     }
 
     return (
@@ -105,11 +113,11 @@ const Register = ({ navigation }) => {
                         secureTextEntry={true}
                     />
                     {password.error ? 
-                        <Text style={styles.error}>{language ? "Must contain a-z, A-Z & 0-9 and length greater than 8" : "Bao gồm a-z, A-Z & 0-9 và độ dài lớn hơn 8"}</Text> : 
+                        <Text style={styles.error}>{language ? "Password is not empty" : "Mật khẩu không được để trống"}</Text> : 
                         <View style={{marginBottom: 20}}/>
                     }
 
-                    <Button onPress={() => register(username.value, email.value, phone.value, password.value, name.value, snackContext.setSnackbar)} 
+                    <Button onPress={() => registerAccount()} 
                         text={language ? "Create an account" : "Tạo tài khoản"}
                     />
 

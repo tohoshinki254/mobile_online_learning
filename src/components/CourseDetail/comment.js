@@ -40,8 +40,6 @@ const Comment = ({ navigation, route }) => {
     const [star, setStar] = useState(0);
     const [ratingList, setRatingList] = useState(details.ratings.ratingList);
 
-    console.log(ratingList);
-
     const addRating = () => {
         const data = {
             courseId: details.id,
@@ -52,7 +50,7 @@ const Comment = ({ navigation, route }) => {
         };
 
         const user = {
-            name: authContext.state.userInfo.name
+            name: authContext.state.userInfo !== null ? authContext.state.userInfo.name : null
         }
 
         const newRating = {

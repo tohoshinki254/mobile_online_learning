@@ -36,7 +36,7 @@ const Content = ({ sections, lessonClick, exercises, setExercises }) => {
             >
                 <View style={{flexDirection: 'row', marginLeft: 8, alignItems: 'center', maxWidth: 300}}>
                     <Text style={{...styles.content(theme), marginRight: 24}}>{index + 1}</Text>
-                    <View  >
+                    <View>
                         <Text style={styles.content(theme)}>{content.name}</Text>
                         <Text style={{ color: theme ? 'lightgray' : 'gray', fontSize: 13 }}>Video - {`${convertToMinutes(content.hours)}`}</Text>
                     </View>

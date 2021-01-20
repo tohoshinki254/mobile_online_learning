@@ -4,7 +4,7 @@
     "slug": "itedu",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/favicon.png",
+    "icon": "./assets/app-store.png",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -12,7 +12,13 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.thanhtien.itedu",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.thanhtien.itedu",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

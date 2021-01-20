@@ -23,6 +23,7 @@ function Login({ navigation }) {
             const result = await Google.logInAsync({
                 androidClientId: "86971470491-gp31arsi9al1p3mqje31tqpamu969umb.apps.googleusercontent.com",
                 iosClientId: "86971470491-rh35t9hj5gu4dblk3672e29ouqq33o5l.apps.googleusercontent.com",
+                androidStandaloneAppClientId: "86971470491-m0mvi06jbtep6ib1nsp3brg8tkihtbem.apps.googleusercontent.com",
                 scopes: ['profile', 'email'],
             });
 

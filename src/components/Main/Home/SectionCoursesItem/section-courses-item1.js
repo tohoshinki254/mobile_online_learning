@@ -40,7 +40,7 @@ const SectionCoursesItem1 = ({item, navigation}) => {
                 {item.process !== undefined ?
                     <View style={styles.process(theme)}>
                         <Animated.View style={[StyleSheet.absoluteFill, { borderRadius: 50, backgroundColor: '#fbc02d', width: `${item.process}%` }]}/>
-                        <Text style={{ fontSize: 12, color: 'gray', fontWeight: 'bold' }}>{`${item.process}% completed`}</Text>
+                        <Text style={{ fontSize: 12, color: 'gray', fontWeight: 'bold' }}>{`${Math.round(item.process)}% ${language ? "completed" : "hoàn thành"}`}</Text>
                     </View>
                 : null}
             </View>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     process: (theme) => {
         return {
             borderRadius: 50, 
-            backgroundColor: theme ? 'lightgray' : '#616161', 
+            backgroundColor: theme ? 'lightgray' : '#ced', 
             width: '100%',
             marginTop: 10, 
             height: 15,

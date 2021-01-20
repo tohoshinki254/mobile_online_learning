@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share, Linking } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Video } from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -35,6 +35,7 @@ const CourseDetail = ({ route, navigation }) => {
     const [lastLesson, setLastLesson] = useState(null);
     const [playing, setPlaying] = useState(false);
     const playerRef = useRef();
+    const expVideoRef = useRef();
 
     useEffect(() => {
         if (!statusLike.successful) {
@@ -83,9 +84,9 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     let downloadedList = [];
-    let lessonId = null;
+    const [lessonId, setLessonId] = useState(null);
     const lessonClick = (content) => {
-        lessonId = content.id;
+        setLessonId(content.id)
         getVideoLatestLesson(authContext.state.token, item.id, content, setVideo, snackContext.setSnackbar);
         if (downloadedList.includes(content.name)) {
             setDownloadProgress(language ? 'Downloaded' : 'Đã tải')
@@ -95,7 +96,6 @@ const CourseDetail = ({ route, navigation }) => {
     }
     const displayVideo = () => {
         if (lastLesson !== null && lastLesson.currentTime !== 0 && video.link === course.details.promoVidUrl) {
-            lessonId = lastLesson.lessonId;
             return lastLesson.videoUrl;
         }
         return video.link !== "" ? video.link : course.details.promoVidUrl;
@@ -164,16 +164,28 @@ const CourseDetail = ({ route, navigation }) => {
 
     const onStateChange = useCallback((state) => {
         if (state === "ended") {
-            setPlaying(false);
+            updateStatusLesson(authContext.state.token, lessonId !== null ? lessonId : lastLesson.lessonId);
         }
     }, []);
+
+    const onPlaybackStatusUpdate = useCallback((playbackStatus) => {
+        if (playbackStatus.didJustFinish) {
+            updateStatusLesson(authContext.state.token, lessonId !== null ? lessonId : lastLesson.lessonId);
+        }
+    })
 
     const takeLearningCheck = () => {
         if ((video.link !== course.details.promoVidUrl && checkTypeVideo(video.link)) || (video.link === course.details.promoVidUrl && checkTypeVideo(lastLesson.videoUrl))) {
             playerRef.current.getCurrentTime().then(current => {
                 if (current !== 0) {
-                    updateCurrentTimeLearnVideo(authContext.state.token, lessonId, current * 1000, snackContext.setSnackbar);
+                    updateCurrentTimeLearnVideo(authContext.state.token, lessonId !== null ? lessonId : lastLesson.lessonId, current * 1000, snackContext.setSnackbar);
                 }
+            });
+        } else if (lessonId !== null || lastLesson.lessonId !== null) {
+            expVideoRef.current.getStatusAsync().then((result) => {
+                if (result.positionMillis !== 0) {
+                    updateCurrentTimeLearnVideo(authContext.state.token, lessonId !== null ? lessonId : lastLesson.lessonId, result.positionMillis, snackContext.setSnackbar);
+                } 
             });
         } else {
             snackContext.setSnackbar({ open: true, status: 500, message: "Error"})
@@ -188,9 +200,9 @@ const CourseDetail = ({ route, navigation }) => {
                 onCloseModal={handleToggleModal}
                 onCancel={handleCancel}
             />
-            {course.successful && lastLesson !== null ?
+            {course.successful ?
             <View >
-                <TouchableOpacity style={{ position: 'absolute', top: 20, left: 20, zIndex: 1}}
+                <TouchableOpacity style={{ position: 'absolute', top: 20, right: 20, zIndex: 1}}
                     onPress={() => navigation.goBack()}
                 >
                     <Icon name="times" size={27} color="white" />
@@ -206,14 +218,16 @@ const CourseDetail = ({ route, navigation }) => {
                     onChangeState={onStateChange} 
                 />
                 : <Video
+                    ref={expVideoRef}
                     source={{ uri: displayVideo() || 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                     rate={1.0}
-                    volume={10}
+                    volume={1}
                     resizeMode="stretch"
                     style={{ width: '100%', height: 215 }}
                     useNativeControls={true}
                     isLooping
                     isMuted={false}
+                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                 />}
                 
 

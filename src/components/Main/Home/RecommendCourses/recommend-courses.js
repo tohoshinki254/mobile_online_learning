@@ -17,7 +17,7 @@ const RecommendCourses = ({ navigation }) => {
     useEffect(() => {
         const limit = 20;
         const offset = 1;
-        if (!status.successful) {
+        if (!status.successful && authContext.state.userInfo !== null) {
             getRecommendCourses(authContext.state.userInfo.id, limit, offset, setStatus);
         }
     }, [status, setStatus, authContext])

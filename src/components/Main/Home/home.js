@@ -15,7 +15,7 @@ const Home = ({ navigation }) => {
 
     const [followCategories, setFollowCategories] = useState({ successful: false, courses: [] });
     useEffect(() => {
-        if (!followCategories.successful) {
+        if (!followCategories.successful && authContext.state.userInfo !== null) {
             const data = {
                 userId: authContext.state.userInfo.id
             };

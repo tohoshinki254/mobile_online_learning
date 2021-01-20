@@ -32,10 +32,11 @@ export const signInWithGoogle = (dispatch) => (data) => {
     })
 }
 
-export const register = (username, email, phone, password, name, setStatus) => {
+export const register = (username, email, phone, password, name, setSuccessful, setStatus) => {
     apiRegister(username, email, phone, password, name)
     .then((response) => {
         if (response.status === 200) {
+            setSuccessful(true);
             setStatus({ open: true, status: 200, message: response.data.message });
         } else {
             setStatus({ open: true, status: response.status, message: response.data.message });

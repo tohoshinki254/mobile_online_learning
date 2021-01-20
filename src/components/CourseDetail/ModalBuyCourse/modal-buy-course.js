@@ -55,15 +55,15 @@ const ModalBuyCourse = ({ info, visible, onCloseModal, onCancel }) => {
                         <Text style={styles.textTitle(theme)}>{language ? 'User Information' : 'Thông tin người dùng'}</Text>
                         <View style={styles.infoItem}>
                             <Icon name="user-o" size={16} color="#2196F3" />
-                            <Text style={{ color: theme ? 'lightgray' : '#616161', }}>  {authContext.state.userInfo.name}</Text>
+                            <Text style={{ color: theme ? 'lightgray' : '#616161', }}>  {authContext.state.userInfo?.name}</Text>
                         </View>
                         <View style={styles.infoItem}>
                             <Icon name="envelope-o" size={16} color="#2196F3" />
-                            <Text style={{ color: theme ? 'lightgray' : '#616161', }}>  {authContext.state.userInfo.email}</Text>
+                            <Text style={{ color: theme ? 'lightgray' : '#616161', }}>  {authContext.state.userInfo?.email}</Text>
                         </View>
                         <View style={styles.infoItem}>
                             <Icon name="phone" size={16} color="#2196F3" />
-                            <Text style={{ color: theme ? 'lightgray' : '#616161', }}>  {authContext.state.userInfo.phone}</Text>
+                            <Text style={{ color: theme ? 'lightgray' : '#616161', }}>  {authContext.state.userInfo?.phone}</Text>
                         </View>
                     </View>
                     

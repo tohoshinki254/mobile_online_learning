@@ -23,13 +23,13 @@ export const updateStatusLesson = (token, lessonId) => {
     apiUpdateStatusLesson(token, lessonId)
     .then((response) => {
         if (response.status === 200) {
-
+            console.log("Lesson is finished");
         } else {
-            
+            console.log("400: Error"); 
         }
     })
     .catch((error) => {
-
+        console.log("500: Error");
     })
 }
 
