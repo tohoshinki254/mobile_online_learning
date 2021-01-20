@@ -11,7 +11,7 @@ export const buyFreeCourse = (token, data, setState, setSnackbar, setModal) => {
         }
     })
     .catch((error) => {
-        setSnackbar({ open: true, status: 500, message: 'Error' });
+        // setSnackbar({ open: true, status: 500, message: 'Error' });
     })
 }
 

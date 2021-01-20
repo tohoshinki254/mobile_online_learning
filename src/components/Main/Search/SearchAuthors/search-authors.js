@@ -39,16 +39,18 @@ const SearchAuthors = ({ navigation, route }) => {
                 renderItem={({item}) => renderListAuthorsType2(item, navigation)}
                 ItemSeparatorComponent={FlatListItemSeparator}
                 showsVerticalScrollIndicator={false}
-                style={{ height: (screenHeight - 350) }}
+                style={{ height: screenHeight - 200 }}
             />
         </View>
         : 
-        <View style={{ margin: 20 }}>
-            <Text 
-                style={{fontSize: 20, marginTop: 40, color: theme ? 'lightgray' : '#616161', textAlign: 'center'}}
-            >
-                {language ? `No matching results were found`  : `Không tìm thấy kết quả phù hợp`}
-            </Text>
+        <View style={styles.root(theme)}>
+            <View style={{ margin: 20 }}>
+                <Text 
+                    style={{fontSize: 20, marginTop: 40, color: theme ? 'lightgray' : '#616161', textAlign: 'center'}}
+                >
+                    {language ? `No matching results were found`  : `Không tìm thấy kết quả phù hợp`}
+                </Text>
+            </View>
         </View>
     )
 }

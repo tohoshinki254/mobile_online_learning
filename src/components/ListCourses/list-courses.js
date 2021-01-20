@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
             paddingLeft: 10,
             paddingRight: 10,
             paddingBottom: 100,
-            backgroundColor: theme ? '#212121' : '#f3f3f3'
+            backgroundColor: theme ? '#212121' : '#f3f3f3',
+            height: '100%'
         }
     },
 });

@@ -173,11 +173,11 @@ export const postRatingCourse = (token, data, setStatus) => {
         if (response.status === 200) {
             setStatus({ open: true, status: 200, message: response.data.message });
         } else {
-            setStatus({ open: true, status: response.status, message: response.data.message });
+            // setStatus({ open: true, status: response.status, message: response.data.message });
         }
     })
     .catch((error) => {
-        setStatus({ open: true, status: 500, message: 'Error' });
+        // setStatus({ open: true, status: 500, message: 'Error' });
     })
 }
 

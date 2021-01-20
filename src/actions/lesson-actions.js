@@ -9,6 +9,7 @@ export const getVideoLatestLesson = (token, courseId, lesson, setVideo, setSnack
                 link: response.data.payload.videoUrl, 
                 currentTime: response.data.payload.currentTime 
             });
+            console.log(response.data);
         } else {
             setSnackbar({ open: true, status: response.status, message: response.data.message });
         }

@@ -7,7 +7,7 @@ import Content from './content';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import RadiusButton from '../Common/radius-button';
 import { navName, monthNames } from '../../Global/constant';
-import { getCourseDetails, getLastWatchedLesson } from '../../actions/course-actions';
+import { getCourseDetails } from '../../actions/course-actions';
 import { AuthenticationContext } from '../../providers/authentication-provider';
 import { SettingCommonContext } from '../../providers/setting-common-provider';
 import { SnackbarContext } from '../../providers/snackbar-provider';
@@ -32,7 +32,6 @@ const CourseDetail = ({ route, navigation }) => {
     const [exercises, setExercises] = useState([]);
     const [downloadProgress, setDownloadProgress] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
-    const [lastLesson, setLastLesson] = useState(null);
     const [playing, setPlaying] = useState(false);
     const playerRef = useRef();
     const expVideoRef = useRef();
@@ -61,10 +60,6 @@ const CourseDetail = ({ route, navigation }) => {
         }, [setCourse])
     )
 
-    useEffect(() => {
-        getLastWatchedLesson(authContext.state.token, item.id, setLastLesson);
-    }, [setLastLesson])
-
     const seeAuthorDetails = () => {
         navigation.push(navName.author, { author: course.details.instructor });
     }
@@ -80,6 +75,7 @@ const CourseDetail = ({ route, navigation }) => {
                 courseId: item.id
             };
             buyFreeCourse(authContext.state.token, data, setPayment, snackContext.setSnackbar, setModalVisible);
+            setModalVisible(false);
         } else {
             checkoutMomo(authContext.state.token, item.id, setLinkMomo);
         }
@@ -96,7 +92,11 @@ const CourseDetail = ({ route, navigation }) => {
     const [lessonId, setLessonId] = useState(null);
     const lessonClick = (content) => {
         setLessonId(content.id)
-        getVideoLatestLesson(authContext.state.token, item.id, content, setVideo, snackContext.setSnackbar);
+        if (content.videoUrl === null) {
+            getVideoLatestLesson(authContext.state.token, item.id, content, setVideo, snackContext.setSnackbar);
+        } else {
+            setVideo({ name: content.name, link: content.videoUrl, currentTime: 0 });
+        }
         if (downloadedList.includes(content.name)) {
             setDownloadProgress(language ? 'Downloaded' : 'Đã tải')
         } else {
@@ -104,9 +104,6 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }
     const displayVideo = () => {
-        if (lastLesson !== null && lastLesson.currentTime !== 0 && video.link === course.details.promoVidUrl) {
-            return lastLesson.videoUrl;
-        }
         return video.link !== "" ? video.link : course.details.promoVidUrl;
     }
 
@@ -173,27 +170,27 @@ const CourseDetail = ({ route, navigation }) => {
 
     const onStateChange = useCallback((state) => {
         if (state === "ended") {
-            updateStatusLesson(authContext.state.token, lessonId !== null ? lessonId : lastLesson.lessonId);
+            updateStatusLesson(authContext.state.token, lessonId);
         }
     }, []);
 
     const onPlaybackStatusUpdate = useCallback((playbackStatus) => {
         if (playbackStatus.didJustFinish) {
-            updateStatusLesson(authContext.state.token, lessonId !== null ? lessonId : lastLesson.lessonId);
+            updateStatusLesson(authContext.state.token, lessonId);
         }
     })
 
     const takeLearningCheck = () => {
-        if ((video.link !== course.details.promoVidUrl && checkTypeVideo(video.link)) || (video.link === course.details.promoVidUrl && checkTypeVideo(lastLesson.videoUrl))) {
+        if ((video.link !== course.details.promoVidUrl && checkTypeVideo(video.link))) {
             playerRef.current.getCurrentTime().then(current => {
                 if (current !== 0) {
-                    updateCurrentTimeLearnVideo(authContext.state.token, lessonId !== null ? lessonId : lastLesson.lessonId, current * 1000, snackContext.setSnackbar);
+                    updateCurrentTimeLearnVideo(authContext.state.token, lessonId, current * 1000, snackContext.setSnackbar);
                 }
             });
-        } else if (lessonId !== null || lastLesson.lessonId !== null) {
+        } else if (lessonId !== null) {
             expVideoRef.current.getStatusAsync().then((result) => {
                 if (result.positionMillis !== 0) {
-                    updateCurrentTimeLearnVideo(authContext.state.token, lessonId !== null ? lessonId : lastLesson.lessonId, result.positionMillis, snackContext.setSnackbar);
+                    updateCurrentTimeLearnVideo(authContext.state.token, lessonId, result.positionMillis, snackContext.setSnackbar);
                 } 
             });
         } else {
