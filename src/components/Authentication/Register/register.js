@@ -13,6 +13,7 @@ const Register = ({ navigation }) => {
     const [username, setUsername] = useState({ value: '', error: false });
     const [email, setEmail] = useState({ value: '', error: false });
     const [password, setPassword] = useState({ value: '', error: false });
+    const [rePassword, setRePassword] = useState({ value: '', error: false });
     const [phone, setPhone] = useState({ value: '', error: false });
     const [successful, setSuccessful] = useState(false);
 
@@ -36,6 +37,11 @@ const Register = ({ navigation }) => {
     const handlePasswordChange = (password) => {
         const newPassword = { value: password, error: password === '' };
         setPassword(newPassword);
+    }
+
+    const handleRePasswordChange = (rePassword) => {
+        const newRePassword = { value: rePassword, error: rePassword !== password }
+        setRePassword(newRePassword);
     }
 
     const handlePhoneChange = (phone) => {
@@ -114,6 +120,18 @@ const Register = ({ navigation }) => {
                     />
                     {password.error ? 
                         <Text style={styles.error}>{language ? "Password is not empty" : "Mật khẩu không được để trống"}</Text> : 
+                        <View style={{marginBottom: 20}}/>
+                    }
+
+                    <Text style={styles.text(theme)}>{language ? "Confirm Password" : "Xác nhận mật khẩu"}</Text>
+                    <TextInput 
+                        style={styles.textInput(theme)}
+                        onChangeText={handlePasswordChange}
+                        value={password.value}
+                        secureTextEntry={true}
+                    />
+                    {password.error ? 
+                        <Text style={styles.error}>{language ? "Confirm password is not match" : "Xác nhận mật khẩu chưa chính xác"}</Text> : 
                         <View style={{marginBottom: 20}}/>
                     }
 

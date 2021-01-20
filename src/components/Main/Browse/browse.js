@@ -16,7 +16,7 @@ const Browse = ({ navigation }) => {
     const [topRate, setTopRate] = useState({ successful: false, courses: [] });
     useEffect(() => {
         const data = {
-            limit: 20,
+            limit: 40,
             page: 1
         };
         if (!topRate.successful) {
@@ -27,7 +27,7 @@ const Browse = ({ navigation }) => {
     const [topSell, setTopSell] = useState({ successful: false, courses: [] });
     useEffect(() => {
         const data = {
-            limit: 20,
+            limit: 40,
             page: 1
         };
         if (!topSell.successful) {

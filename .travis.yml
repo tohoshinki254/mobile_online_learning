@@ -19,5 +19,5 @@ jobs:
       node_js: lts/*
       script: 
         - npm ci
-        - npm expo login -u tohoshinki123 -p hiragana1999
+        - npx expo login -u tohoshinki123 -p hiragana1999
         - npx expo publish --non-interactive

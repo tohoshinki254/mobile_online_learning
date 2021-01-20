@@ -12,7 +12,7 @@ const NewReleases = ({ navigation }) => {
     });
     
     useEffect(() => {
-        const limit = 20;
+        const limit = 30;
         const page = 1;
         if (!status.successful) {
             getNewCourses(limit, page, setStatus);
