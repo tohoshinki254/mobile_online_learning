@@ -1,4 +1,4 @@
-import { apiBuyFreeCourse, apiGetPaymentInfo } from '../services/payment-services';
+import { apiBuyFreeCourse, apiGetPaymentInfo, apiCheckoutMomo } from '../services/payment-services';
 
 export const buyFreeCourse = (token, data, setState, setSnackbar, setModal) => {
     apiBuyFreeCourse(token, data)
@@ -26,5 +26,19 @@ export const getPaymentInfo = (token, courseId, setStatus) => {
     })
     .catch((error) => {
         setStatus({ successful: false, info: null });
+    })
+}
+
+export const checkoutMomo = (token, courseId, setLinkMomo) => {
+    apiCheckoutMomo(token, courseId)
+    .then((response) => {
+        if (response.status === 200) {
+            setLinkMomo(response.data.checkoutUrl);
+        } else {
+            console.log("400");
+        }
+    })
+    .catch((error) => {
+        console.log("500");
     })
 }

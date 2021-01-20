@@ -25,7 +25,7 @@ const AuthorDetails = ({ route, navigation }) => {
                     <Text style={styles.darkText(theme)}>{author.major}</Text>
                     <View style={{flexDirection: 'row'}}>
                         <Rating number={author.averagePoint} modify={false}/>
-                        <Text style={{ color: theme ? 'lighgray' : 'gray', marginLeft: 5 }}>({author.countRating} {language ? "ratings" : "đánh giá"})</Text>
+                        <Text style={{ color: theme ? 'lightgray' : 'gray', marginLeft: 5 }}>({author.countRating} {language ? "ratings" : "đánh giá"})</Text>
                     </View>
                 </View>
             </View>

@@ -10,7 +10,6 @@ const ModalBuyCourse = ({ info, visible, onCloseModal, onCancel }) => {
     const { theme, language } = useContext(SettingCommonContext);
 
     const [momoCheck, setMomoCheck] = useState(true);
-    const [cardCheck, setCardCheck] = useState(false);
 
     const onHandleCloseModal = () => {
         onCloseModal();
@@ -74,28 +73,12 @@ const ModalBuyCourse = ({ info, visible, onCloseModal, onCancel }) => {
                             <Checkbox 
                                 status={momoCheck ? "checked" : "unchecked"}
                                 onPress={() => {
-                                    setMomoCheck(!momoCheck);
-                                    setCardCheck(!cardCheck);
                                 }}
                                 color="#FF5252"
                                 uncheckedColor="#212121"
                             />
                             <Image source={require('../../../../assets/momo.png')} style={{width: 30, height: 30}}/>
                             <Text style={{ color: theme ? 'lightgray' : '#616161', fontWeight: '500', marginLeft: 5 }}>{language ? "MoMo e-wallet" : "Ví điện tử MoMo"}</Text>
-                        </View>
-                        <View style={{...styles.infoItem, alignItems: 'center'}}>
-                            <Checkbox
-                                status={cardCheck ? "checked" : "unchecked"}
-                                onPress={() => {
-                                    setCardCheck(!cardCheck);
-                                    setMomoCheck(!momoCheck);
-                                }}
-                                color="#FF5252"
-                                uncheckedColor="#000"
-                            />
-                            <Image source={require('../../../../assets/atm.png')} style={{width: 30, height: 30}}/>
-                            <Image source={require('../../../../assets/visa.png')} style={{width: 30, height: 30}}/>
-                            <Text style={{ color: theme ? 'lightgray' : '#616161', fontWeight: '500', marginLeft: 5 }} numberOfLines={1}>{language ? "ATM card or Visa, Master Card" : "Thẻ ATM, thẻ Visa, Master Card"}</Text>
                         </View>
                     </View>
                     : null}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share, Linking } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Video } from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -12,7 +12,7 @@ import { AuthenticationContext } from '../../providers/authentication-provider';
 import { SettingCommonContext } from '../../providers/setting-common-provider';
 import { SnackbarContext } from '../../providers/snackbar-provider';
 import { likeCourse, getCourseLikeStatus } from '../../actions/user-actions';
-import { buyFreeCourse, getPaymentInfo } from '../../actions/payment-actions';
+import { buyFreeCourse, getPaymentInfo, checkoutMomo } from '../../actions/payment-actions';
 import { getVideoLatestLesson, updateStatusLesson, updateCurrentTimeLearnVideo } from '../../actions/lesson-actions';
 import Rating from '../Common/rating';
 import SectionCourses from '../Main/Home/SectionCourses/section-courses';
@@ -41,13 +41,16 @@ const CourseDetail = ({ route, navigation }) => {
         if (!statusLike.successful) {
             getCourseLikeStatus(authContext.state.token, item.id, setStatusLike);
         }
-    }, [statusLike, setStatusLike, authContext])
+    }, [setStatusLike, authContext])
 
-    useEffect(() => {
-        if (!payment.successful) {
-            getPaymentInfo(authContext.state.token, item.id, setPayment);
-        }
-    }, [payment, setPayment, authContext])
+    useFocusEffect(
+        React.useCallback(() => {
+            (async () => {
+                await getPaymentInfo(authContext.state.token, item.id, setPayment);
+            })();
+            return undefined;
+        }, [setPayment])
+    )
 
     useFocusEffect(
         React.useCallback(() => {
@@ -55,7 +58,7 @@ const CourseDetail = ({ route, navigation }) => {
                 await getCourseDetails(item.id, setCourse, setVideo);
             })();
             return undefined;
-        }, [authContext, setCourse])
+        }, [setCourse])
     )
 
     useEffect(() => {
@@ -70,12 +73,18 @@ const CourseDetail = ({ route, navigation }) => {
         likeCourse(authContext.state.token, item.id, setStatusLike, snackContext.setSnackbar);
     }
     
-    const buyCourse = () => {
+    const [linkMomo, setLinkMomo] = useState(null);
+    const buyCourse = async () => {
         if (course.details.price === 0) {
             const data = {
                 courseId: item.id
             };
             buyFreeCourse(authContext.state.token, data, setPayment, snackContext.setSnackbar, setModalVisible);
+        } else {
+            checkoutMomo(authContext.state.token, item.id, setLinkMomo);
+        }
+        if (linkMomo !== null) {
+            await Linking.openURL(linkMomo);
         }
     }
 
@@ -246,7 +255,7 @@ const CourseDetail = ({ route, navigation }) => {
                             {course.details.price === 0 ? (language ? "FREE" : "MIỄN PHÍ") : course.details.price + " VND"}
                         </Text>
                         <Rating number={course.details.averagePoint} modify={false} />
-                        <Text style={{ marginLeft: 5, color: theme ? 'lightgray' : 'gray' }}>({course.details.ratedNumber} ratings)</Text>
+                        <Text style={{ marginLeft: 5, color: theme ? 'lightgray' : 'gray' }}>({course.details.ratedNumber} {language ? "ratings" : "đánh giá"})</Text>
                     </View>
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15}}>

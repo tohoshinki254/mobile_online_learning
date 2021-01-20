@@ -1,6 +1,7 @@
 import { apiLogin, apiRegister, apiForgetPassword, apiSignInWithGoogle } from '../services/authentication-services';
-
+import { apiGetUserInfo } from '../services/user-services';
 export const LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
+export const GET_USER_INFO = "GET_USER_INFO";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 
 export const login = (dispatch) => (email, password) => {
@@ -21,8 +22,13 @@ export const signInWithGoogle = (dispatch) => (data) => {
     apiSignInWithGoogle(data)
     .then((response) => {
         if (response.status === 200) {
-            console.log(response.data);
             dispatch({ type: LOGIN_SUCCESSFUL, data: response.data });
+            apiGetUserInfo(response.data.token)
+            .then((response) => {
+                if (response.status === 200) {
+                    dispatch({ type: GET_USER_INFO, data: response.data.payload });
+                }
+            })
         } else {
             dispatch({ type: LOGIN_FAILED });
         }

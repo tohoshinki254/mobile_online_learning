@@ -16,3 +16,13 @@ export const apiGetPaymentInfo = (token, courseId) => {
         }
     });
 };
+
+export const apiCheckoutMomo = (token, courseId) => {
+    return axios.post(API_URL + 'payment/checkout-momo', {
+        courseId: courseId
+    }, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+};
