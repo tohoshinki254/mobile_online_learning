@@ -69,7 +69,7 @@ const Comment = ({ navigation, route }) => {
     }
 
     return (
-        <KeyboardAvoidingView behavior="position">
+        <KeyboardAvoidingView behavior={Platform.OS ? "padding" : "height"}>
             <TouchableWithoutFeedback>
                 <ScrollView style={styles.root(theme)}
                     showsVerticalScrollIndicator={false}

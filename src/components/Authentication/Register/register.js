@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform } from 'react-native';
 import Button from '../../Common/button';
 import { navName } from '../../../Global/constant';
 import { register } from '../../../actions/authentication-actions';
@@ -35,12 +35,12 @@ const Register = ({ navigation }) => {
     }
 
     const handlePasswordChange = (password) => {
-        const newPassword = { value: password, error: password === '' };
+        const newPassword = { value: password, error: password.value === '' };
         setPassword(newPassword);
     }
 
     const handleRePasswordChange = (rePassword) => {
-        const newRePassword = { value: rePassword, error: rePassword !== password }
+        const newRePassword = { value: rePassword, error: rePassword !== password.value }
         setRePassword(newRePassword);
     }
 
@@ -58,7 +58,7 @@ const Register = ({ navigation }) => {
     }
 
     return (
-        <KeyboardAvoidingView behavior="height" style={{flex: 1}}>
+        <KeyboardAvoidingView behavior={Platform.OS ? "padding" : "height"} style={{flex: 1}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.root(theme)}>
                     <Text 
@@ -126,11 +126,11 @@ const Register = ({ navigation }) => {
                     <Text style={styles.text(theme)}>{language ? "Confirm Password" : "Xác nhận mật khẩu"}</Text>
                     <TextInput 
                         style={styles.textInput(theme)}
-                        onChangeText={handlePasswordChange}
-                        value={password.value}
+                        onChangeText={handleRePasswordChange}
+                        value={rePassword.value}
                         secureTextEntry={true}
                     />
-                    {password.error ? 
+                    {rePassword.error ? 
                         <Text style={styles.error}>{language ? "Confirm password is not match" : "Xác nhận mật khẩu chưa chính xác"}</Text> : 
                         <View style={{marginBottom: 20}}/>
                     }
